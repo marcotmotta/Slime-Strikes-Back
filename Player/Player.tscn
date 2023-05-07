@@ -14,7 +14,7 @@ material = SubResource("StandardMaterial3D_i6tg2")
 [sub_resource type="BoxShape3D" id="BoxShape3D_qn6ay"]
 size = Vector3(2, 2, 2)
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_wptc7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

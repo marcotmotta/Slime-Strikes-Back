@@ -17,6 +17,8 @@ var current_level = 0
 
 var maps = ['CombatMap1', 'CombatMap2']
 
+var spawned_enemies: Array = []
+
 enum {
 	ATK,
 	HP,

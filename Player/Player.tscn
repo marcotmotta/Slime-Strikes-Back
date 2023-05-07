@@ -29,5 +29,5 @@ skeleton = NodePath("../..")
 shape = SubResource("BoxShape3D_qn6ay")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.749384, 0.662136, 0, -0.662136, 0.749384, 0, 14.6332, 13.7173)
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866026, 0, -0.866026, 0.5, 0, 20, 12)
 current = true

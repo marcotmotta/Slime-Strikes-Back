@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://yu4kj0meuoft"]
+
+[ext_resource type="Script" path="res://World/Rooms/RoomDefault.gd" id="1_7rw2b"]
+
+[node name="RoomDefault" type="Node3D"]
+script = ExtResource("1_7rw2b")

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cigy2yn6fgpum"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qv3l"]
+albedo_color = Color(0, 0.32549, 0.294118, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_aofc5"]
+material = SubResource("StandardMaterial3D_3qv3l")
+size = Vector3(80, 1, 80)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_c42rw"]
+points = PackedVector3Array(-40, -0.5, -40, -40, 0.5, -40, 40, -0.5, -40, -40, -0.5, 40, -40, 0.5, 40, 40, 0.5, -40, 40, -0.5, 40, 40, 0.5, 40)
+
+[node name="Map" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_aofc5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_c42rw")

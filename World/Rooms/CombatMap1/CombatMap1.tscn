@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://c675fodlu7wsc"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3qv3l"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ghd8n"]
 albedo_color = Color(0.52, 0, 0.26, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4f7q1"]
-material = SubResource("StandardMaterial3D_3qv3l")
+material = SubResource("StandardMaterial3D_ghd8n")
 size = Vector3(80, 1, 80)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vf681"]

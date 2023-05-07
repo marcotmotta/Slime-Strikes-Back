@@ -12,6 +12,17 @@ func _ready():
 		add_child(map_instance)
 
 	# spawn player here
-	#var player_instance = player_scene.instantiate()
-	#player_instance.position = $Map/Spawn.position
-	#add_child(player_instance)
+	var player_instance = player_scene.instantiate()
+	player_instance.position = $Map.position + Vector3(0, 5, 0)
+	add_child(player_instance)
+
+# gambiarra a seguir (cuidado):
+
+func _input(event):
+	if Input.is_action_just_pressed("f1"):
+		$ReloadScene.start(0.1)
+
+func _on_reload_scene_timeout():
+	print('reloading')
+	Globals.generate_room()
+	Globals.reload_map()

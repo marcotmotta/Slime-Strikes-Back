@@ -1,6 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://yu4kj0meuoft"]
+[gd_scene load_steps=5 format=3 uid="uid://yu4kj0meuoft"]
 
 [ext_resource type="Script" path="res://World/Rooms/RoomDefault.gd" id="1_7rw2b"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fi1km"]
+
+[sub_resource type="Sky" id="Sky_vgc3s"]
+sky_material = SubResource("ProceduralSkyMaterial_fi1km")
+
+[sub_resource type="Environment" id="Environment_vn1m6"]
+sky = SubResource("Sky_vgc3s")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 2.0
+
 [node name="RoomDefault" type="Node3D"]
 script = ExtResource("1_7rw2b")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vn1m6")
+
+[node name="ReloadScene" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="ReloadScene" to="." method="_on_reload_scene_timeout"]

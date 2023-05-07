@@ -13,7 +13,7 @@ func _process(delta):
 	$MeshInstance3D.look_at(forward_direction)
 	$CollisionShape3D.look_at(forward_direction)
 
-	print(Engine.get_frames_per_second())
+	#print(Engine.get_frames_per_second())
 
 func _physics_process(delta):
 	# Add the gravity.

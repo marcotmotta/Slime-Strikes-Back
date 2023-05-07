@@ -1,8 +1,8 @@
 extends Node
 
 const START_MAX_HEALTH = 100
-const START_DAMAGE = 25
-const START_SPEED = 30
+const START_DAMAGE = 10
+const START_SPEED = 25
 
 # player variables
 # (these will be reset after every run)
@@ -15,13 +15,15 @@ var speed = START_SPEED
 var total_levels = 5
 var current_level = 0
 
-var maps = ['CombatMap1']
+var maps = ['CombatMap1', 'CombatMap2']
 
-#enum {
-#	ATK,
-#	HP,
-#	SPD
-#}
+enum {
+	ATK,
+	HP,
+	SPD
+}
+
+var reward_types = [ATK, HP, SPD]
 
 var current_room = {}
 
@@ -43,14 +45,37 @@ func generate_first_room():
 	current_room = {
 		'room_type': 'combat',
 		'scene': 'CombatMap1',
-		#'enemies': 2,
-		# 'reward_type': ATK,
+		'enemies': 2,
+		'reward_type': ATK,
 		'last': false
 	}
 
-# func generate_room:
-#	pass
-#	this needs to be called when generating a new room, before `reload_map()
+func generate_room():
+	print('b')
+	var enemies = 2 # (randi() % 2) + 1 + difficulty # (1 a 2) + difficulty (max 3) = max 5
+	var new_room
+
+	# last room
+	print(current_level)
+	#if current_level >= total_levels:
+	#	new_room = {
+	#		'room_type': 'combat',
+	#		'scene': 'CombatMap1',
+	#		'enemies': 1,
+	#		'reward_type': ATK,
+	#		'last': true
+	#	}
+	#else:
+	new_room = {
+		'room_type': 'combat',
+		'scene': choose(maps),
+		'enemies': enemies,
+		'reward_type': choose(reward_types),
+		'last': false
+	}
+
+	current_room = new_room
+	print(current_room)
 
 func reload_map():
 	current_level += 1

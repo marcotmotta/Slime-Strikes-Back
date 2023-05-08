@@ -13,7 +13,7 @@ func shoot_bubble(forward_direction, position, shoot_position, ally):
 	bubble_instance.ally = ally
 
 func shoot_arrow(forward_direction, position, shoot_position, ally):
-	for i in [-20, -10, 0, 10, 20]:
+	for i in [-16, -8, 0, 8, 16]:
 		var arrow_instance = arrow_scene.instantiate()
 		get_parent().add_child(arrow_instance)
 		arrow_instance.global_position = shoot_position

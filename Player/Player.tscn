@@ -1,10 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://wgsfjhkwdggp"]
+[gd_scene load_steps=6 format=3 uid="uid://wgsfjhkwdggp"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_wptc7"]
 [ext_resource type="PackedScene" uid="uid://b143nqgu7wqjg" path="res://Player/Imports/Blob.tscn" id="2_0bd4u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fwmut"]
 size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c53lq"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_pjlr1"]
+material = SubResource("StandardMaterial3D_c53lq")
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_wptc7")
@@ -21,3 +27,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_fwmut")
+
+[node name="BuffTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Healing" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54302, 0)
+mesh = SubResource("SphereMesh_pjlr1")
+
+[connection signal="timeout" from="BuffTimer" to="." method="_on_buff_timer_timeout"]

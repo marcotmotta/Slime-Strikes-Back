@@ -1,7 +1,7 @@
 extends Area3D
 
 var direction = Vector3.FORWARD
-var speed = 35
+var speed = 45
 var damage = 5
 var ally
 
@@ -14,3 +14,6 @@ func _process(delta):
 func _on_body_entered(body):
 	if not body == ally:
 		queue_free()
+
+func _on_expiration_timeout():
+	queue_free()

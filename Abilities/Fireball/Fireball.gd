@@ -14,3 +14,6 @@ func _process(delta):
 func _on_body_entered(body):
 	if not body == ally:
 		queue_free()
+
+func _on_expiration_timeout():
+	queue_free()

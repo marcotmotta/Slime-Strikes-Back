@@ -5,6 +5,8 @@ var abilities
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+var is_buffed = false
+
 func _ready():
 	$Blob/AnimationPlayer.play("Idle-Animation")
 
@@ -36,6 +38,11 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, Globals.speed)
 		velocity.z = move_toward(velocity.z, 0, Globals.speed)
 
+	$Healing.visible = false
+	if is_buffed:
+		velocity *= 1.5
+		$Healing.visible = true
+
 	move_and_slide()
 
 func get_forward_direction():
@@ -59,3 +66,11 @@ func _input(event):
 	# fireball
 	if Input.is_action_just_pressed("3"):
 		abilities.shoot_fireball(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
+
+	# heal
+	if Input.is_action_just_pressed("4"):
+		is_buffed = true
+		$BuffTimer.start(1)
+
+func _on_buff_timer_timeout():
+	is_buffed = false

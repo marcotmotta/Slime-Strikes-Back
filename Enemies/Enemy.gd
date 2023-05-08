@@ -35,16 +35,15 @@ func _process(delta):
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta * 10
-		
 		move_and_slide()
-	
+
 	match state:
 		IDLE:
 			remaining_idle_time -= delta
-			
+
 			if remaining_idle_time <= 0:
 				set_state(RUNNING)
-			
+
 		RUNNING:
 			if is_follower:
 				if is_target_in_range():
@@ -58,30 +57,23 @@ func _physics_process(delta):
 					set_state(ATTACKING)
 				else:
 					move_to_direction()
-			
+
 		ATTACKING:
 			pass  # Awaiting the action ends.
 
 func set_state(new_state):
 	state = new_state
-	
+
 	match state:
 		IDLE:
 			remaining_idle_time = MAX_IDLE_TIME
-			
-			print("SETTING 'IDLE' STATE")
-		
+
 		RUNNING:
 			remaining_walking_time = MAX_WALKING_TIME
-			
 			gen_move_direction()
-			
-			print("SETTING 'RUNNING' STATE")
-		
+
 		ATTACKING:
 			attack()
-			
-			print("SETTING 'ATTACKING' STATE")
 
 func gen_move_direction():
 	if target:
@@ -94,23 +86,23 @@ func move_to_direction():
 	if target:
 		if is_follower: # The target direction may have changed.
 			gen_move_direction()
-		
+
 		if move_direction:
 			velocity.x = move_direction.x * move_speed
 			velocity.z = move_direction.z * move_speed
 		else:
 			velocity.x = move_toward(velocity.x, 0, move_speed)
 			velocity.z = move_toward(velocity.z, 0, move_speed)
-		
+
 		look_at(position + move_direction) # Look forward.
-		
+
 		move_and_slide()
 
 func is_target_in_range():
 	if target:
 		if (target.position - position).length() <= range:
 			return true
-	
+
 	return false
 
 func attack():

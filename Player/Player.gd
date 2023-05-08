@@ -54,6 +54,9 @@ func get_forward_direction():
 	var t = (position.y - ray_origin.y) / ray_dir.y
 	return ray_origin + ray_dir * t
 
+func heal(amount):
+	Globals.health = min(Globals.health + amount, Globals.max_health)
+
 func _input(event):
 	# bubble
 	if Input.is_action_just_pressed("1"):
@@ -70,7 +73,8 @@ func _input(event):
 	# heal
 	if Input.is_action_just_pressed("4"):
 		is_buffed = true
-		$BuffTimer.start(1)
+		heal(10)
+		$BuffTimer.start(0.5)
 
 func _on_buff_timer_timeout():
 	is_buffed = false

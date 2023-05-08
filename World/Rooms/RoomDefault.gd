@@ -4,6 +4,8 @@ extends Node3D
 @onready var warrior_enemy_scene = preload("res://Enemies/Warrior/WarriorEnemy.tscn")
 @onready var mage_enemy_scene = preload("res://Enemies/Mage/MageEnemy.tscn")
 
+var player_instance
+
 func _ready():
 	randomize()
 
@@ -14,7 +16,7 @@ func _ready():
 		add_child(map_instance)
 
 	# spawn player here
-	var player_instance = player_scene.instantiate()
+	player_instance = player_scene.instantiate()
 	player_instance.position = $Map.position + Vector3(0, 5, 0)
 	add_child(player_instance)
 	

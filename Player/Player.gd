@@ -1,19 +1,21 @@
 extends CharacterBody3D
 
-@onready var bubble_scene = preload("res://Player/Abilities/Bubble/Bubble.tscn")
+@onready var bubble_scene = preload("res://Abilities/Bubble/Bubble.tscn")
+@onready var arrow_scene = preload("res://Abilities/Arrow/Arrow.tscn")
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
-	pass
+	$Blob/AnimationPlayer.play("Idle-Animation")
 
 func _process(delta):
 	# look direction
 	var forward_direction = get_forward_direction()
-	$MeshInstance3D.look_at(forward_direction)
+	$Blob.look_at(forward_direction)
 	$CollisionShape3D.look_at(forward_direction)
+	$ShootPosition.position = (get_forward_direction() - global_position).normalized() * 2
 
-	#print(Engine.get_frames_per_second())
+	# print(Engine.get_frames_per_second())
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -41,11 +43,27 @@ func get_forward_direction():
 	var t = (position.y - ray_origin.y) / ray_dir.y
 	return ray_origin + ray_dir * t
 
+func shoot_bubble():
+	var bubble_instance = bubble_scene.instantiate()
+	get_parent().add_child(bubble_instance)
+	bubble_instance.global_position = $ShootPosition.global_position
+	bubble_instance.direction = (get_forward_direction() - get_global_position()).normalized()
+	bubble_instance.damage = Globals.damage
+
+func shoot_arrow():
+	for i in [-20, -10, 0, 10, 20]:
+		print(i)
+		var arrow_instance = arrow_scene.instantiate()
+		get_parent().add_child(arrow_instance)
+		arrow_instance.global_position = $ShootPosition.global_position
+		arrow_instance.direction = (get_forward_direction() - get_global_position()).normalized().rotated(Vector3.UP, deg_to_rad(i))
+		arrow_instance.damage = Globals.damage
+
 func _input(event):
-	# attack
-	if Input.is_action_just_pressed("action1"):
-		var bubble_instance = bubble_scene.instantiate()
-		get_parent().add_child(bubble_instance)
-		bubble_instance.global_position = position
-		bubble_instance.direction = (get_forward_direction() - get_global_position()).normalized()
-		bubble_instance.damage = Globals.damage
+	# bubble
+	if Input.is_action_just_pressed("1"):
+		shoot_bubble()
+
+	# arrow
+	if Input.is_action_just_pressed("2"):
+		shoot_arrow()

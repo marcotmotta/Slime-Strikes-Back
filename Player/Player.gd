@@ -3,6 +3,13 @@ extends CharacterBody3D
 const abilities_singleton = preload("res://Abilities/Abilities.gd")
 var abilities
 
+enum {
+	BUBBLE,
+	ARROW,
+	FIREBALL,
+	HEAL
+}
+
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var is_buffed = false
@@ -58,23 +65,32 @@ func heal(amount):
 	Globals.health = min(Globals.health + amount, Globals.max_health)
 
 func _input(event):
+	# shoot ability
+	if Input.is_action_just_pressed("action2"):
+		match Globals.current_ability:
+			BUBBLE:
+				abilities.shoot_bubble(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
+			ARROW:
+				abilities.shoot_arrow(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
+			FIREBALL:
+				abilities.shoot_fireball(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
+			HEAL:
+				is_buffed = true
+				heal(10)
+				$BuffTimer.start(0.5)
+
 	# bubble
 	if Input.is_action_just_pressed("1"):
-		abilities.shoot_bubble(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
-
+		Globals.current_ability = BUBBLE
 	# arrow
 	if Input.is_action_just_pressed("2"):
-		abilities.shoot_arrow(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
-
+		Globals.current_ability = ARROW
 	# fireball
 	if Input.is_action_just_pressed("3"):
-		abilities.shoot_fireball(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
-
+		Globals.current_ability = FIREBALL
 	# heal
 	if Input.is_action_just_pressed("4"):
-		is_buffed = true
-		heal(10)
-		$BuffTimer.start(0.5)
+		Globals.current_ability = HEAL
 
 func _on_buff_timer_timeout():
 	is_buffed = false

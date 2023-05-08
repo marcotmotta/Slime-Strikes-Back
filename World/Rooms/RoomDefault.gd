@@ -38,8 +38,8 @@ func _ready():
 	var enemy_instance_3 = cleric_enemy_scene.instantiate()
 	enemy_instance_3.position = $Map.position + Vector3( 15, 5, -20)
 	enemy_instance_3.target = player_instance
-	#add_child(enemy_instance_3)
-	#Globals.spawned_enemies.append(enemy_instance_3)
+	add_child(enemy_instance_3)
+	Globals.spawned_enemies.append(enemy_instance_3)
 
 	var enemy_instance_4 = archer_enemy_scene.instantiate()
 	enemy_instance_4.position = $Map.position + Vector3( -15, 5, -20)

@@ -11,6 +11,15 @@ var health
 var damage = START_DAMAGE
 var speed = START_SPEED
 
+enum {
+	BUBBLE,
+	ARROW,
+	FIREBALL,
+	HEAL
+}
+
+var current_ability = BUBBLE
+
 # world variables
 var total_levels = 5
 var current_level = 0

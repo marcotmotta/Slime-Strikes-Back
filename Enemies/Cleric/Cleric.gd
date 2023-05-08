@@ -6,7 +6,7 @@ func _ready():
 	move_speed = 10
 	damage = 10
 	range = 10
-	
+
 	is_follower = false
 
 	abilities = abilities_singleton.new()
@@ -15,10 +15,12 @@ func _ready():
 func attack():
 	if Globals.spawned_enemies.size() > 0:
 		var enemy_target = Globals.spawned_enemies[randi() % Globals.spawned_enemies.size()]
-		
-		look_at(enemy_target.position)
+
+		if enemy_target != self: look_at(enemy_target.position)
+
 		enemy_target.heal(damage) # WARNING: Using "damage" as the amount of healing.
 	else:
 		heal(damage) # WARNING: Using "damage" as the amount of healing.
-	
-	$AnimationPlayer.play("heal")
+
+	#$AnimationPlayer.play("heal")
+	set_state(IDLE)

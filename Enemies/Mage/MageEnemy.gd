@@ -20,4 +20,5 @@ func attack():
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "attack":
+		abilities.shoot_fireball(target.position, position, position, self)
 		set_state(IDLE)

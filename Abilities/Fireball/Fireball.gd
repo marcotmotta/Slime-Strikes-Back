@@ -1,8 +1,8 @@
 extends Area3D
 
 var direction = Vector3.FORWARD
-var speed = 35
-var damage = 5
+var speed = 45
+var damage = 15
 var ally
 
 func _ready():

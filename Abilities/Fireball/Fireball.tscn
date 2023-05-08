@@ -1,25 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgnvfobhg4s45"]
+[gd_scene load_steps=5 format=3 uid="uid://42hjnw5yy61o"]
 
-[ext_resource type="Script" path="res://Abilities/Bubble/Bubble.gd" id="1_xai60"]
+[ext_resource type="Script" path="res://Abilities/Fireball/Fireball.gd" id="1_4cap8"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wk42x"]
-albedo_color = Color(0.117647, 1, 1, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nfg88"]
+albedo_color = Color(1, 0.121569, 0.133333, 1)
 
-[sub_resource type="SphereMesh" id="SphereMesh_eamsl"]
-material = SubResource("StandardMaterial3D_wk42x")
+[sub_resource type="SphereMesh" id="SphereMesh_u1o4c"]
+material = SubResource("StandardMaterial3D_nfg88")
 radius = 0.75
 height = 1.5
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rwir2"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vsynv"]
 points = PackedVector3Array(-0.136702, -0.733777, -0.0678658, 0.138347, 0.73325, 0.0694166, 0.183613, 0.708207, 0.160676, -0.659862, 0.0910587, 0.342484, -0.227739, 0.0913405, -0.70759, 0.686406, -0.159915, 0.252197, 0.023667, -0.137607, 0.735278, 0.570112, -0.0910151, -0.477386, -0.683734, 0.136794, -0.272931, 0.475568, 0.452017, -0.360729, -0.294351, 0.658308, -0.203419, -0.0447118, 0.455314, 0.592765, 0.387558, -0.614159, 0.182668, -0.406883, -0.543518, 0.317746, -0.113061, -0.500861, -0.545711, 0.543184, 0.316223, 0.407473, -0.635044, -0.340549, -0.203472, 0.453468, -0.54318, -0.248034, -0.452086, 0.543442, 0.249753, 0.0690919, 0.455, -0.590757, 0.685906, 0.29685, -0.0448362, 0.229176, -0.0912752, -0.707083, 0.183016, -0.546541, 0.479005, -0.386916, 0.0455795, 0.639341, 0.342874, -0.0682871, 0.662099, -0.454106, -0.181813, -0.567721, -0.428671, 0.361552, -0.496422, 0.710234, -0.228786, -0.0677212, -0.637695, 0.387536, -0.0674794, -0.683379, -0.228015, 0.205956, -0.338399, -0.316467, 0.588687, 0.249813, -0.543466, -0.452017)
 
-[node name="Bubble" type="Area3D"]
-script = ExtResource("1_xai60")
+[node name="Fireball" type="Area3D"]
+script = ExtResource("1_4cap8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_eamsl")
+mesh = SubResource("SphereMesh_u1o4c")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("ConvexPolygonShape3D_rwir2")
+shape = SubResource("ConvexPolygonShape3D_vsynv")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

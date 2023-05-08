@@ -2,6 +2,9 @@ extends CharacterBody3D
 
 @export var target: Node3D
 
+const abilities_singleton = preload("res://Abilities/Abilities.gd")
+var abilities
+
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 enum {

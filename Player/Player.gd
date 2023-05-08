@@ -19,7 +19,7 @@ func _process(delta):
 	$CollisionShape3D.look_at(forward_direction)
 	$ShootPosition.position = (get_forward_direction() - global_position).normalized() * 2
 
-	print(Engine.get_frames_per_second())
+	#print(Engine.get_frames_per_second())
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -50,8 +50,12 @@ func get_forward_direction():
 func _input(event):
 	# bubble
 	if Input.is_action_just_pressed("1"):
-		abilities.shoot_bubble(get_forward_direction(), get_global_position(), $ShootPosition.global_position)
+		abilities.shoot_bubble(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
 
 	# arrow
 	if Input.is_action_just_pressed("2"):
-		abilities.shoot_arrow(get_forward_direction(), get_global_position(), $ShootPosition.global_position)
+		abilities.shoot_arrow(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
+
+	# fireball
+	if Input.is_action_just_pressed("3"):
+		abilities.shoot_fireball(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)

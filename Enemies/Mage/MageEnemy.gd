@@ -9,6 +9,9 @@ func _ready():
 	
 	is_follower = false
 
+	abilities = abilities_singleton.new()
+	add_child(abilities)
+
 func attack():
 	if target:
 		look_at(target.position)

@@ -9,6 +9,9 @@ func _ready():
 	
 	is_follower = false
 
+	abilities = abilities_singleton.new()
+	add_child(abilities)
+
 func attack():
 	if Globals.spawned_enemies.size() > 0:
 		var enemy_target = Globals.spawned_enemies[randi() % Globals.spawned_enemies.size()]

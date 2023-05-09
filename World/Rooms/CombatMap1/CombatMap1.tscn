@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://c675fodlu7wsc"]
+[gd_scene load_steps=5 format=3 uid="uid://c675fodlu7wsc"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ghd8n"]
-albedo_color = Color(0.52, 0, 0.26, 1)
+[ext_resource type="Texture2D" uid="uid://cqdy3h6kbv7ra" path="res://World/Rooms/CombatMap1/0f1fc75133b374886f9baa4c096f82b0.png" id="1_gg3d3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wb5x3"]
+albedo_texture = ExtResource("1_gg3d3")
+uv1_scale = Vector3(14, 10, 5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4f7q1"]
-material = SubResource("StandardMaterial3D_ghd8n")
+material = SubResource("StandardMaterial3D_wb5x3")
 size = Vector3(120, 1, 120)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_tql5h"]

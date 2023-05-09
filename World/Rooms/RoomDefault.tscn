@@ -10,7 +10,7 @@ sky_material = SubResource("ProceduralSkyMaterial_fi1km")
 [sub_resource type="Environment" id="Environment_vn1m6"]
 sky = SubResource("Sky_vgc3s")
 ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_color = Color(0.2, 0.2, 0.2, 1)
 
 [node name="RoomDefault" type="Node3D"]
 script = ExtResource("1_7rw2b")

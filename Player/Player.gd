@@ -27,8 +27,10 @@ func _process(delta):
 	$Blob.look_at(forward_direction)
 	$CollisionShape3D.look_at(forward_direction)
 	$ShootPosition.position = (get_forward_direction() - global_position).normalized() * 2
+	
+	$MeshInstance3D.global_position = get_forward_direction()
 
-	#print(Engine.get_frames_per_second())
+	print(Engine.get_frames_per_second())
 
 func _physics_process(delta):
 	# Add the gravity.

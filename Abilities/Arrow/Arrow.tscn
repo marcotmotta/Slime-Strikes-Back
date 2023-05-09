@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ydogytdc1eaj"]
+[gd_scene load_steps=6 format=3 uid="uid://ydogytdc1eaj"]
 
 [ext_resource type="Script" path="res://Abilities/Arrow/Arrow.gd" id="1_ap0io"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4f0en"]
-albedo_color = Color(0.372549, 0.505882, 0.172549, 1)
+shading_mode = 0
+albedo_color = Color(0.372549, 1, 0.478431, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_ybosh"]
 material = SubResource("StandardMaterial3D_4f0en")
@@ -12,6 +13,8 @@ height = 0.75
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ubemp"]
 points = PackedVector3Array(-0.148001, -0.342363, -0.0337791, 0.0691753, 0.366634, 0.0347092, 0.0918033, 0.354092, 0.0803354, 0.319779, -0.0683791, -0.182016, 0.18195, -0.113473, 0.306763, -0.353633, 0.102727, -0.0680607, -0.0455306, 0.057438, -0.367261, -0.205047, 0.0570535, 0.308475, 0.136894, -0.329874, -0.113335, 0.308097, 0.205115, -0.056501, -0.158065, -0.271693, 0.204152, -0.10177, -0.170297, -0.317501, -0.193358, 0.319106, -0.0337313, 0.10238, 0.24929, -0.260251, 0.170332, 0.192538, 0.272281, 0.353993, -0.0798073, 0.0915675, -0.342283, -0.148481, 0.0346043, 0.114077, -0.329641, 0.136771, -0.158065, 0.271692, 0.204151, 0.170672, -0.102115, -0.317393, -0.283903, -0.0909022, -0.226998, -0.191967, 0.203672, -0.248501, -0.0338784, -0.11443, 0.355162, -0.329655, 0.1138, 0.136945, 0.0347464, 0.114418, 0.355124, 0.227578, 0.0907967, -0.283517, 0.284746, -0.238832, 0.0458579, 0.295722, 0.124865, 0.193496, -0.25995, -0.101822, 0.249354, 0.03465, 0.34229, -0.14794, 0.0345706, -0.295992, -0.227264, -0.203616, -0.271992, -0.158209)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_17qdl"]
 
 [node name="Arrow" type="Area3D"]
 script = ExtResource("1_ap0io")
@@ -26,6 +29,13 @@ shape = SubResource("ConvexPolygonShape3D_ubemp")
 wait_time = 0.4
 one_shot = true
 autostart = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_17qdl")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.372549, 1, 0.478431, 1)
+omni_range = 2.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Expiration" to="." method="_on_expiration_timeout"]

@@ -2,7 +2,7 @@ extends Node
 
 const START_MAX_HEALTH = 100
 const START_DAMAGE = 10
-const START_SPEED = 10
+const START_SPEED = 7
 
 # player variables
 # (these will be reset after every run)

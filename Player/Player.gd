@@ -12,6 +12,12 @@ enum {
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+var direction
+var is_dashing = false
+var can_dash = true
+var dash_power = 5
+var dash_duration = 0.15 # in seconds
+var dash_cd = 0.3 # in seconds
 var is_buffed = false
 
 func _ready():
@@ -30,7 +36,7 @@ func _process(delta):
 	
 	$MeshInstance3D.global_position = get_forward_direction()
 
-	print(Engine.get_frames_per_second())
+	#print(Engine.get_frames_per_second())
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -38,8 +44,9 @@ func _physics_process(delta):
 		velocity.y -= gravity * delta * 10
 
 	# Get the input direction and handle the movement/deceleration.
-	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if not is_dashing:
+		var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+		direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * Globals.speed
 		velocity.z = direction.z * Globals.speed
@@ -51,6 +58,9 @@ func _physics_process(delta):
 	if is_buffed:
 		velocity *= 1.5
 		$Healing.visible = true
+
+	if(is_dashing):
+		velocity *= dash_power
 
 	move_and_slide()
 
@@ -94,5 +104,22 @@ func _input(event):
 	if Input.is_action_just_pressed("4"):
 		Globals.current_ability = HEAL
 
+	# dash
+	if Input.is_action_just_pressed("space"):
+		if(can_dash):
+			is_dashing = true
+			can_dash = false
+			# $Dash.play()
+			$DashTimer.wait_time = dash_duration
+			$DashTimer.start()
+
 func _on_buff_timer_timeout():
 	is_buffed = false
+
+func _on_dash_timer_timeout():
+	is_dashing = false
+	$DashCd.wait_time = dash_cd
+	$DashCd.start()
+
+func _on_dash_cd_timeout():
+	can_dash = true

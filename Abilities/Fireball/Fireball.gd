@@ -1,7 +1,7 @@
 extends Area3D
 
 var direction = Vector3.FORWARD
-var speed = 35
+var speed = 30
 var damage = 15
 var ally
 

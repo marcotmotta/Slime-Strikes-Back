@@ -110,3 +110,6 @@ func attack():
 
 func heal(amount):
 	health = min(health + amount, max_health)
+
+func take_damage(amount):
+	health -= amount

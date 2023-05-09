@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c3no172hlqi3m"]
+[gd_scene load_steps=12 format=3 uid="uid://c3no172hlqi3m"]
 
 [ext_resource type="Script" path="res://Enemies/Warrior/WarriorEnemy.gd" id="1_cnvtj"]
 
@@ -52,6 +52,17 @@ _data = {
 "attack": SubResource("Animation_07j23")
 }
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pvikv"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+billboard_mode = 1
+billboard_keep_scale = true
+grow = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_5psu1"]
+material = SubResource("StandardMaterial3D_pvikv")
+size = Vector3(2.5, 0.1, 0.1)
+
 [node name="WarriorEnemy" type="CharacterBody3D"]
 script = ExtResource("1_cnvtj")
 
@@ -76,5 +87,10 @@ libraries = {
 }
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
+
+[node name="HealthBar" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.5, 0)
+mesh = SubResource("BoxMesh_5psu1")
+skeleton = NodePath("../CollisionShape3D")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

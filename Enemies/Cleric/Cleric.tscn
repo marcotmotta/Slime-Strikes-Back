@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d34p76lv50sr4"]
+[gd_scene load_steps=9 format=3 uid="uid://d34p76lv50sr4"]
 
 [ext_resource type="Script" path="res://Enemies/Cleric/Cleric.gd" id="1_mvj7s"]
 
@@ -15,6 +15,17 @@ albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_csnah"]
 material = SubResource("StandardMaterial3D_sca7v")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m2mls"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+billboard_mode = 1
+billboard_keep_scale = true
+grow = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_vhsrk"]
+material = SubResource("StandardMaterial3D_m2mls")
+size = Vector3(2.5, 0.1, 0.1)
 
 [node name="ClericEnemy" type="CharacterBody3D"]
 script = ExtResource("1_mvj7s")
@@ -35,3 +46,8 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -0.5)
 mesh = SubResource("BoxMesh_csnah")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
+
+[node name="HealthBar" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.5, 0)
+mesh = SubResource("BoxMesh_vhsrk")
+skeleton = NodePath("../CollisionShape3D")

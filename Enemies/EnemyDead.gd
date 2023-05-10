@@ -4,7 +4,8 @@ enum {
 	BUBBLE,
 	ARROW,
 	FIREBALL,
-	HEAL
+	HEAL,
+	SPIN
 }
 
 func select_action(body):
@@ -13,7 +14,7 @@ func select_action(body):
 			body.get_ability(FIREBALL)
 			print('MageDead')
 		'WarriorDead':
-			body.get_ability(BUBBLE)
+			body.get_ability(SPIN)
 			print('WarriorDead')
 		'ArcherDead':
 			body.get_ability(ARROW)

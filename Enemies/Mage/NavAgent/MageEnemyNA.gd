@@ -19,7 +19,7 @@ func attack():
 
 	$Model/AnimationPlayer.play('Attack')
 
-func shoot_fireball():
+func trigger_attack():
 	abilities.shoot_fireball(target.position, position, position, 'enemy')
 
 func animation_finished(anim_name):

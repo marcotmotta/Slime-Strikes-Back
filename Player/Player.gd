@@ -46,8 +46,7 @@ func _process(delta):
 	$MouseReference.global_position = forward_direction
 
 	# select UI
-	if select: $CanvasLayer/Control/Select.visible = true
-	else: $CanvasLayer/Control/Select.visible = false
+	$CanvasLayer/Control/Select.visible = select
 
 	#print(Engine.get_frames_per_second())
 
@@ -147,16 +146,13 @@ func _input(event):
 	if Input.is_action_just_pressed("5"):
 		Globals.current_ability = SPIN
 
-func set_punch_area_monitoring_status(status):
-	$PunchCollisionArea.monitoring = status
-
-func set_spin_area_monitoring_status(status):
-	$SpinCollisionArea.monitoring = status
-
 	# select
 	if Input.is_action_just_pressed("q"):
 		if select:
 			select_target.select_action(self)
+
+func set_spin_area_monitoring_status(status):
+	$SpinCollisionArea.monitoring = status
 
 func animation_finished(anim_name):
 	match anim_name:

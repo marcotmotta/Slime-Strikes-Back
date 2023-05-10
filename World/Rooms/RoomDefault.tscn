@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://r5h5g0rjmyuo"]
 
 [ext_resource type="Script" path="res://World/Rooms/RoomDefault.gd" id="1_7rw2b"]
-[ext_resource type="PackedScene" uid="uid://cwh8dn3x207ls" path="res://Enemies/Warrior/WarriorDead.tscn" id="2_42fy8"]
-[ext_resource type="PackedScene" uid="uid://dlwvsfg1kpaqc" path="res://Enemies/Mage/MageDead.tscn" id="3_si80u"]
-[ext_resource type="PackedScene" uid="uid://bdmaqmrqvityy" path="res://Enemies/Cleric/ClericDead.tscn" id="4_qv4jk"]
-[ext_resource type="PackedScene" uid="uid://caxxpv5458ep6" path="res://Enemies/Archer/ArcherDead.tscn" id="5_wdy5o"]
+[ext_resource type="PackedScene" path="res://Enemies/Warrior/WarriorDead.tscn" id="2_42fy8"]
+[ext_resource type="PackedScene" path="res://Enemies/Mage/MageDead.tscn" id="3_si80u"]
+[ext_resource type="PackedScene" path="res://Enemies/Cleric/ClericDead.tscn" id="4_qv4jk"]
+[ext_resource type="PackedScene" path="res://Enemies/Archer/ArcherDead.tscn" id="5_wdy5o"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fi1km"]
 

@@ -15,7 +15,8 @@ enum {
 	BUBBLE,
 	ARROW,
 	FIREBALL,
-	HEAL
+	HEAL,
+	SPIN
 }
 
 var current_ability = BUBBLE

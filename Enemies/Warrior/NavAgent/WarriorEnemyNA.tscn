@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c2ctbcriy17y7"]
+[gd_scene load_steps=13 format=3 uid="uid://c2ctbcriy17y7"]
 
 [ext_resource type="Script" path="res://Enemies/Warrior/NavAgent/WarriorEnemyNA.gd" id="1_paqbk"]
 
@@ -63,6 +63,10 @@ grow = true
 material = SubResource("StandardMaterial3D_pvikv")
 size = Vector3(2.5, 0.1, 0.1)
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_f71ku"]
+height = 0.1
+radius = 5.0
+
 [node name="WarriorEnemyNA" type="CharacterBody3D"]
 script = ExtResource("1_paqbk")
 
@@ -97,4 +101,11 @@ skeleton = NodePath("../CollisionShape3D")
 agent_height_offset = 0.5
 path_max_distance = 1.01
 
+[node name="SpinCollisionArea" type="Area3D" parent="."]
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpinCollisionArea"]
+shape = SubResource("CylinderShape3D_f71ku")
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="body_entered" from="SpinCollisionArea" to="." method="_on_spin_collision_area_body_entered"]

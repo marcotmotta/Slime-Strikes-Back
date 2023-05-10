@@ -7,7 +7,8 @@ enum {
 	BUBBLE,
 	ARROW,
 	FIREBALL,
-	HEAL
+	HEAL,
+	SPIN
 }
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -18,6 +19,8 @@ var can_dash = true
 var dash_power = 5
 var dash_duration = 0.15 # in seconds
 var dash_cd = 0.3 # in seconds
+var is_punching = false
+var can_punch = true
 var is_buffed = false
 
 func _ready():
@@ -30,23 +33,27 @@ func _ready():
 func _process(delta):
 	# look direction
 	var forward_direction = get_forward_direction()
-	$Blopinho.look_at(forward_direction)
-	$CollisionShape3D.look_at(forward_direction)
-	$ShootPosition.position = (get_forward_direction() - global_position).normalized() * 2
-	
-	$MeshInstance3D.global_position = get_forward_direction()
 
-	#print(Engine.get_frames_per_second())
+	if not is_punching:
+		$Blopinho.look_at(forward_direction)
+		$CollisionShape3D.look_at(forward_direction)
+		$ShootPosition.position = (forward_direction - global_position).normalized() * 2
+		$PunchCollisionArea.position = (forward_direction - global_position).normalized() * 3.5
+	
+	$MouseReference.global_position = forward_direction
+
+	# print(Engine.get_frames_per_second())
 
 func _physics_process(delta):
-	# Add the gravity.
+	# add the gravity
 	if not is_on_floor():
 		velocity.y -= gravity * delta * 10
 
-	# Get the input direction and handle the movement/deceleration.
-	if not is_dashing:
+	# get the input direction and handle the movement/deceleration
+	if not is_dashing and not is_punching:
 		var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 		direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
 	if direction:
 		velocity.x = direction.x * Globals.speed
 		velocity.z = direction.z * Globals.speed
@@ -59,18 +66,19 @@ func _physics_process(delta):
 		velocity *= 1.5
 		$Healing.visible = true
 
-	if(is_dashing):
+	if is_dashing:
 		velocity *= dash_power
 
-	move_and_slide()
+	if not is_punching:
+		move_and_slide()
 
 func get_forward_direction():
 	var mouse_pos_2d = get_viewport().get_mouse_position()
 
 	var ray_origin = $Camera3D.project_ray_origin(mouse_pos_2d)
 	var ray_dir = $Camera3D.project_ray_normal(mouse_pos_2d)
-
 	var t = (position.y - ray_origin.y) / ray_dir.y
+
 	return ray_origin + ray_dir * t
 
 func heal(amount):
@@ -81,19 +89,40 @@ func get_ability(new_ability):
 	$Blopinho/AnimationPlayer.play('Eat')
 
 func _input(event):
-	# shoot ability
+	# dash
+	if Input.is_action_just_pressed("space"):
+		if can_dash and not is_punching:
+			is_dashing = true
+			can_dash = false
+			$Blopinho/AnimationPlayer.play("Dash")
+			$DashTimer.wait_time = dash_duration
+			$DashTimer.start()
+
+	# punch ability
+	if Input.is_action_just_pressed("action1"):
+		if can_punch and not is_dashing:
+			is_punching = true
+			can_punch = false
+			$Blopinho/AnimationPlayer.play("Punch")
+
+	# special ability
 	if Input.is_action_just_pressed("action2"):
-		match Globals.current_ability:
-			BUBBLE:
-				abilities.shoot_bubble(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
-			ARROW:
-				abilities.shoot_arrow(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
-			FIREBALL:
-				abilities.shoot_fireball(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
-			HEAL:
-				is_buffed = true
-				heal(10)
-				$BuffTimer.start(0.5)
+		if not is_dashing and not is_punching:
+			match Globals.current_ability:
+				BUBBLE:
+					abilities.shoot_bubble(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
+				ARROW:
+					abilities.shoot_arrow(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
+				FIREBALL:
+					abilities.shoot_fireball(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
+				HEAL:
+					is_buffed = true
+					heal(10)
+					$BuffTimer.start(0.5)
+				SPIN:
+					set_spin_area_monitoring_status(true)
+					await get_tree().create_timer(1).timeout
+					set_spin_area_monitoring_status(false)
 
 	# bubble
 	if Input.is_action_just_pressed("1"):
@@ -107,21 +136,26 @@ func _input(event):
 	# heal
 	if Input.is_action_just_pressed("4"):
 		Globals.current_ability = HEAL
+	# spin
+	if Input.is_action_just_pressed("5"):
+		Globals.current_ability = SPIN
 
-	# dash
-	if Input.is_action_just_pressed("space"):
-		if(can_dash):
-			is_dashing = true
-			can_dash = false
-			$Blopinho/AnimationPlayer.play("Dash")
-			$DashTimer.wait_time = dash_duration
-			$DashTimer.start()
+func set_punch_area_monitoring_status(status):
+	$PunchCollisionArea.monitoring = status
+
+func set_spin_area_monitoring_status(status):
+	$SpinCollisionArea.monitoring = status
 
 func animation_finished(anim_name):
-	print(anim_name)
+	print("Animation finished: " + anim_name)
+
 	match anim_name:
 		'Eat':
 			$Blopinho/AnimationPlayer.play("Idle")
+		'Punch':
+			$Blopinho/AnimationPlayer.play("Idle")
+			is_punching = false
+			can_punch = true
 
 func _on_buff_timer_timeout():
 	is_buffed = false
@@ -134,3 +168,9 @@ func _on_dash_timer_timeout():
 
 func _on_dash_cd_timeout():
 	can_dash = true
+
+func _on_punch_collision_area_body_entered(body):
+	print(str(body) + " was punched!")
+
+func _on_spin_collision_area_body_entered(body):
+	print(str(body) + " was hitted by the spin!")

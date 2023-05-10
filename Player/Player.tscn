@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://wgsfjhkwdggp"]
+[gd_scene load_steps=10 format=3 uid="uid://wgsfjhkwdggp"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_wptc7"]
-[ext_resource type="PackedScene" uid="uid://beeswu3nib2um" path="res://Player/Blopinho.tscn" id="3_eobr1"]
+[ext_resource type="PackedScene" uid="uid://caoidej4fhbw1" path="res://Player/Blopinho.tscn" id="3_eobr1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fwmut"]
 size = Vector3(2, 2, 2)
@@ -13,6 +13,17 @@ albedo_color = Color(1, 1, 0, 1)
 material = SubResource("StandardMaterial3D_c53lq")
 
 [sub_resource type="SphereMesh" id="SphereMesh_mojtm"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_60cls"]
+radius = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_afivf"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_g6b7f"]
+height = 0.1
+radius = 4.0
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_wptc7")
@@ -29,15 +40,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_fwmut")
 
-[node name="BuffTimer" type="Timer" parent="."]
-one_shot = true
-
 [node name="Healing" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54302, 0)
 visible = false
 mesh = SubResource("SphereMesh_pjlr1")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MouseReference" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_mojtm")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
@@ -45,12 +53,34 @@ light_color = Color(0.164706, 0.490196, 0, 1)
 light_energy = 3.0
 omni_range = 10.0
 
+[node name="BuffTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="DashTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="DashCd" type="Timer" parent="."]
 one_shot = true
 
+[node name="PunchCollisionArea" type="Area3D" parent="."]
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PunchCollisionArea"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("SphereShape3D_60cls")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PunchCollisionArea/CollisionShape3D"]
+visible = false
+mesh = SubResource("SphereMesh_afivf")
+
+[node name="SpinCollisionArea" type="Area3D" parent="."]
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpinCollisionArea"]
+shape = SubResource("CylinderShape3D_g6b7f")
+
 [connection signal="timeout" from="BuffTimer" to="." method="_on_buff_timer_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="DashCd" to="." method="_on_dash_cd_timeout"]
+[connection signal="body_entered" from="PunchCollisionArea" to="." method="_on_punch_collision_area_body_entered"]
+[connection signal="body_entered" from="SpinCollisionArea" to="." method="_on_spin_collision_area_body_entered"]

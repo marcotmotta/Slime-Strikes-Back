@@ -1,4 +1,4 @@
-extends "res://Enemies/Enemy.gd"
+extends "res://Enemies/EnemyNA.gd"
 
 func _ready():
 	max_health = 100
@@ -22,5 +22,5 @@ func attack():
 	else:
 		heal(damage) # WARNING: Using "damage" as the amount of healing.
 
-	#$AnimationPlayer.play("heal")
+	# $AnimationPlayer.play("heal")
 	set_state(IDLE)

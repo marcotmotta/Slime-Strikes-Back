@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://crre07ojn7sf5"]
+
+[ext_resource type="Script" path="res://Enemies/Cleric/NavAgent/ClericEnemyNA.gd" id="1_8q0t4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ddxmr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_euaea"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_krlgn"]
+material = SubResource("StandardMaterial3D_euaea")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sca7v"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_csnah"]
+material = SubResource("StandardMaterial3D_sca7v")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m2mls"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+billboard_mode = 1
+billboard_keep_scale = true
+grow = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_vhsrk"]
+material = SubResource("StandardMaterial3D_m2mls")
+size = Vector3(2.5, 0.1, 0.1)
+
+[node name="ClericEnemyNA" type="CharacterBody3D"]
+script = ExtResource("1_8q0t4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_ddxmr")
+
+[node name="Model" type="Node3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Model"]
+mesh = SubResource("BoxMesh_krlgn")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Model/MeshInstance3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -0.5)
+mesh = SubResource("BoxMesh_csnah")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+
+[node name="HealthBar" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.5, 0)
+mesh = SubResource("BoxMesh_vhsrk")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+agent_height_offset = 0.5
+path_max_distance = 1.01

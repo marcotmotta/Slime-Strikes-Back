@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://wgsfjhkwdggp"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_wptc7"]
-[ext_resource type="PackedScene" uid="uid://b143nqgu7wqjg" path="res://Player/Imports/Blob.tscn" id="2_0bd4u"]
+[ext_resource type="PackedScene" uid="uid://beeswu3nib2um" path="res://Player/Blopinho.tscn" id="3_eobr1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fwmut"]
 size = Vector3(2, 2, 2)
@@ -17,8 +17,7 @@ material = SubResource("StandardMaterial3D_c53lq")
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_wptc7")
 
-[node name="Blob" parent="." instance=ExtResource("2_0bd4u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.209457, 0)
+[node name="Blopinho" parent="." instance=ExtResource("3_eobr1")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 20, 15)

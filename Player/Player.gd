@@ -21,7 +21,7 @@ var dash_cd = 0.3 # in seconds
 var is_buffed = false
 
 func _ready():
-	$Blob/AnimationPlayer.play("Idle-Animation")
+	$Blopinho/AnimationPlayer.play("Idle")
 
 	# instance abilities singleton
 	abilities = abilities_singleton.new()
@@ -30,7 +30,7 @@ func _ready():
 func _process(delta):
 	# look direction
 	var forward_direction = get_forward_direction()
-	$Blob.look_at(forward_direction)
+	$Blopinho.look_at(forward_direction)
 	$CollisionShape3D.look_at(forward_direction)
 	$ShootPosition.position = (get_forward_direction() - global_position).normalized() * 2
 	
@@ -76,6 +76,10 @@ func get_forward_direction():
 func heal(amount):
 	Globals.health = min(Globals.health + amount, Globals.max_health)
 
+func get_ability(new_ability):
+	Globals.current_ability = new_ability
+	$Blopinho/AnimationPlayer.play('Eat')
+
 func _input(event):
 	# shoot ability
 	if Input.is_action_just_pressed("action2"):
@@ -109,15 +113,22 @@ func _input(event):
 		if(can_dash):
 			is_dashing = true
 			can_dash = false
-			# $Dash.play()
+			$Blopinho/AnimationPlayer.play("Dash")
 			$DashTimer.wait_time = dash_duration
 			$DashTimer.start()
+
+func animation_finished(anim_name):
+	print(anim_name)
+	match anim_name:
+		'Eat':
+			$Blopinho/AnimationPlayer.play("Idle")
 
 func _on_buff_timer_timeout():
 	is_buffed = false
 
 func _on_dash_timer_timeout():
 	is_dashing = false
+	$Blopinho/AnimationPlayer.play("Idle")
 	$DashCd.wait_time = dash_cd
 	$DashCd.start()
 

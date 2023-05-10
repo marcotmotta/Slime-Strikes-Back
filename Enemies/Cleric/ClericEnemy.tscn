@@ -4,17 +4,17 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ddxmr"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_euaea"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mrync"]
 albedo_color = Color(1, 1, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_krlgn"]
-material = SubResource("StandardMaterial3D_euaea")
+material = SubResource("StandardMaterial3D_mrync")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sca7v"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ippcr"]
 albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_csnah"]
-material = SubResource("StandardMaterial3D_sca7v")
+material = SubResource("StandardMaterial3D_ippcr")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m2mls"]
 shading_mode = 0

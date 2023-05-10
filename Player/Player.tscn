@@ -78,6 +78,7 @@ monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SpinCollisionArea"]
 shape = SubResource("CylinderShape3D_g6b7f")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]

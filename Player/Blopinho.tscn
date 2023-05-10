@@ -997,9 +997,6 @@ tracks/21/keys = {
 [sub_resource type="Animation" id="Animation_ein6t"]
 length = 0.001
 
-[sub_resource type="Animation" id="Animation_ein6t"]
-length = 0.001
-
 [sub_resource type="Animation" id="Animation_7c615"]
 resource_name = "Shot"
 length = 0.666667

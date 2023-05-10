@@ -114,15 +114,14 @@ func _input(event):
 
 	# special ability
 	if Input.is_action_just_pressed("action2"):
-<<<<<<< Updated upstream
 		if not is_dashing and not is_punching:
 			match Globals.current_ability:
 				BUBBLE:
-					abilities.shoot_bubble(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
+					abilities.shoot_bubble(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
 				ARROW:
-					abilities.shoot_arrow(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
+					abilities.shoot_arrow(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
 				FIREBALL:
-					abilities.shoot_fireball(get_forward_direction(), get_global_position(), $ShootPosition.global_position, self)
+					abilities.shoot_fireball(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
 				HEAL:
 					is_buffed = true
 					heal(10)
@@ -131,19 +130,6 @@ func _input(event):
 					set_spin_area_monitoring_status(true)
 					await get_tree().create_timer(1).timeout
 					set_spin_area_monitoring_status(false)
-=======
-		match Globals.current_ability:
-			BUBBLE:
-				abilities.shoot_bubble(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
-			ARROW:
-				abilities.shoot_arrow(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
-			FIREBALL:
-				abilities.shoot_fireball(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
-			HEAL:
-				is_buffed = true
-				heal(10)
-				$BuffTimer.start(0.5)
->>>>>>> Stashed changes
 
 	# bubble
 	if Input.is_action_just_pressed("1"):
@@ -173,11 +159,6 @@ func set_spin_area_monitoring_status(status):
 			select_target.select_action(self)
 
 func animation_finished(anim_name):
-<<<<<<< Updated upstream
-	print("Animation finished: " + anim_name)
-
-=======
->>>>>>> Stashed changes
 	match anim_name:
 		'Eat':
 			$Blopinho/AnimationPlayer.play("Idle")

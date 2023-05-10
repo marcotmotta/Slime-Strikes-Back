@@ -27,7 +27,7 @@ grow = true
 material = SubResource("StandardMaterial3D_m2mls")
 size = Vector3(2.5, 0.1, 0.1)
 
-[node name="ClericEnemyNA" type="CharacterBody3D"]
+[node name="ClericEnemyNA" type="CharacterBody3D" groups=["enemy"]]
 script = ExtResource("1_8q0t4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

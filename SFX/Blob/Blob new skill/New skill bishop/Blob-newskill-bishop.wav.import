@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://chr2v3p8ot1fr"
+path="res://.godot/imported/Blob-newskill-bishop.wav-cb8b7a356f08193be2e0be7a3c741f27.sample"
+
+[deps]
+
+source_file="res://SFX/Blob/Blob new skill/New skill bishop/Blob-newskill-bishop.wav"
+dest_files=["res://.godot/imported/Blob-newskill-bishop.wav-cb8b7a356f08193be2e0be7a3c741f27.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

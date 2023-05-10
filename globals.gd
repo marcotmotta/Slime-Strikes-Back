@@ -1,5 +1,9 @@
 extends Node
 
+@onready var BattleAudio = preload('res://SFX/BGM/BMG-body.wav')
+
+var BattleMusic = AudioStreamPlayer.new()
+
 const START_MAX_HEALTH = 100
 const START_DAMAGE = 10
 const START_SPEED = 7
@@ -22,10 +26,10 @@ enum {
 var current_ability = BUBBLE
 
 # world variables
-var total_levels = 5
+var total_levels = 21
 var current_level = 0
 
-var maps = ['CombatMap1', 'CombatMap2']
+var maps = ['CombatMap1']
 
 var spawned_enemies: Array = []
 
@@ -52,6 +56,14 @@ func reset():
 	speed = START_SPEED
 
 	current_level = 0
+
+	# music
+	BattleMusic = AudioStreamPlayer.new()
+
+	BattleMusic.stream = BattleAudio
+	BattleMusic.volume_db = -20
+	BattleMusic.set_name("BattleMusic")
+	add_child(BattleMusic)
 
 func generate_first_room():
 	current_room = {

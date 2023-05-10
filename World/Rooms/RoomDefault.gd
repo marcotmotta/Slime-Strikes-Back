@@ -10,12 +10,17 @@ var player_instance
 
 func _ready():
 	randomize()
+	Globals.spawned_enemies = []
 
 	# add map to room
 	if Globals.current_room.scene:
 		var map_scene = load("res://World/Rooms/" + Globals.current_room.scene + "/" + Globals.current_room.scene + ".tscn")
 		var map_instance = map_scene.instantiate()
 		add_child(map_instance)
+
+	# play music
+	if not Globals.get_node("/root/Globals/BattleMusic").playing:
+		Globals.get_node("/root/Globals/BattleMusic").play()
 
 	# spawn player here
 	player_instance = player_scene.instantiate()
@@ -26,8 +31,8 @@ func _ready():
 	var enemy_instance_1 = warrior_enemy_na_scene.instantiate()
 	enemy_instance_1.position = $Map.position + Vector3(-20, 5, -20)
 	enemy_instance_1.target = player_instance
-	add_child(enemy_instance_1)
-	Globals.spawned_enemies.append(enemy_instance_1)
+	#add_child(enemy_instance_1)
+	#Globals.spawned_enemies.append(enemy_instance_1)
 
 	var enemy_instance_2 = mage_enemy_na_scene.instantiate()
 	enemy_instance_2.position = $Map.position + Vector3( 20, 5, -20)
@@ -38,14 +43,14 @@ func _ready():
 	var enemy_instance_3 = cleric_enemy_na_scene.instantiate()
 	enemy_instance_3.position = $Map.position + Vector3( 15, 5, -20)
 	enemy_instance_3.target = player_instance
-	add_child(enemy_instance_3)
-	Globals.spawned_enemies.append(enemy_instance_3)
+	#add_child(enemy_instance_3)
+	#Globals.spawned_enemies.append(enemy_instance_3)
 
 	var enemy_instance_4 = archer_enemy_na_scene.instantiate()
 	enemy_instance_4.position = $Map.position + Vector3(-15, 5, -20)
 	enemy_instance_4.target = player_instance
-	add_child(enemy_instance_4)
-	Globals.spawned_enemies.append(enemy_instance_4)
+	#add_child(enemy_instance_4)
+	#Globals.spawned_enemies.append(enemy_instance_4)
 
 # Gambiarra a seguir (cuidado)!
 func _input(event):

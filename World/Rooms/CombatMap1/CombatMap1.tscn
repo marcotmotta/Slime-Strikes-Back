@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c675fodlu7wsc"]
+[gd_scene load_steps=7 format=3 uid="uid://c675fodlu7wsc"]
 
 [ext_resource type="Texture2D" uid="uid://cqdy3h6kbv7ra" path="res://World/Rooms/CombatMap1/0f1fc75133b374886f9baa4c096f82b0.png" id="1_gg3d3"]
+[ext_resource type="PackedScene" uid="uid://boscgn3oy5w4r" path="res://World/Rooms/Exit.tscn" id="2_3cx3h"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_tql5h"]
 points = PackedVector3Array(-60, -0.5, -60, -60, 0.5, -60, 60, -0.5, -60, -60, -0.5, 60, -60, 0.5, 60, 60, 0.5, -60, 60, -0.5, 60, 60, 0.5, 60)
@@ -22,11 +23,16 @@ size = Vector3(120, 1, 120)
 [node name="Map" type="StaticBody3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_tql5h")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
 navigation_mesh = SubResource("NavigationMesh_1jhmb")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]
 mesh = SubResource("BoxMesh_4f7q1")
 skeleton = NodePath("../..")
+
+[node name="Exit" parent="." instance=ExtResource("2_3cx3h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.7153, 0.772005, -35.7075)

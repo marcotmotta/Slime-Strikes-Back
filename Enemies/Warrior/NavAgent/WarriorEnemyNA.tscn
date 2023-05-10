@@ -67,7 +67,7 @@ size = Vector3(2.5, 0.1, 0.1)
 height = 0.1
 radius = 5.0
 
-[node name="WarriorEnemyNA" type="CharacterBody3D"]
+[node name="WarriorEnemyNA" type="CharacterBody3D" groups=["enemy"]]
 script = ExtResource("1_paqbk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

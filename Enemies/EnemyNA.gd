@@ -60,7 +60,7 @@ func _physics_process(delta):
 					move_to_target(delta)
 
 		ATTACKING:
-			pass  # Awaiting the action ends.
+			look_at(target.position)
 
 func set_state(new_state):
 	state = new_state
@@ -68,9 +68,11 @@ func set_state(new_state):
 	match state:
 		IDLE:
 			remaining_idle_time = MAX_IDLE_TIME
+			$Model/AnimationPlayer.play('Idle')
 
 		RUNNING:
 			get_move_target()
+			$Model/AnimationPlayer.play('Run')
 
 		ATTACKING:
 			attack()

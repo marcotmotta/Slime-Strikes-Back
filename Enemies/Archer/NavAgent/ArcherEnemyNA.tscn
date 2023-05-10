@@ -63,7 +63,7 @@ grow = true
 material = SubResource("StandardMaterial3D_k4heo")
 size = Vector3(2.5, 0.1, 0.1)
 
-[node name="ArcherEnemy" type="CharacterBody3D"]
+[node name="ArcherEnemy" type="CharacterBody3D" groups=["enemy"]]
 script = ExtResource("1_i185e")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

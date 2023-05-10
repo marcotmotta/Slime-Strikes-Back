@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bl8war1amreoi"
+path="res://.godot/imported/Enemy-randomtalk-2.wav-aa5bb31ebfec10b9f493e5a07f8f9958.sample"
+
+[deps]
+
+source_file="res://SFX/Enemy/Enemy grunt/Enemy-randomtalk-2.wav"
+dest_files=["res://.godot/imported/Enemy-randomtalk-2.wav-aa5bb31ebfec10b9f493e5a07f8f9958.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

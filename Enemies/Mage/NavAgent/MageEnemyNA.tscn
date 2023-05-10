@@ -1,56 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://duejhu15gi8ot"]
+[gd_scene load_steps=6 format=3 uid="uid://duejhu15gi8ot"]
 
 [ext_resource type="Script" path="res://Enemies/Mage/NavAgent/MageEnemyNA.gd" id="1_7npt7"]
+[ext_resource type="PackedScene" uid="uid://vywtmgnfkyj4" path="res://Enemies/Mage/MageModel.tscn" id="2_rro1q"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ddxmr"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6xqqt"]
-albedo_color = Color(0, 0, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_hy0jo"]
-material = SubResource("StandardMaterial3D_6xqqt")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sca7v"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_csnah"]
-material = SubResource("StandardMaterial3D_sca7v")
-
-[sub_resource type="Animation" id="Animation_3a2lh"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Model:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_8xso5"]
-resource_name = "attack"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Model:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dx4sk"]
-_data = {
-"RESET": SubResource("Animation_3a2lh"),
-"attack": SubResource("Animation_8xso5")
-}
+size = Vector3(1, 2, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_spiw8"]
 shading_mode = 0
@@ -63,38 +17,24 @@ grow = true
 material = SubResource("StandardMaterial3D_spiw8")
 size = Vector3(2.5, 0.1, 0.1)
 
-[node name="MageEnemyNA" type="CharacterBody3D"]
+[node name="MageEnemyNA" type="CharacterBody3D" groups=["enemy"]]
 script = ExtResource("1_7npt7")
 
+[node name="Model" parent="." instance=ExtResource("2_rro1q")]
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1, 0)
 shape = SubResource("BoxShape3D_ddxmr")
 
-[node name="Model" type="Node3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Model"]
-mesh = SubResource("BoxMesh_hy0jo")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Model/MeshInstance3D"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -0.5)
-mesh = SubResource("BoxMesh_csnah")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_dx4sk")
-}
-
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.6, 0, 1)
+omni_range = 10.0
 
 [node name="HealthBar" type="MeshInstance3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.5, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 5, 0)
 mesh = SubResource("BoxMesh_fil5d")
 skeleton = NodePath("../CollisionShape3D")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 agent_height_offset = 0.5
 path_max_distance = 1.01
-
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://du7w32eqlu422"
+path="res://.godot/imported/Skill-bishop.wav-7456730096b84dc98300d1c04d599603.sample"
+
+[deps]
+
+source_file="res://SFX/Skills/Skill bishop/Skill-bishop.wav"
+dest_files=["res://.godot/imported/Skill-bishop.wav-7456730096b84dc98300d1c04d599603.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

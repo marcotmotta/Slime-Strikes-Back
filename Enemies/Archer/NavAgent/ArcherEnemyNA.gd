@@ -20,5 +20,5 @@ func attack():
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "attack":
-		abilities.shoot_arrow(target.position, position, position, self)
+		abilities.shoot_arrow(target.position, position, position, 'enemy')
 		set_state(IDLE)

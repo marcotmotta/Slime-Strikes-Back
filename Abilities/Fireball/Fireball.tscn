@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://42hjnw5yy61o"]
+[gd_scene load_steps=10 format=3 uid="uid://c3rqddf81vnda"]
 
 [ext_resource type="Script" path="res://Abilities/Fireball/Fireball.gd" id="1_4cap8"]
 
@@ -47,7 +47,7 @@ mesh = SubResource("SphereMesh_u1o4c")
 shape = SubResource("SphereShape3D_x11vp")
 
 [node name="Expiration" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 4.0
 one_shot = true
 autostart = true
 

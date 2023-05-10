@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cmr7g6gsaj4t"
+path="res://.godot/imported/Blob-newskill-archer.wav-565f05e245c0f2f4b25bf6ffbbd0eca7.sample"
+
+[deps]
+
+source_file="res://SFX/Blob/Blob new skill/New skill archer/Blob-newskill-archer.wav"
+dest_files=["res://.godot/imported/Blob-newskill-archer.wav-565f05e245c0f2f4b25bf6ffbbd0eca7.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

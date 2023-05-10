@@ -18,9 +18,11 @@ size = Vector3(120, 1, 120)
 [node name="Map" type="StaticBody3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_7f0gt")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
 navigation_mesh = SubResource("NavigationMesh_tsraf")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]

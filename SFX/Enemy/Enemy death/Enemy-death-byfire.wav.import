@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ctfkgwy5putou"
+path="res://.godot/imported/Enemy-death-byfire.wav-1f1907ba3f4a93c8a76b73d93c23d498.sample"
+
+[deps]
+
+source_file="res://SFX/Enemy/Enemy death/Enemy-death-byfire.wav"
+dest_files=["res://.godot/imported/Enemy-death-byfire.wav-1f1907ba3f4a93c8a76b73d93c23d498.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

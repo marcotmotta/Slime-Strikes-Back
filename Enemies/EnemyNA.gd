@@ -32,8 +32,14 @@ var turn_speed = 15
 
 var remaining_idle_time = MAX_IDLE_TIME
 
+# health bar
+var max_health_bar_size = 1
+
+func _ready():
+	set_state(IDLE)
+
 func _process(delta):
-	pass
+	$HealthBar.mesh.size.x = (float(health) * float(max_health_bar_size)) / float(max_health)
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -129,3 +135,8 @@ func heal(amount):
 
 func take_damage(amount):
 	health -= amount
+	if health <= 0:
+		die()
+
+func die():
+	pass

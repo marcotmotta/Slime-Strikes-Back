@@ -1,6 +1,7 @@
 extends "res://Enemies/EnemyNA.gd"
 
 func _ready():
+	MAX_IDLE_TIME = 0.5
 	max_health = 100
 	health = 100
 	move_speed = 10
@@ -16,13 +17,14 @@ func attack():
 	if target:
 		look_at(target.position)
 
-	$AnimationPlayer.play("attack")
+	$Model/AnimationPlayer.play('Attack')
 
+func trigger_attack():
 	abilities.spin_sword(target.position, "enemy")
+
+func animation_finished(anim_name):
+	if anim_name == "Attack":
+		set_state(IDLE)
 
 func spin_animation_finished():
 	pass
-
-func _on_animation_player_animation_finished(anim_name):
-	if anim_name == "attack":
-		set_state(IDLE)

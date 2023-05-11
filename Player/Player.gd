@@ -218,6 +218,9 @@ func _on_dash_cd_timeout():
 func _on_bubble_cd_timeout():
 	can_bubble = true
 
-func _on_punch_collision_area_body_entered(body):
-	print(str(body) + " was punched!")
+func take_damage(amount):
+	Globals.health -= amount
 
+func _on_punch_collision_area_body_entered(body):
+	if body.has_method('take_damage') and body.is_in_group('enemy'):
+		body.take_damage(Globals.damage)

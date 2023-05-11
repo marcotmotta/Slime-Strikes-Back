@@ -12,7 +12,8 @@ func _ready():
 func _on_collision_area_body_entered(body):
 	if not body.is_in_group(ally) and body not in collided_bodies:
 		collided_bodies.append(body)
-		body.take_damage(damage)
+		if body.has_method('take_damage'):
+			body.take_damage(damage)
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "Spin":

@@ -31,8 +31,8 @@ func _ready():
 	var enemy_instance_1 = warrior_enemy_na_scene.instantiate()
 	enemy_instance_1.position = $Map.position + Vector3(-20, 5, -20)
 	enemy_instance_1.target = player_instance
-	#add_child(enemy_instance_1)
-	#Globals.spawned_enemies.append(enemy_instance_1)
+	add_child(enemy_instance_1)
+	Globals.spawned_enemies.append(enemy_instance_1)
 
 	var enemy_instance_2 = mage_enemy_na_scene.instantiate()
 	enemy_instance_2.position = $Map.position + Vector3( 20, 5, -20)
@@ -49,8 +49,8 @@ func _ready():
 	var enemy_instance_4 = archer_enemy_na_scene.instantiate()
 	enemy_instance_4.position = $Map.position + Vector3(-15, 5, -20)
 	enemy_instance_4.target = player_instance
-	#add_child(enemy_instance_4)
-	#Globals.spawned_enemies.append(enemy_instance_4)
+	add_child(enemy_instance_4)
+	Globals.spawned_enemies.append(enemy_instance_4)
 
 # Gambiarra a seguir (cuidado)!
 func _input(event):

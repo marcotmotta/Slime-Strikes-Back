@@ -21,6 +21,9 @@ var dash_duration = 0.15 # in seconds
 var dash_cd = 0.3 # in seconds
 var is_punching = false
 var can_punch = true
+var is_spining = false
+var can_spin = true
+var spining_damage = 10
 var is_buffed = false
 
 var select = false
@@ -37,12 +40,13 @@ func _process(delta):
 	# look direction
 	var forward_direction = get_forward_direction()
 
-	if not is_punching:
+	if not is_punching and not is_spining:
 		$Blopinho.look_at(forward_direction)
 		$CollisionShape3D.look_at(forward_direction)
 		$ShootPosition.position = (forward_direction - global_position).normalized() * 2
 		$PunchCollisionArea.position = (forward_direction - global_position).normalized() * 3.5
-	
+
+	# mouse pointer
 	$MouseReference.global_position = forward_direction
 
 	# select UI
@@ -126,9 +130,10 @@ func _input(event):
 					heal(10)
 					$BuffTimer.start(0.5)
 				SPIN:
-					set_spin_area_monitoring_status(true)
-					await get_tree().create_timer(1).timeout
-					set_spin_area_monitoring_status(false)
+					if can_spin:
+						can_spin = false
+						is_spining = true
+						abilities.spin_sword(get_forward_direction(), 'player')
 
 	# bubble
 	if Input.is_action_just_pressed("1"):
@@ -151,9 +156,6 @@ func _input(event):
 		if select:
 			select_target.select_action(self)
 
-func set_spin_area_monitoring_status(status):
-	$SpinCollisionArea.monitoring = status
-
 func animation_finished(anim_name):
 	match anim_name:
 		'Eat':
@@ -162,6 +164,10 @@ func animation_finished(anim_name):
 			$Blopinho/AnimationPlayer.play("Idle")
 			is_punching = false
 			can_punch = true
+
+func spin_animation_finished():
+	can_spin = true
+	is_spining = false
 
 func _on_buff_timer_timeout():
 	is_buffed = false
@@ -177,6 +183,3 @@ func _on_dash_cd_timeout():
 
 func _on_punch_collision_area_body_entered(body):
 	print(str(body) + " was punched!")
-
-func _on_spin_collision_area_body_entered(body):
-	print(str(body) + " was hitted by the spin!")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://wgsfjhkwdggp"]
+[gd_scene load_steps=9 format=3 uid="uid://bnwdql6jolgk1"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_wptc7"]
 [ext_resource type="PackedScene" uid="uid://caoidej4fhbw1" path="res://Player/Blopinho.tscn" id="3_eobr1"]
@@ -20,10 +20,6 @@ radius = 1.0
 [sub_resource type="SphereMesh" id="SphereMesh_afivf"]
 radius = 1.0
 height = 2.0
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_g6b7f"]
-height = 0.1
-radius = 4.0
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_wptc7")
@@ -73,12 +69,6 @@ shape = SubResource("SphereShape3D_60cls")
 visible = false
 mesh = SubResource("SphereMesh_afivf")
 
-[node name="SpinCollisionArea" type="Area3D" parent="."]
-monitoring = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SpinCollisionArea"]
-shape = SubResource("CylinderShape3D_g6b7f")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
@@ -112,4 +102,3 @@ Press Q"
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="DashCd" to="." method="_on_dash_cd_timeout"]
 [connection signal="body_entered" from="PunchCollisionArea" to="." method="_on_punch_collision_area_body_entered"]
-[connection signal="body_entered" from="SpinCollisionArea" to="." method="_on_spin_collision_area_body_entered"]

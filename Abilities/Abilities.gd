@@ -3,6 +3,7 @@ extends Node
 @onready var bubble_scene = preload("res://Abilities/Bubble/Bubble.tscn")
 @onready var arrow_scene = preload("res://Abilities/Arrow/Arrow.tscn")
 @onready var fireball_scene = preload("res://Abilities/Fireball/Fireball.tscn")
+@onready var spin_scene = preload("res://Abilities/Spin/Spin.tscn")
 
 func shoot_bubble(forward_direction, position, shoot_position, ally):
 	var bubble_instance = bubble_scene.instantiate()
@@ -28,3 +29,10 @@ func shoot_fireball(forward_direction, position, shoot_position, ally):
 	fireball_instance.direction = (forward_direction - position).normalized()
 	fireball_instance.damage = Globals.damage
 	fireball_instance.ally = ally
+
+func spin_sword(forward_direction, ally):
+	var spin_instance = spin_scene.instantiate()
+	get_parent().add_child(spin_instance)
+	spin_instance.look_at(forward_direction)
+	spin_instance.damage = Globals.damage
+	spin_instance.ally = ally

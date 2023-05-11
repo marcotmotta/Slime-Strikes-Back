@@ -99,6 +99,7 @@ func move_to_target(delta):
 		get_move_target()
 
 	var next_path_position = navigation_agent.get_next_path_position()
+	next_path_position.y = global_position.y
 	var new_velocity = (next_path_position - global_position).normalized() * move_speed
 
 	if (next_path_position - global_position).length() > 0:

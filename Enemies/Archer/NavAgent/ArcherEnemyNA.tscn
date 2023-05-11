@@ -94,7 +94,6 @@ mesh = SubResource("BoxMesh_03r2u")
 skeleton = NodePath("../CollisionShape3D")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-agent_height_offset = 0.5
 path_max_distance = 1.01
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

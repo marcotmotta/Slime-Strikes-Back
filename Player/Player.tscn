@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bnwdql6jolgk1"]
+[gd_scene load_steps=8 format=3 uid="uid://bnwdql6jolgk1"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_wptc7"]
 [ext_resource type="PackedScene" uid="uid://caoidej4fhbw1" path="res://Player/Blopinho.tscn" id="3_eobr1"]
@@ -15,16 +15,15 @@ material = SubResource("StandardMaterial3D_c53lq")
 [sub_resource type="SphereMesh" id="SphereMesh_mojtm"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_60cls"]
-radius = 2.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_afivf"]
-radius = 1.0
-height = 2.0
+radius = 3.0
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_wptc7")
 
 [node name="Blopinho" parent="." instance=ExtResource("3_eobr1")]
+
+[node name="HatPosition" type="Marker3D" parent="Blopinho"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.15, 1, 0.2)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 20, 13)
@@ -58,16 +57,15 @@ one_shot = true
 [node name="DashCd" type="Timer" parent="."]
 one_shot = true
 
+[node name="BubbleCd" type="Timer" parent="."]
+one_shot = true
+
 [node name="PunchCollisionArea" type="Area3D" parent="."]
 monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PunchCollisionArea"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("SphereShape3D_60cls")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PunchCollisionArea/CollisionShape3D"]
-visible = false
-mesh = SubResource("SphereMesh_afivf")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -101,4 +99,5 @@ Press Q"
 [connection signal="timeout" from="BuffTimer" to="." method="_on_buff_timer_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="DashCd" to="." method="_on_dash_cd_timeout"]
+[connection signal="timeout" from="BubbleCd" to="." method="_on_bubble_cd_timeout"]
 [connection signal="body_entered" from="PunchCollisionArea" to="." method="_on_punch_collision_area_body_entered"]

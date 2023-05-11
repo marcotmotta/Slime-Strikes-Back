@@ -4,6 +4,10 @@ const abilities_singleton = preload("res://Abilities/Abilities.gd")
 var abilities
 
 @onready var heal_effect_scene = preload("res://Abilities/HealEffect.tscn")
+@onready var warrior_hat_scene = preload("res://Player/Items/WarriorHat.tscn")
+@onready var mage_hat_scene = preload("res://Player/Items/MageHat.tscn")
+@onready var cleric_hat_scene = preload("res://Player/Items/ClericHat.tscn")
+@onready var archer_hat_scene = preload("res://Player/Items/ArcherHat.tscn")
 
 enum {
 	BUBBLE,
@@ -28,6 +32,9 @@ var can_spin = true
 var spining_damage = 10
 var is_buffed = false
 var heal_buff_duration = 2
+var can_bubble = true
+var bubble_cd = 0.5 # in seconds
+var ability_charges = 0
 
 var select = false
 var select_target = null
@@ -55,7 +62,7 @@ func _process(delta):
 	# select UI
 	$CanvasLayer/Control/Select.visible = select
 
-	print(Engine.get_frames_per_second())
+	# print(Engine.get_frames_per_second())
 
 func _physics_process(delta):
 	# add the gravity
@@ -125,38 +132,55 @@ func _input(event):
 	# special ability
 	if Input.is_action_just_pressed("action2"):
 		if not is_dashing and not is_punching:
-			match Globals.current_ability:
-				BUBBLE:
-					abilities.shoot_bubble(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
-				ARROW:
-					abilities.shoot_arrow(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
-				FIREBALL:
-					abilities.shoot_fireball(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
-				HEAL:
-					is_buffed = true
-					heal(10)
-					$BuffTimer.start(0.5)
-				SPIN:
-					if can_spin:
-						can_spin = false
-						is_spining = true
-						abilities.spin_sword(get_forward_direction(), 'player')
+			if Globals.current_ability == BUBBLE and can_bubble:
+				can_bubble = false
+				abilities.shoot_bubble(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
+				$BubbleCd.wait_time = bubble_cd
+				$BubbleCd.start()
+			elif ability_charges > 0:
+				match Globals.current_ability:
+					ARROW:
+						abilities.shoot_arrow(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
+					FIREBALL:
+						abilities.shoot_fireball(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
+					HEAL:
+						is_buffed = true
+						heal(10)
+						$BuffTimer.start(0.5)
+					SPIN:
+						if can_spin:
+							can_spin = false
+							is_spining = true
+							abilities.spin_sword(get_forward_direction(), 'player')
+				ability_charges -= 1
+				if ability_charges == 0:
+					for hat in $Blopinho/HatPosition.get_children():
+						hat.queue_free()
 
 	# bubble
 	if Input.is_action_just_pressed("1"):
 		Globals.current_ability = BUBBLE
+		ability_charges = 1
 	# arrow
 	if Input.is_action_just_pressed("2"):
 		Globals.current_ability = ARROW
+		$Blopinho/HatPosition.add_child(archer_hat_scene.instantiate())
+		ability_charges = 1
 	# fireball
 	if Input.is_action_just_pressed("3"):
 		Globals.current_ability = FIREBALL
+		$Blopinho/HatPosition.add_child(mage_hat_scene.instantiate())
+		ability_charges = 1
 	# heal
 	if Input.is_action_just_pressed("4"):
 		Globals.current_ability = HEAL
+		$Blopinho/HatPosition.add_child(cleric_hat_scene.instantiate())
+		ability_charges = 1
 	# spin
 	if Input.is_action_just_pressed("5"):
 		Globals.current_ability = SPIN
+		$Blopinho/HatPosition.add_child(warrior_hat_scene.instantiate())
+		ability_charges = 1
 
 	# select
 	if Input.is_action_just_pressed("q"):
@@ -191,5 +215,9 @@ func _on_dash_timer_timeout():
 func _on_dash_cd_timeout():
 	can_dash = true
 
+func _on_bubble_cd_timeout():
+	can_bubble = true
+
 func _on_punch_collision_area_body_entered(body):
 	print(str(body) + " was punched!")
+

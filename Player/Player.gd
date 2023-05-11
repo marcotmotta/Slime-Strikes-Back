@@ -110,7 +110,22 @@ func heal(amount):
 
 func get_ability(new_ability):
 	Globals.current_ability = new_ability
+	ability_charges = Globals.max_charges
+	remove_hat()
+	match new_ability:
+		ARROW:
+			$Blopinho/HatPosition.add_child(archer_hat_scene.instantiate())
+		FIREBALL:
+			$Blopinho/HatPosition.add_child(mage_hat_scene.instantiate())
+		HEAL:
+			$Blopinho/HatPosition.add_child(cleric_hat_scene.instantiate())
+		SPIN:
+			$Blopinho/HatPosition.add_child(warrior_hat_scene.instantiate())
 	$Blopinho/AnimationPlayer.play('Eat')
+
+func remove_hat():
+	for hat in $Blopinho/HatPosition.get_children():
+		hat.queue_free()
 
 func _input(event):
 	# dash
@@ -154,33 +169,23 @@ func _input(event):
 							abilities.spin_sword(get_forward_direction(), 'player')
 				ability_charges -= 1
 				if ability_charges == 0:
-					for hat in $Blopinho/HatPosition.get_children():
-						hat.queue_free()
+					get_ability(BUBBLE)
 
 	# bubble
 	if Input.is_action_just_pressed("1"):
-		Globals.current_ability = BUBBLE
-		ability_charges = 1
+		get_ability(BUBBLE)
 	# arrow
 	if Input.is_action_just_pressed("2"):
-		Globals.current_ability = ARROW
-		$Blopinho/HatPosition.add_child(archer_hat_scene.instantiate())
-		ability_charges = 1
+		get_ability(ARROW)
 	# fireball
 	if Input.is_action_just_pressed("3"):
-		Globals.current_ability = FIREBALL
-		$Blopinho/HatPosition.add_child(mage_hat_scene.instantiate())
-		ability_charges = 1
+		get_ability(FIREBALL)
 	# heal
 	if Input.is_action_just_pressed("4"):
-		Globals.current_ability = HEAL
-		$Blopinho/HatPosition.add_child(cleric_hat_scene.instantiate())
-		ability_charges = 1
+		get_ability(HEAL)
 	# spin
 	if Input.is_action_just_pressed("5"):
-		Globals.current_ability = SPIN
-		$Blopinho/HatPosition.add_child(warrior_hat_scene.instantiate())
-		ability_charges = 1
+		get_ability(SPIN)
 
 	# select
 	if Input.is_action_just_pressed("q"):

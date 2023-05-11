@@ -24,6 +24,7 @@ enum {
 }
 
 var current_ability = BUBBLE
+var max_charges = 1
 
 # world variables
 var total_levels = 21

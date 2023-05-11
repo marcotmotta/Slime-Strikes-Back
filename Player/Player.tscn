@@ -23,11 +23,12 @@ script = ExtResource("1_wptc7")
 [node name="Blopinho" parent="." instance=ExtResource("3_eobr1")]
 
 [node name="HatPosition" type="Marker3D" parent="Blopinho"]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.15, 1, 0.2)
+transform = Transform3D(-3.5, 0, -3.0598e-07, 0, 3.5, 0, 3.0598e-07, 0, -3.5, 0.15, 1, 0.2)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 20, 13)
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866026, 0, -0.866026, 0.5, 0, 20, 13)
 current = true
+size = 32.0
 
 [node name="ShootPosition" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)

@@ -54,14 +54,14 @@ _data = {
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k4heo"]
 shading_mode = 0
-albedo_color = Color(1, 0, 0, 1)
+albedo_color = Color(0.988235, 0, 0.27451, 1)
 billboard_mode = 1
 billboard_keep_scale = true
 grow = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_03r2u"]
 material = SubResource("StandardMaterial3D_k4heo")
-size = Vector3(2.5, 0.1, 0.1)
+size = Vector3(1, 0.1, 0.1)
 
 [node name="ArcherEnemy" type="CharacterBody3D" groups=["enemy"]]
 script = ExtResource("1_i185e")

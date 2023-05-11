@@ -1,7 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://vywtmgnfkyj4"]
+[gd_scene load_steps=15 format=3 uid="uid://bq87ddhyaw8bm"]
 
-[ext_resource type="Script" path="res://Enemies/Mage/EnemyModel.gd" id="1_do46d"]
 [ext_resource type="Texture2D" uid="uid://bp1mr8tkpxq8r" path="res://Enemies/Mage/Enemy-Mage_mago_1.png" id="1_k052u"]
+[ext_resource type="Script" path="res://Enemies/EnemyModel.gd" id="1_ywyx0"]
 [ext_resource type="Texture2D" uid="uid://b2d1u2sno8u81" path="res://Enemies/Mage/Enemy-Mage_mago_2.png" id="2_4dgm2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jpigx"]
@@ -2203,7 +2203,7 @@ _data = {
 }
 
 [node name="Model" type="Node3D"]
-script = ExtResource("1_do46d")
+script = ExtResource("1_ywyx0")
 
 [node name="Mage" type="Node3D" parent="."]
 transform = Transform3D(-0.009, -7.86805e-10, 3.43923e-17, 0, -3.93402e-10, -0.009, 7.86805e-10, -0.009, 3.93402e-10, 0, -1, 0)

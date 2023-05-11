@@ -15,7 +15,7 @@ material = SubResource("StandardMaterial3D_c53lq")
 [sub_resource type="SphereMesh" id="SphereMesh_mojtm"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_60cls"]
-radius = 1.0
+radius = 2.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_afivf"]
 radius = 1.0

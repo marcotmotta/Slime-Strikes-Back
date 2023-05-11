@@ -3,6 +3,8 @@ extends CharacterBody3D
 const abilities_singleton = preload("res://Abilities/Abilities.gd")
 var abilities
 
+@onready var heal_effect_scene = preload("res://Abilities/HealEffect.tscn")
+
 enum {
 	BUBBLE,
 	ARROW,
@@ -25,6 +27,7 @@ var is_spining = false
 var can_spin = true
 var spining_damage = 10
 var is_buffed = false
+var heal_buff_duration = 2
 
 var select = false
 var select_target = null
@@ -52,7 +55,7 @@ func _process(delta):
 	# select UI
 	$CanvasLayer/Control/Select.visible = select
 
-	#print(Engine.get_frames_per_second())
+	print(Engine.get_frames_per_second())
 
 func _physics_process(delta):
 	# add the gravity
@@ -73,7 +76,7 @@ func _physics_process(delta):
 
 	$Healing.visible = false
 	if is_buffed:
-		velocity *= 1.5
+		velocity *= heal_buff_duration
 		$Healing.visible = true
 
 	if is_dashing:
@@ -93,6 +96,10 @@ func get_forward_direction():
 
 func heal(amount):
 	Globals.health = min(Globals.health + amount, Globals.max_health)
+
+	var heal_effect = heal_effect_scene.instantiate()
+	heal_effect.sound = true
+	add_child(heal_effect)
 
 func get_ability(new_ability):
 	Globals.current_ability = new_ability
@@ -155,6 +162,9 @@ func _input(event):
 	if Input.is_action_just_pressed("q"):
 		if select:
 			select_target.select_action(self)
+
+func set_punch_area_monitoring_status(status):
+	$PunchCollisionArea.monitoring = status
 
 func animation_finished(anim_name):
 	match anim_name:

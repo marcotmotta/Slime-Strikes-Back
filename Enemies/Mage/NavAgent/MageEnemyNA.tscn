@@ -1,21 +1,21 @@
 [gd_scene load_steps=6 format=3 uid="uid://duejhu15gi8ot"]
 
 [ext_resource type="Script" path="res://Enemies/Mage/NavAgent/MageEnemyNA.gd" id="1_7npt7"]
-[ext_resource type="PackedScene" uid="uid://vywtmgnfkyj4" path="res://Enemies/Mage/MageModel.tscn" id="2_rro1q"]
+[ext_resource type="PackedScene" uid="uid://bq87ddhyaw8bm" path="res://Enemies/Mage/MageModel.tscn" id="2_rro1q"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ddxmr"]
 size = Vector3(1, 2, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_spiw8"]
 shading_mode = 0
-albedo_color = Color(1, 0, 0, 1)
+albedo_color = Color(0.988235, 0, 0.27451, 1)
 billboard_mode = 1
 billboard_keep_scale = true
 grow = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_fil5d"]
 material = SubResource("StandardMaterial3D_spiw8")
-size = Vector3(2.5, 0.1, 0.1)
+size = Vector3(1, 0.1, 0.1)
 
 [node name="MageEnemyNA" type="CharacterBody3D" groups=["enemy"]]
 script = ExtResource("1_7npt7")
@@ -27,7 +27,7 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1, 0)
 shape = SubResource("BoxShape3D_ddxmr")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-light_color = Color(1, 0.6, 0, 1)
+light_color = Color(1, 0.231373, 0.878431, 1)
 omni_range = 10.0
 
 [node name="HealthBar" type="MeshInstance3D" parent="."]

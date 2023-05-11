@@ -5,6 +5,8 @@ extends CharacterBody3D
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+@onready var heal_effect_scene = preload("res://Abilities/HealEffect.tscn")
+
 const abilities_singleton = preload("res://Abilities/Abilities.gd")
 
 enum {
@@ -60,7 +62,8 @@ func _physics_process(delta):
 					move_to_target(delta)
 
 		ATTACKING:
-			look_at(target.position)
+			if self.name != 'ClericEnemyNA':
+				look_at(target.position)
 
 func set_state(new_state):
 	state = new_state
@@ -115,10 +118,13 @@ func is_target_in_range():
 	return target and (target.position - position).length() <= range
 
 func attack():
-	look_at(target.position)
+	pass # should be overwritten by another script
 
 func heal(amount):
 	health = min(health + amount, max_health)
+
+	var heal_effect = heal_effect_scene.instantiate()
+	add_child(heal_effect)
 
 func take_damage(amount):
 	health -= amount

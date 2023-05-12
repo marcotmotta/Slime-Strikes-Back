@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://fcl8l5guacr4"]
+[gd_scene load_steps=3 format=3 uid="uid://fcl8l5guacr4"]
 
 [ext_resource type="Script" path="res://Abilities/AttackSound.gd" id="1_f4g7t"]
+[ext_resource type="AudioStream" uid="uid://58bue6y77xa4" path="res://SFX/Enemy/Enemy grunt/Enemy-randomtalk-7.wav" id="1_knhiw"]
 
 [node name="AttackSound" type="AudioStreamPlayer3D"]
+stream = ExtResource("1_knhiw")
 autoplay = true
 script = ExtResource("1_f4g7t")
 

@@ -12,6 +12,29 @@ extends CharacterBody3D
 @onready var archer_dead_scene = preload("res://Enemies/Archer/ArcherDead.tscn")
 @onready var cleric_dead_scene = preload("res://Enemies/Cleric/ClericDead.tscn")
 
+# sound
+var attack_sound_scene = preload("res://Abilities/AttackSound.tscn")
+
+var death_sound = preload("res://SFX/Enemy/Enemy death/Enemy-death-byfire.wav")
+
+var hit_sound1 = preload("res://SFX/Enemy/Enemy hit/Enemy-hit-1.wav")
+var hit_sound2 = preload("res://SFX/Enemy/Enemy hit/Enemy-hit-2.wav")
+var hit_sound3 = preload("res://SFX/Enemy/Enemy hit/Enemy-hit-3.wav")
+var hit_sound4 = preload("res://SFX/Enemy/Enemy hit/Enemy-hit-4.wav")
+var hit_sound5 = preload("res://SFX/Enemy/Enemy hit/Enemy-hit-5.wav")
+
+var hit_sounds = [hit_sound1, hit_sound2, hit_sound3, hit_sound4, hit_sound5]
+
+var random_sound1 = preload("res://SFX/Enemy/Enemy grunt/Enemy-randomtalk-1.wav")
+var random_sound2 = preload("res://SFX/Enemy/Enemy grunt/Enemy-randomtalk-2.wav")
+var random_sound3 = preload("res://SFX/Enemy/Enemy grunt/Enemy-randomtalk-3.wav")
+var random_sound4 = preload("res://SFX/Enemy/Enemy grunt/Enemy-randomtalk-4.wav")
+var random_sound5 = preload("res://SFX/Enemy/Enemy grunt/Enemy-randomtalk-5.wav")
+var random_sound6 = preload("res://SFX/Enemy/Enemy grunt/Enemy-randomtalk-6.wav")
+var random_sound7 = preload("res://SFX/Enemy/Enemy grunt/Enemy-randomtalk-7.wav")
+
+var random_sounds = [random_sound1, random_sound2, random_sound3, random_sound4, random_sound5, random_sound6, random_sound7]
+
 const abilities_singleton = preload("res://Abilities/Abilities.gd")
 
 enum {
@@ -41,6 +64,7 @@ var remaining_idle_time = MAX_IDLE_TIME
 var max_health_bar_size = 1
 
 func _ready():
+	randomize()
 	set_state(IDLE)
 
 func _process(delta):
@@ -89,6 +113,13 @@ func set_state(new_state):
 			$Model/AnimationPlayer.play('Run')
 
 		ATTACKING:
+			# random sound
+			var random_sound_instance = attack_sound_scene.instantiate()
+			random_sound_instance.stream = Globals.choose(random_sounds)
+			random_sound_instance.volume_db = -5
+			random_sound_instance.pos = global_position
+			get_parent().add_child(random_sound_instance)
+
 			attack()
 
 func set_movement_target(movement_target):
@@ -140,8 +171,21 @@ func heal(amount):
 
 func take_damage(amount):
 	health -= amount
+
+	# hit sound
+	var hit_sound_instance = attack_sound_scene.instantiate()
+
 	if health <= 0:
+		hit_sound_instance.stream = death_sound
+		hit_sound_instance.volume_db = -5
+		hit_sound_instance.pos = global_position
+		get_parent().add_child(hit_sound_instance)
 		die()
+	else:
+		hit_sound_instance.stream = Globals.choose(hit_sounds)
+		hit_sound_instance.volume_db = -5
+		hit_sound_instance.pos = global_position
+		get_parent().add_child(hit_sound_instance)
 
 func die():
 	var enemy_dead

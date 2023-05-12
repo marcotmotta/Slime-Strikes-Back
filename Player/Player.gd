@@ -9,6 +9,16 @@ var abilities
 @onready var cleric_hat_scene = preload("res://Player/Items/ClericHat.tscn")
 @onready var archer_hat_scene = preload("res://Player/Items/ArcherHat.tscn")
 
+# sound
+var attack_sound_scene = preload("res://Abilities/AttackSound.tscn")
+var eat_sound = preload("res://SFX/Blob/Blob absorb/Blob-absorb.wav")
+var dash_sound = preload("res://SFX/Blob/Blob dash/Blob-dash.wav")
+var punch_sound = preload("res://SFX/Blob/Blub punch/Blob-punch.wav")
+var new_skill_mage_sound = preload("res://SFX/Blob/Blob new skill/new skill mage/Blob-newskill-mage.wav")
+var new_skill_archer_sound = preload("res://SFX/Blob/Blob new skill/New skill archer/Blob-newskill-archer.wav")
+var new_skill_warrior_sound = preload("res://SFX/Blob/Blob new skill/New skill knight/Blob-newskill-knight.wav")
+var new_skill_cleric_sound = preload("res://SFX/Blob/Blob new skill/New skill bishop/Blob-newskill-bishop.wav")
+
 enum {
 	BUBBLE,
 	ARROW,
@@ -112,16 +122,27 @@ func get_ability(new_ability):
 	Globals.current_ability = new_ability
 	ability_charges = Globals.max_charges
 	remove_hat()
+	var new_skill_sound_instance = attack_sound_scene.instantiate()
 	match new_ability:
 		ARROW:
 			$Blopinho/HatPosition.add_child(archer_hat_scene.instantiate())
+			new_skill_sound_instance.stream = new_skill_archer_sound
+			new_skill_sound_instance.volume_db = -5
 		FIREBALL:
 			$Blopinho/HatPosition.add_child(mage_hat_scene.instantiate())
+			new_skill_sound_instance.stream = new_skill_mage_sound
 		HEAL:
 			$Blopinho/HatPosition.add_child(cleric_hat_scene.instantiate())
+			new_skill_sound_instance.stream = new_skill_cleric_sound
+			new_skill_sound_instance.volume_db = -5
 		SPIN:
 			$Blopinho/HatPosition.add_child(warrior_hat_scene.instantiate())
+			new_skill_sound_instance.stream = new_skill_warrior_sound
 	$Blopinho/AnimationPlayer.play('Eat')
+
+	# new skill sound
+	new_skill_sound_instance.pos = global_position
+	get_parent().add_child(new_skill_sound_instance)
 
 func remove_hat():
 	for hat in $Blopinho/HatPosition.get_children():
@@ -137,6 +158,13 @@ func _input(event):
 			$DashTimer.wait_time = dash_duration
 			$DashTimer.start()
 
+			# dash sound
+			var dash_sound_instance = attack_sound_scene.instantiate()
+			dash_sound_instance.stream = dash_sound
+			dash_sound_instance.volume_db = -5
+			dash_sound_instance.pos = global_position
+			get_parent().add_child(dash_sound_instance)
+
 	# punch ability
 	if Input.is_action_just_pressed("action1"):
 		if can_punch and not is_dashing:
@@ -144,33 +172,16 @@ func _input(event):
 			can_punch = false
 			$Blopinho/AnimationPlayer.play("Punch")
 
+			# punch sound
+			var punch_sound_instance = attack_sound_scene.instantiate()
+			punch_sound_instance.stream = punch_sound
+			punch_sound_instance.volume_db = -5
+			punch_sound_instance.pos = global_position
+			get_parent().add_child(punch_sound_instance)
+
 	# special ability
 	if Input.is_action_just_pressed("action2"):
 		if not is_dashing and not is_punching:
-			if Globals.current_ability == BUBBLE and can_bubble:
-				can_bubble = false
-				abilities.shoot_bubble(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
-				$BubbleCd.wait_time = bubble_cd
-				$BubbleCd.start()
-			elif ability_charges > 0:
-				match Globals.current_ability:
-					ARROW:
-						abilities.shoot_arrow(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
-					FIREBALL:
-						abilities.shoot_fireball(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
-					HEAL:
-						is_buffed = true
-						heal(10)
-						$BuffTimer.start(0.5)
-					SPIN:
-						if can_spin:
-							can_spin = false
-							is_spining = true
-							abilities.spin_sword(get_forward_direction(), 'player')
-				ability_charges -= 1
-				if ability_charges == 0:
-					Globals.current_ability = BUBBLE
-					remove_hat()
 			$Blopinho/AnimationPlayer.play("Shot")
 
 	# bubble
@@ -194,6 +205,32 @@ func _input(event):
 	if Input.is_action_just_pressed("q"):
 		if select:
 			select_target.select_action(self)
+
+func trigger_shot():
+	if Globals.current_ability == BUBBLE and can_bubble:
+		can_bubble = false
+		abilities.shoot_bubble(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
+		$BubbleCd.wait_time = bubble_cd
+		$BubbleCd.start()
+	elif ability_charges > 0:
+		match Globals.current_ability:
+			ARROW:
+				abilities.shoot_arrow(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
+			FIREBALL:
+				abilities.shoot_fireball(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
+			HEAL:
+				is_buffed = true
+				heal(10)
+				$BuffTimer.start(0.5)
+			SPIN:
+				if can_spin:
+					can_spin = false
+					is_spining = true
+					abilities.spin_sword(get_forward_direction(), 'player')
+		ability_charges -= 1
+		if ability_charges == 0:
+			Globals.current_ability = BUBBLE
+			remove_hat()
 
 func set_punch_area_monitoring_status(status):
 	$PunchCollisionArea.monitoring = status

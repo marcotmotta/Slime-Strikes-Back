@@ -188,7 +188,9 @@ func take_damage(amount):
 		get_parent().add_child(hit_sound_instance)
 
 func die():
+	var light = $OmniLight3D
 	var enemy_dead
+
 	match self.name:
 		'MageEnemyNA':
 			enemy_dead = mage_dead_scene.instantiate()
@@ -202,7 +204,6 @@ func die():
 	enemy_dead.pos = global_position
 	enemy_dead.rot = global_rotation
 
-	var light = $OmniLight3D
 	remove_child($OmniLight3D)
 	enemy_dead.add_child(light)
 	get_parent().add_child(enemy_dead)

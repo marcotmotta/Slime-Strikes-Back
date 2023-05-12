@@ -16,9 +16,11 @@ func shoot_bubble(forward_direction, position, shoot_position, ally, damage):
 func shoot_arrow(forward_direction, position, shoot_position, ally, damage):
 	for i in [-16, -8, 0, 8, 16]:
 		var arrow_instance = arrow_scene.instantiate()
+		var arrow_direction = (forward_direction - position).normalized().rotated(Vector3.UP, deg_to_rad(i))
 		arrow_instance.pos = shoot_position
 		get_parent().get_parent().add_child(arrow_instance)
-		arrow_instance.direction = (forward_direction - position).normalized().rotated(Vector3.UP, deg_to_rad(i))
+		arrow_instance.look_at(shoot_position + arrow_direction)
+		arrow_instance.direction = arrow_direction
 		arrow_instance.damage = damage
 		arrow_instance.ally = ally
 

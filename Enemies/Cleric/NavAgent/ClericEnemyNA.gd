@@ -7,7 +7,7 @@ func _ready():
 	max_health = 100
 	health = 100
 	move_speed = 10
-	damage = 10
+	damage = 15 # its actually the heal amount
 	range = 10
 
 	is_follower = false

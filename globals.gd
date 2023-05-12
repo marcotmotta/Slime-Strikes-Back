@@ -4,16 +4,30 @@ extends Node
 
 var BattleMusic = AudioStreamPlayer.new()
 
-const START_MAX_HEALTH = 100
-const START_DAMAGE = 10
-const START_SPEED = 7
+const START_MAX_HEALTH = 4
+const START_SPEED = 8
+const START_HEAL = 1
+
+const START_DAMAGE = 20
+const START_BUBBLE_DAMAGE = 5
+const START_FIREBALL_DAMAGE = 35
+const START_SPIN_DAMAGE = 20
+const START_ARROW_DAMAGE = 5
 
 # player variables
 # (these will be reset after every run)
 var max_health = START_MAX_HEALTH
 var health
-var damage = START_DAMAGE
 var speed = START_SPEED
+var heal = START_HEAL
+
+var damage = START_DAMAGE
+var bubble_damage = START_BUBBLE_DAMAGE
+var fireball_damage = START_FIREBALL_DAMAGE
+var spin_damage = START_SPIN_DAMAGE
+var arrow_damage = START_ARROW_DAMAGE
+
+var ability_charges = 0
 
 enum {
 	BUBBLE,

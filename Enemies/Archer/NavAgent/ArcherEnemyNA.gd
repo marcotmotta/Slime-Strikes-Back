@@ -5,7 +5,7 @@ func _ready():
 	max_health = 100
 	health = 100
 	move_speed = 10
-	damage = 10
+	damage = 1
 	range = 15
 
 	is_follower = true
@@ -20,7 +20,7 @@ func attack():
 	$Model/AnimationPlayer.play('Attack')
 
 func trigger_attack():
-	abilities.shoot_arrow(target.position, position, position, 'enemy')
+	abilities.shoot_arrow(target.position, position, position, 'enemy', damage)
 
 func animation_finished(anim_name):
 	if anim_name == "Attack":

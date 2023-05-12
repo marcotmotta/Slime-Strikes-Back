@@ -1,7 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnwdql6jolgk1"]
+[gd_scene load_steps=12 format=3 uid="uid://bnwdql6jolgk1"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_wptc7"]
+[ext_resource type="Texture2D" uid="uid://bjyxh63s1hgw" path="res://UI/hud_barra-habilidades.png" id="3_cmyu5"]
 [ext_resource type="PackedScene" uid="uid://caoidej4fhbw1" path="res://Player/Blopinho.tscn" id="3_eobr1"]
+[ext_resource type="Texture2D" uid="uid://daepnr3bn7a0g" path="res://UI/hud_bolha_1.png" id="4_d5kev"]
+[ext_resource type="Texture2D" uid="uid://b1i6xixdlcatv" path="res://UI/hud_dash_1.png" id="5_ffxk2"]
+[ext_resource type="Texture2D" uid="uid://dvfr4ahsnwbub" path="res://UI/hud_rosto_lifebar.png" id="6_hatpm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fwmut"]
 size = Vector3(2, 4, 2)
@@ -80,7 +84,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Select" type="Label" parent="CanvasLayer/Control"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -97,6 +100,47 @@ text = "
 
 
 Press Q"
+
+[node name="AbilitiesUI" type="Control" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Base" type="Sprite2D" parent="CanvasLayer/Control/AbilitiesUI"]
+position = Vector2(-95, -140)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_cmyu5")
+
+[node name="Main" type="Sprite2D" parent="CanvasLayer/Control/AbilitiesUI"]
+position = Vector2(-98, -91)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_d5kev")
+
+[node name="Second" type="Sprite2D" parent="CanvasLayer/Control/AbilitiesUI"]
+position = Vector2(-79, -172)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5_ffxk2")
+
+[node name="HealthUI" type="Control" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Rosto" type="Sprite2D" parent="CanvasLayer/Control/HealthUI"]
+position = Vector2(70, 70)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("6_hatpm")
+
+[node name="Hearts" type="Control" parent="CanvasLayer/Control/HealthUI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="timeout" from="BuffTimer" to="." method="_on_buff_timer_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]

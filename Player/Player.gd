@@ -44,10 +44,20 @@ var is_buffed = false
 var heal_buff_duration = 2
 var can_bubble = true
 var bubble_cd = 0.5 # in seconds
-var ability_charges = 0
 
+# ui
 var select = false
 var select_target = null
+
+var health_ui_start_x = 160
+var health_ui_start_y = 70
+var health_offset = 60
+
+@onready var health_full = preload("res://UI/hud_coracao-cheio.png")
+@onready var health_empty = preload("res://UI/hud_coracao-vazio.png")
+
+var empty_hearts = 0
+var full_hearts = 0
 
 func _ready():
 	$Blopinho/AnimationPlayer.play("Idle")
@@ -55,6 +65,9 @@ func _ready():
 	# instance abilities singleton
 	abilities = abilities_singleton.new()
 	add_child(abilities)
+
+	# ui
+	generate_health_hearts()
 
 func _process(delta):
 	# look direction
@@ -71,6 +84,11 @@ func _process(delta):
 
 	# select UI
 	$CanvasLayer/Control/Select.visible = select
+
+	# health UI
+	if ((full_hearts != Globals.health or empty_hearts + full_hearts != Globals.max_health) and Globals.health >= 0):
+		generate_health_hearts()
+		
 
 	# print(Engine.get_frames_per_second())
 
@@ -102,6 +120,28 @@ func _physics_process(delta):
 	if not is_punching:
 		move_and_slide()
 
+	if not $Blopinho/AnimationPlayer.is_playing():
+		$Blopinho/AnimationPlayer.play("Idle")
+
+func generate_health_hearts():
+	full_hearts = 0
+	empty_hearts = 0
+	for i in range(Globals.health):
+		var heart = Sprite2D.new()
+		heart.texture = health_full
+		heart.position = Vector2(health_ui_start_x + health_offset * i, health_ui_start_y)
+		heart.scale = Vector2(0.3, 0.3)
+		$CanvasLayer/Control/HealthUI/Hearts.add_child(heart)
+		full_hearts += 1
+
+	for i in range(Globals.health, Globals.max_health):
+		var heart = Sprite2D.new()
+		heart.texture = health_empty
+		heart.position = Vector2(health_ui_start_x + health_offset * i, health_ui_start_y)
+		heart.scale = Vector2(0.3, 0.3)
+		$CanvasLayer/Control/HealthUI/Hearts.add_child(heart)
+		empty_hearts += 1
+
 func get_forward_direction():
 	var mouse_pos_2d = get_viewport().get_mouse_position()
 
@@ -120,7 +160,7 @@ func heal(amount):
 
 func get_ability(new_ability):
 	Globals.current_ability = new_ability
-	ability_charges = Globals.max_charges
+	Globals.ability_charges = Globals.max_charges
 	remove_hat()
 	var new_skill_sound_instance = attack_sound_scene.instantiate()
 	match new_ability:
@@ -209,26 +249,26 @@ func _input(event):
 func trigger_shot():
 	if Globals.current_ability == BUBBLE and can_bubble:
 		can_bubble = false
-		abilities.shoot_bubble(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
+		abilities.shoot_bubble(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player', Globals.bubble_damage)
 		$BubbleCd.wait_time = bubble_cd
 		$BubbleCd.start()
-	elif ability_charges > 0:
+	elif Globals.ability_charges > 0:
 		match Globals.current_ability:
 			ARROW:
-				abilities.shoot_arrow(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
+				abilities.shoot_arrow(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player', Globals.arrow_damage)
 			FIREBALL:
-				abilities.shoot_fireball(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player')
+				abilities.shoot_fireball(get_forward_direction(), get_global_position(), $ShootPosition.global_position, 'player', Globals.fireball_damage)
 			HEAL:
 				is_buffed = true
-				heal(10)
+				heal(Globals.heal)
 				$BuffTimer.start(0.5)
 			SPIN:
 				if can_spin:
 					can_spin = false
 					is_spining = true
-					abilities.spin_sword(get_forward_direction(), 'player')
-		ability_charges -= 1
-		if ability_charges == 0:
+					abilities.spin_sword(get_forward_direction(), 'player', Globals.spin_damage)
+		Globals.ability_charges -= 1
+		if Globals.ability_charges == 0:
 			Globals.current_ability = BUBBLE
 			remove_hat()
 

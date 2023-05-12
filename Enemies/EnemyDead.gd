@@ -8,6 +8,15 @@ enum {
 	SPIN
 }
 
+var pos
+var rot
+
+func _ready():
+	global_position = pos
+	global_rotation = rot
+
+	$Model/AnimationPlayer.play("Die")
+
 func select_action(body):
 	match self.name:
 		'MageDead':
@@ -29,3 +38,7 @@ func _on_body_exited(body):
 		if body.select_target == self:
 			body.select = false
 			body.select_target = null
+
+func animation_finished(anim_name):
+	if anim_name == 'Die':
+		$CollisionShape3D.disabled = false

@@ -1,18 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://caxxpv5458ep6"]
+[gd_scene load_steps=4 format=3 uid="uid://caxxpv5458ep6"]
 
 [ext_resource type="Script" path="res://Enemies/EnemyDead.gd" id="1_631ca"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p81us"]
-albedo_color = Color(0, 1, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_d0bdp"]
-material = SubResource("StandardMaterial3D_p81us")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sca7v"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_iqdpf"]
-material = SubResource("StandardMaterial3D_sca7v")
+[ext_resource type="PackedScene" uid="uid://ccge1mj74ori5" path="res://Enemies/Warrior/ArcherModel.tscn" id="2_2n17o"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_on6sn"]
 height = 1.0
@@ -21,20 +10,12 @@ radius = 1.5
 [node name="ArcherDead" type="Area3D"]
 script = ExtResource("1_631ca")
 
-[node name="Model" type="Node3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Model"]
-mesh = SubResource("BoxMesh_d0bdp")
-skeleton = NodePath("../..")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Model/MeshInstance3D"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -0.5)
-mesh = SubResource("BoxMesh_iqdpf")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 shape = SubResource("CylinderShape3D_on6sn")
+disabled = true
+
+[node name="Model" parent="." instance=ExtResource("2_2n17o")]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

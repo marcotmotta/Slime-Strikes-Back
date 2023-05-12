@@ -1,10 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://r5h5g0rjmyuo"]
+[gd_scene load_steps=6 format=3 uid="uid://r5h5g0rjmyuo"]
 
 [ext_resource type="Script" path="res://World/Rooms/RoomDefault.gd" id="1_7rw2b"]
-[ext_resource type="PackedScene" uid="uid://cwh8dn3x207ls" path="res://Enemies/Warrior/WarriorDead.tscn" id="2_42fy8"]
-[ext_resource type="PackedScene" uid="uid://dlwvsfg1kpaqc" path="res://Enemies/Mage/MageDead.tscn" id="3_si80u"]
-[ext_resource type="PackedScene" uid="uid://bdmaqmrqvityy" path="res://Enemies/Cleric/ClericDead.tscn" id="4_qv4jk"]
-[ext_resource type="PackedScene" uid="uid://caxxpv5458ep6" path="res://Enemies/Archer/ArcherDead.tscn" id="5_wdy5o"]
 [ext_resource type="PackedScene" uid="uid://boscgn3oy5w4r" path="res://World/Rooms/Exit.tscn" id="6_cu2ef"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fi1km"]
@@ -25,18 +21,6 @@ environment = SubResource("Environment_vn1m6")
 
 [node name="ReloadScene" type="Timer" parent="."]
 one_shot = true
-
-[node name="WarriorDead" parent="." instance=ExtResource("2_42fy8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.7922, 1.67751, 0)
-
-[node name="MageDead" parent="." instance=ExtResource("3_si80u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 11)
-
-[node name="ClericDead" parent="." instance=ExtResource("4_qv4jk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -13)
-
-[node name="ArcherDead" parent="." instance=ExtResource("5_wdy5o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 1, 0)
 
 [node name="Exit" parent="." instance=ExtResource("6_cu2ef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 6)

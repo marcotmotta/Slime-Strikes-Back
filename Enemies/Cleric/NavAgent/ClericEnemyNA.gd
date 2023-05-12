@@ -23,7 +23,7 @@ func attack():
 	$Model/AnimationPlayer.play('Attack')
 
 func trigger_attack():
-	if enemy_target:
+	if enemy_target and Globals.spawned_enemies.has(enemy_target):
 		enemy_target.heal(damage)
 	else:
 		heal(damage)

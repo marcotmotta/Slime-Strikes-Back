@@ -7,6 +7,11 @@ extends CharacterBody3D
 
 @onready var heal_effect_scene = preload("res://Abilities/HealEffect.tscn")
 
+@onready var mage_dead_scene = preload("res://Enemies/Mage/MageDead.tscn")
+@onready var warrior_dead_scene = preload("res://Enemies/Warrior/WarriorDead.tscn")
+@onready var archer_dead_scene = preload("res://Enemies/Archer/ArcherDead.tscn")
+@onready var cleric_dead_scene = preload("res://Enemies/Cleric/ClericDead.tscn")
+
 const abilities_singleton = preload("res://Abilities/Abilities.gd")
 
 enum {
@@ -139,4 +144,24 @@ func take_damage(amount):
 		die()
 
 func die():
-	pass
+	var enemy_dead
+	match self.name:
+		'MageEnemyNA':
+			enemy_dead = mage_dead_scene.instantiate()
+		'WarriorEnemyNA':
+			enemy_dead = warrior_dead_scene.instantiate()
+		'ArcherEnemyNA':
+			enemy_dead = archer_dead_scene.instantiate()
+		'ClericEnemyNA':
+			enemy_dead = cleric_dead_scene.instantiate()
+
+	enemy_dead.pos = global_position
+	enemy_dead.rot = global_rotation
+
+	var light = $OmniLight3D
+	remove_child($OmniLight3D)
+	enemy_dead.add_child(light)
+	get_parent().add_child(enemy_dead)
+
+	Globals.spawned_enemies.erase(self)
+	queue_free()

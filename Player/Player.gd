@@ -171,6 +171,7 @@ func _input(event):
 				if ability_charges == 0:
 					Globals.current_ability = BUBBLE
 					remove_hat()
+			$Blopinho/AnimationPlayer.play("Shot")
 
 	# bubble
 	if Input.is_action_just_pressed("1"):

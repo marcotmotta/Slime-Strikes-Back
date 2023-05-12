@@ -169,11 +169,13 @@ func _input(event):
 							abilities.spin_sword(get_forward_direction(), 'player')
 				ability_charges -= 1
 				if ability_charges == 0:
-					get_ability(BUBBLE)
+					Globals.current_ability = BUBBLE
+					remove_hat()
 
 	# bubble
 	if Input.is_action_just_pressed("1"):
-		get_ability(BUBBLE)
+		Globals.current_ability = BUBBLE
+		remove_hat()
 	# arrow
 	if Input.is_action_just_pressed("2"):
 		get_ability(ARROW)

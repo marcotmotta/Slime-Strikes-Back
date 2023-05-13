@@ -10,10 +10,11 @@ config_version=5
 
 [application]
 
-config/name="ctrl-alt-jam"
+config/name="Slime Strikes Back"
 run/main_scene="res://MainMenu/MainMenu.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://UI/icone.png"
+config/windows_native_icon="res://UI/icone_ico.ico"
 
 [autoload]
 

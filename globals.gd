@@ -4,7 +4,7 @@ extends Node
 
 var BattleMusic = AudioStreamPlayer.new()
 
-const START_MAX_HEALTH = 4
+const START_MAX_HEALTH = 5
 const START_SPEED = 9
 const START_HEAL = 1
 

@@ -46,6 +46,8 @@ var is_buffed = false
 var heal_buff_duration = 2
 var can_bubble = true
 var bubble_cd = 2 # in seconds
+var iframe = false
+var iframe_duration = 0.3
 
 # ui
 var select = false
@@ -374,17 +376,21 @@ func _on_bubble_cd_timeout():
 	update_abilities_hud()
 
 func take_damage(amount):
-	var blob_hit_instance = blob_hit_scene.instantiate()
-	get_parent().add_child(blob_hit_instance)
-	blob_hit_instance.global_position = global_position
+	if not iframe:
+		var blob_hit_instance = blob_hit_scene.instantiate()
+		get_parent().add_child(blob_hit_instance)
+		blob_hit_instance.global_position = global_position
 
-	Globals.health -= amount
+		Globals.health -= amount
+		iframe = true
+		$IframeTimer.wait_time = iframe_duration
+		$IframeTimer.start()
 
-	if Globals.health <= 0:
-		if not is_dead:
-			$Blopinho/AnimationPlayer.play("Death")
-			$DeathTimer.start()
-		is_dead = true
+		if Globals.health <= 0:
+			if not is_dead:
+				$Blopinho/AnimationPlayer.play("Death")
+				$DeathTimer.start()
+			is_dead = true
 
 func _on_punch_collision_area_body_entered(body):
 	if body.has_method('take_damage') and body.is_in_group('enemy'):
@@ -392,3 +398,6 @@ func _on_punch_collision_area_body_entered(body):
 
 func _on_death_tiemer_timeout():
 	$CanvasLayer/GameOverScreen.show()
+
+func _on_iframe_timer_timeout():
+	iframe = false

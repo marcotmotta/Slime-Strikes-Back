@@ -5,3 +5,6 @@ func _on_body_entered(_body):
 	Globals.health += 1
 	get_parent().get_parent().get_parent().end_map()
 	queue_free()
+
+func _on_timer_timeout():
+	$CollisionShape3D.disabled = false

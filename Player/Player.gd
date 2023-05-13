@@ -382,9 +382,9 @@ func take_damage(amount):
 
 	Globals.health -= amount
 
-	if Globals.health <= 0 and not is_dead:
-		is_dead = true
+	if Globals.health <= 0:
 		$Blopinho/AnimationPlayer.play("Death")
+		is_dead = true
 
 func _on_punch_collision_area_body_entered(body):
 	if body.has_method('take_damage') and body.is_in_group('enemy'):

@@ -69,6 +69,8 @@ var health_offset = 60
 var empty_hearts = 0
 var full_hearts = 0
 
+var is_dead = false
+
 var pos
 
 func _ready():
@@ -91,7 +93,7 @@ func _process(_delta):
 	# look direction
 	var forward_direction = get_forward_direction()
 
-	if not is_punching and not is_spining:
+	if not is_punching and not is_spining and not is_dead:
 		$Blopinho.look_at(forward_direction)
 		$CollisionShape3D.look_at(forward_direction)
 		$ShootPosition.position = (forward_direction - global_position).normalized() * 2
@@ -132,10 +134,10 @@ func _physics_process(delta):
 	if is_dashing:
 		velocity *= dash_power
 
-	if not is_punching:
+	if not is_punching and not is_dead:
 		move_and_slide()
 
-	if not $Blopinho/AnimationPlayer.is_playing():
+	if not $Blopinho/AnimationPlayer.is_playing() and not is_dead:
 		$Blopinho/AnimationPlayer.play("Idle")
 
 func generate_health_hearts():
@@ -244,6 +246,9 @@ func update_hat():
 			$Blopinho/HatPosition.add_child(warrior_hat_scene.instantiate())
 
 func _input(_event):
+	if is_dead:
+		return
+
 	# dash
 	if Input.is_action_just_pressed("space"):
 		if can_dash and not is_punching:
@@ -301,7 +306,7 @@ func _input(_event):
 	if Input.is_action_just_pressed("q"):
 		if select:
 			select_target.select_action(self)
-	
+
 	# update UI
 	update_abilities_hud()
 
@@ -343,6 +348,8 @@ func animation_finished(anim_name):
 			$Blopinho/AnimationPlayer.play("Idle")
 			is_punching = false
 			can_punch = true
+		'Death':
+			print('DEAD') # end
 
 func spin_animation_finished():
 	can_spin = true
@@ -366,11 +373,18 @@ func _on_bubble_cd_timeout():
 	update_abilities_hud()
 
 func take_damage(amount):
+	if is_dead:
+		return
+
 	var blob_hit_instance = blob_hit_scene.instantiate()
 	get_parent().add_child(blob_hit_instance)
 	blob_hit_instance.global_position = global_position
 
 	Globals.health -= amount
+
+	if Globals.health <= 0:
+		is_dead = true
+		$Blopinho/AnimationPlayer.play("Death")
 
 func _on_punch_collision_area_body_entered(body):
 	if body.has_method('take_damage') and body.is_in_group('enemy'):

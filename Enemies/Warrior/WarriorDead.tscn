@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cwh8dn3x207ls"]
+[gd_scene load_steps=9 format=3 uid="uid://cwh8dn3x207ls"]
 
 [ext_resource type="Script" path="res://Enemies/EnemyDead.gd" id="1_p6fkc"]
 [ext_resource type="PackedScene" uid="uid://bldasysk8oujp" path="res://Enemies/Warrior/WarriorModel.tscn" id="2_n810c"]
@@ -6,6 +6,26 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_win2n"]
 height = 1.0
 radius = 1.5
+
+[sub_resource type="Curve" id="Curve_hun6f"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2nmiv"]
+curve = SubResource("Curve_hun6f")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sgh5c"]
+gravity = Vector3(0, 10, 0)
+scale_curve = SubResource("CurveTexture_2nmiv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ewtmr"]
+blend_mode = 1
+cull_mode = 2
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_cwplc"]
+material = SubResource("StandardMaterial3D_ewtmr")
 
 [node name="WarriorDead" type="Area3D"]
 script = ExtResource("1_p6fkc")
@@ -15,6 +35,11 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 shape = SubResource("CylinderShape3D_win2n")
 
 [node name="Model" parent="." instance=ExtResource("2_n810c")]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
+process_material = SubResource("ParticleProcessMaterial_sgh5c")
+draw_pass_1 = SubResource("SphereMesh_cwplc")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdmaqmrqvityy"]
+[gd_scene load_steps=9 format=3 uid="uid://bdmaqmrqvityy"]
 
 [ext_resource type="Script" path="res://Enemies/EnemyDead.gd" id="1_2xr0m"]
 [ext_resource type="PackedScene" uid="uid://bla8nnl8pbsma" path="res://Enemies/Cleric/ClericModel.tscn" id="2_f0nkg"]
@@ -6,6 +6,26 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_6x074"]
 height = 1.0
 radius = 1.5
+
+[sub_resource type="Curve" id="Curve_34x10"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_nuhm5"]
+curve = SubResource("Curve_34x10")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_brsow"]
+gravity = Vector3(0, 10, 0)
+scale_curve = SubResource("CurveTexture_nuhm5")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1uumm"]
+blend_mode = 1
+cull_mode = 2
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_lf7as"]
+material = SubResource("StandardMaterial3D_1uumm")
 
 [node name="ClericDead" type="Area3D"]
 script = ExtResource("1_2xr0m")
@@ -15,6 +35,11 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 shape = SubResource("CylinderShape3D_6x074")
 
 [node name="Model" parent="." instance=ExtResource("2_f0nkg")]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
+process_material = SubResource("ParticleProcessMaterial_brsow")
+draw_pass_1 = SubResource("SphereMesh_lf7as")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

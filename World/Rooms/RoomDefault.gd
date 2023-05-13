@@ -63,7 +63,7 @@ func _ready():
 	# free room
 	elif Globals.current_room.room_type == 'free':
 		var power_up_instance = power_up_scene.instantiate()
-		$Map.add_child(power_up_instance)
+		$Map/PowerUpPosition.add_child(power_up_instance)
 
 func _process(delta):
 	if not map_ended:

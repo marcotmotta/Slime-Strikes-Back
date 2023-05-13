@@ -1,7 +1,7 @@
 extends "res://Enemies/EnemyNA.gd"
 
 func _ready():
-	MAX_IDLE_TIME = 0
+	MAX_IDLE_TIME = 1
 	max_health = 100
 	health = 100
 	move_speed = 10

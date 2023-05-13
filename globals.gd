@@ -45,7 +45,7 @@ var total_levels = 9 # 3 combat -> 1 free -> 3 combat -> 1 free -> 1 boss
 var current_level = 1
 var free_room_frequency = 4
 
-var maps = ['CombatMap1']
+var maps = ['CombatMap1', 'CombatMap2', 'CombatMap3', 'CombatMap4', 'CombatMap5', 'CombatMap6', 'CombatMap7', 'CombatMap9']
 
 var spawned_enemies: Array = []
 
@@ -84,7 +84,7 @@ func reset():
 func generate_first_room():
 	current_room = {
 		'room_type': 'combat',
-		'scene': 'CombatMap1',
+		'scene': 'CombatMap8',
 		'enemies': 2,
 		'last': false
 	}
@@ -104,15 +104,16 @@ func generate_room():
 	if ((current_level + 1) >= total_levels):
 		new_room = {
 			'room_type': 'combat',
-			'scene': 'CombatMap1',
+			'scene': 'CombatMap10',
 			'enemies': 1,
 			'last': true
 		}
 	else:
 		if ((current_level + 1) % free_room_frequency == 0):
+			# free room
 			new_room = {
 				'room_type': 'free',
-				'scene': choose(maps),
+				'scene': 'CombatMap8',
 				'last': false
 			}
 		else:

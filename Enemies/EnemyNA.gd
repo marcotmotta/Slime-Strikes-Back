@@ -64,6 +64,8 @@ var remaining_idle_time = MAX_IDLE_TIME
 # health bar
 var max_health_bar_size = 1
 
+var is_boss = true
+
 func _ready():
 	randomize()
 	set_state(IDLE)

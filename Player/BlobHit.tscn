@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://jklyvdq7ofbg"]
+
+[ext_resource type="Material" uid="uid://di6co0ay2wcqd" path="res://Player/Imports/Blopinho-Principal-Material.tres" id="1_nc17v"]
+[ext_resource type="Script" path="res://Player/BlobHit.gd" id="2_3jr0o"]
+
+[sub_resource type="Curve" id="Curve_be76g"]
+_data = [Vector2(0, 0.781818), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ucet8"]
+curve = SubResource("Curve_be76g")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8rep4"]
+emission_shape = 1
+emission_sphere_radius = 2.0
+direction = Vector3(0, 1, 0)
+gravity = Vector3(0, -40, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+scale_curve = SubResource("CurveTexture_ucet8")
+
+[sub_resource type="SphereMesh" id="SphereMesh_dfj5o"]
+material = ExtResource("1_nc17v")
+
+[node name="BlobHit" type="GPUParticles3D"]
+amount = 20
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_8rep4")
+draw_pass_1 = SubResource("SphereMesh_dfj5o")
+script = ExtResource("2_3jr0o")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -4,10 +4,11 @@ var attack_sound_scene = preload("res://Abilities/AttackSound.tscn")
 var sound = preload("res://SFX/Skills/Skill archer/Skill-archer.wav")
 
 var direction = Vector3.FORWARD
-var speed = 30
+var speed = 25
 var damage = 5
 var ally
 var pos
+var is_boss = false
 
 func _ready():
 	global_position = pos
@@ -16,6 +17,10 @@ func _ready():
 	attack_sound_instance.volume_db = -10
 	attack_sound_instance.pos = global_position
 	get_parent().add_child(attack_sound_instance)
+
+	if is_boss:
+		$Expiration.wait_time *= 1.5
+		$Expiration.start()
 
 func _process(delta):
 	global_position += direction * speed * delta

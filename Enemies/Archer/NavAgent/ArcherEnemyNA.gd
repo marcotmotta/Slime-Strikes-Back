@@ -8,6 +8,15 @@ func _ready():
 	damage = 1
 	range = 15
 
+	if is_boss:
+		max_health *= 2.5
+		health *= 2.5
+		max_health_bar_size *= 2
+		move_speed *= 1.5
+		range *= 1.3
+		$Model.scale *= 2
+		$HealthBar.position.y *= 1.5
+
 	is_follower = true
 
 	abilities = abilities_singleton.new()
@@ -20,7 +29,10 @@ func attack():
 	$Model/AnimationPlayer.play('Attack')
 
 func trigger_attack():
-	abilities.shoot_arrow(target.position, position, position, 'enemy', damage)
+	if is_boss:
+		abilities.shoot_arrow_boss(target.position, position, position, 'enemy', damage)
+	else:
+		abilities.shoot_arrow(target.position, position, position, 'enemy', damage)
 
 func animation_finished(anim_name):
 	if anim_name == "Attack":

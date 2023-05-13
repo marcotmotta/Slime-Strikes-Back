@@ -24,6 +24,18 @@ func shoot_arrow(forward_direction, position, shoot_position, ally, damage):
 		arrow_instance.damage = damage
 		arrow_instance.ally = ally
 
+func shoot_arrow_boss(forward_direction, position, shoot_position, ally, damage):
+	for i in [-100, -75, -50, -25, 0, 25, 50, 75, 100]:
+		var arrow_instance = arrow_scene.instantiate()
+		var arrow_direction = (forward_direction - position).normalized().rotated(Vector3.UP, deg_to_rad(i))
+		arrow_instance.pos = shoot_position
+		arrow_instance.is_boss = true
+		get_parent().get_parent().add_child(arrow_instance)
+		arrow_instance.look_at(shoot_position + arrow_direction)
+		arrow_instance.direction = arrow_direction
+		arrow_instance.damage = damage
+		arrow_instance.ally = ally
+
 func shoot_fireball(forward_direction, position, shoot_position, ally, damage):
 	var fireball_instance = fireball_scene.instantiate()
 	fireball_instance.pos = shoot_position
@@ -31,6 +43,16 @@ func shoot_fireball(forward_direction, position, shoot_position, ally, damage):
 	fireball_instance.direction = (forward_direction - position).normalized()
 	fireball_instance.damage = damage
 	fireball_instance.ally = ally
+
+func shoot_fireball_boss(forward_direction, position, shoot_position, ally, damage):
+	for i in [-40, -20, 0, 20, 40]:
+		var fireball_instance = fireball_scene.instantiate()
+		var fireball_direction = (forward_direction - position).normalized().rotated(Vector3.UP, deg_to_rad(i))
+		fireball_instance.pos = shoot_position
+		get_parent().get_parent().add_child(fireball_instance)
+		fireball_instance.direction = fireball_direction
+		fireball_instance.damage = damage
+		fireball_instance.ally = ally
 
 func spin_sword(forward_direction, ally, damage):
 	var spin_instance = spin_scene.instantiate()

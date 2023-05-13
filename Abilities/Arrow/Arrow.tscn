@@ -1,12 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ydogytdc1eaj"]
+[gd_scene load_steps=4 format=3 uid="uid://ydogytdc1eaj"]
 
 [ext_resource type="Script" path="res://Abilities/Arrow/Arrow.gd" id="1_ap0io"]
 [ext_resource type="PackedScene" uid="uid://b36k6f2huahr" path="res://Abilities/Arrow/ArrowModel.tscn" id="2_w38rg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v46vr"]
 size = Vector3(1, 1, 2.5)
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_17qdl"]
 
 [node name="Arrow" type="Area3D"]
 script = ExtResource("1_ap0io")
@@ -22,9 +20,6 @@ shape = SubResource("BoxShape3D_v46vr")
 wait_time = 0.7
 one_shot = true
 autostart = true
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-process_material = SubResource("ParticleProcessMaterial_17qdl")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.822472, 0)

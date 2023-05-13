@@ -29,6 +29,8 @@ enum {
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+var blob_hit_scene = preload("res://Player/BlobHit.tscn")
+
 var direction
 var is_dashing = false
 var can_dash = true
@@ -120,10 +122,8 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, Globals.speed)
 		velocity.z = move_toward(velocity.z, 0, Globals.speed)
 
-	$Healing.visible = false
 	if is_buffed:
 		velocity *= heal_buff_duration
-		$Healing.visible = true
 
 	if is_dashing:
 		velocity *= dash_power
@@ -362,6 +362,10 @@ func _on_bubble_cd_timeout():
 	update_abilities_hud()
 
 func take_damage(amount):
+	var blob_hit_instance = blob_hit_scene.instantiate()
+	get_parent().add_child(blob_hit_instance)
+	blob_hit_instance.global_position = global_position
+
 	Globals.health -= amount
 
 func _on_punch_collision_area_body_entered(body):

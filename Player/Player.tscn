@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bnwdql6jolgk1"]
+[gd_scene load_steps=13 format=3 uid="uid://bnwdql6jolgk1"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_wptc7"]
 [ext_resource type="Texture2D" uid="uid://cj64s87na5twk" path="res://UI/hud_tutoras.png" id="3_5heiv"]
@@ -12,12 +12,6 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fwmut"]
 size = Vector3(2, 4, 2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c53lq"]
-albedo_color = Color(1, 1, 0, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_pjlr1"]
-material = SubResource("StandardMaterial3D_c53lq")
 
 [sub_resource type="SphereMesh" id="SphereMesh_mojtm"]
 
@@ -43,11 +37,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_fwmut")
-
-[node name="Healing" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54302, 0)
-visible = false
-mesh = SubResource("SphereMesh_pjlr1")
 
 [node name="MouseReference" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_mojtm")

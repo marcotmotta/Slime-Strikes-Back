@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bq87ddhyaw8bm"]
+[gd_scene load_steps=20 format=3 uid="uid://bq87ddhyaw8bm"]
 
 [ext_resource type="Texture2D" uid="uid://bp1mr8tkpxq8r" path="res://Enemies/Mage/Enemy-Mage_mago_1.png" id="1_k052u"]
 [ext_resource type="Script" path="res://Enemies/EnemyModel.gd" id="1_ywyx0"]
@@ -135,6 +135,31 @@ bind/25/pose = Transform3D(100, 0, 0, 0, 100, 1.62921e-05, 0, -1.62921e-05, 100,
 bind/26/name = &"Emiter-Cajado"
 bind/26/bone = -1
 bind/26/pose = Transform3D(100, 0, 0, 0, 100, 1.62921e-05, 0, -1.62921e-05, 100, 241.131, -472.102, 0.0728917)
+
+[sub_resource type="Curve" id="Curve_ku5f8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_kywh1"]
+curve = SubResource("Curve_ku5f8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_76j7a"]
+emission_shape = 1
+emission_sphere_radius = 70.0
+gravity = Vector3(0, 10, 0)
+scale_curve = SubResource("CurveTexture_kywh1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4e05s"]
+blend_mode = 1
+cull_mode = 2
+albedo_color = Color(0.34902, 0, 1, 1)
+emission_enabled = true
+emission = Color(0.384314, 0, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_kdwpa"]
+material = SubResource("StandardMaterial3D_4e05s")
+radius = 0.25
+height = 0.5
 
 [sub_resource type="Animation" id="Animation_qdkr6"]
 resource_name = "Attack"
@@ -2402,6 +2427,18 @@ bones/26/scale = Vector3(1, 1, 1)
 [node name="Mesh_Mage" type="MeshInstance3D" parent="Mage/Skeleton3D"]
 mesh = SubResource("ArrayMesh_uoi6g")
 skin = SubResource("Skin_oqomw")
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Mage/Skeleton3D"]
+transform = Transform3D(1, -1.9065e-17, -8.19983e-19, -8.19983e-19, -0.085861, 0.996307, -1.9065e-17, -0.996307, -0.085861, -184.794, -16.3949, -448.865)
+bone_name = "Emiter-Cajado"
+bone_idx = 26
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Mage/Skeleton3D/BoneAttachment3D"]
+transform = Transform3D(1, 1.77636e-15, -1.42109e-14, 1.77636e-15, 1, 0, -7.10543e-15, 0, 1, 0, 0, 0)
+amount = 30
+speed_scale = 2.0
+process_material = SubResource("ParticleProcessMaterial_76j7a")
+draw_pass_1 = SubResource("SphereMesh_kdwpa")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

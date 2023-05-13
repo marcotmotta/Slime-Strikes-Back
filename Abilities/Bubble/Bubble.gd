@@ -4,6 +4,8 @@ var attack_sound_scene = preload("res://Abilities/AttackSound.tscn")
 var sound = preload("res://SFX/Blob/Blub bubble/Blob-bubble.wav")
 var sound_end = preload("res://SFX/Blob/Blub bubble/Blob-bubble-hit.wav")
 
+var bubble_hit_scene = preload("res://Abilities/Bubble/BubbleHit.tscn")
+
 var direction = Vector3.FORWARD
 var speed = 20
 var damage = 10
@@ -28,10 +30,16 @@ func _on_body_entered(body):
 			if body.has_method('set_stun'):
 				body.set_stun()
 		play_end_sound()
+		var bubble_hit_instance = bubble_hit_scene.instantiate()
+		get_parent().add_child(bubble_hit_instance)
+		bubble_hit_instance.global_position = global_position
 		queue_free()
 
 func _on_expiration_timeout():
 	play_end_sound()
+	var bubble_hit_instance = bubble_hit_scene.instantiate()
+	get_parent().add_child(bubble_hit_instance)
+	bubble_hit_instance.global_position = global_position
 	queue_free()
 
 func play_end_sound():

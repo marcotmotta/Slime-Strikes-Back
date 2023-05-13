@@ -144,6 +144,9 @@ func generate_health_hearts():
 	full_hearts = 0
 	empty_hearts = 0
 
+	for heart in $CanvasLayer/Control/HealthUI/Hearts.get_children():
+		heart.queue_free()
+
 	for i in range(Globals.health):
 		var heart = Sprite2D.new()
 		heart.texture = health_full

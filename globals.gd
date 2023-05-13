@@ -1,5 +1,7 @@
 extends Node
 
+signal on_win_the_game
+
 @onready var BattleAudio = preload('res://SFX/BGM/BMG-body.wav')
 
 var BattleMusic = AudioStreamPlayer.new()
@@ -101,7 +103,7 @@ func generate_room():
 
 	# last room
 	if ((current_level + 1) > total_levels):
-		pass # Load credits screen.
+		on_win_the_game.emit()
 	elif ((current_level + 1) == total_levels):
 		new_room = {
 			'room_type': 'combat',

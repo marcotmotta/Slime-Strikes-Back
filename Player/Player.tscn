@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://6jj6xy80hje3"]
+[gd_scene load_steps=25 format=3 uid="uid://6jj6xy80hje3"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_wptc7"]
 [ext_resource type="Texture2D" uid="uid://cj64s87na5twk" path="res://UI/hud_tutoras.png" id="3_5heiv"]
@@ -15,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://5tveplkag26v" path="res://Player/PauseScreen/exit_button_2.png" id="13_yua22"]
 [ext_resource type="Script" path="res://Player/GameOverScreen/GameOverScreen.gd" id="14_c707h"]
 [ext_resource type="Texture2D" uid="uid://bgpee78bfihie" path="res://Player/GameOverScreen/death_screen.png" id="14_hp32h"]
+[ext_resource type="Texture2D" uid="uid://d32gjuavb0vb3" path="res://MainMenu/credits_screeb.png" id="16_6mvda"]
+[ext_resource type="Script" path="res://Player/WinScreen/WinScreen.gd" id="16_a6g1p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fwmut"]
 size = Vector3(2, 4, 2)
@@ -298,6 +300,75 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_ik8k1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_wtv7w")
 action_mode = 0
 
+[node name="WinScreen" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("16_a6g1p")
+
+[node name="Background" type="ColorRect" parent="CanvasLayer/WinScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.752941)
+
+[node name="Label" type="Label" parent="CanvasLayer/WinScreen"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -38.0
+offset_top = 20.0
+offset_right = 38.0
+offset_bottom = 46.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "VICTORY!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="TextureRect" parent="CanvasLayer/WinScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -448.0
+offset_top = -234.0
+offset_right = 448.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_6mvda")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/WinScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -81.0
+offset_top = 256.0
+offset_right = 79.0
+offset_bottom = 296.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_ik8k1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wtv7w")
+action_mode = 0
+
 [connection signal="timeout" from="BuffTimer" to="." method="_on_buff_timer_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="DashCd" to="." method="_on_dash_cd_timeout"]
@@ -308,3 +379,4 @@ action_mode = 0
 [connection signal="pressed" from="CanvasLayer/PauseScreen/MainMenuButton" to="CanvasLayer/PauseScreen" method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseScreen/ExitButton" to="CanvasLayer/PauseScreen" method="_on_exit_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/GameOverScreen/MainMenuButton" to="CanvasLayer/GameOverScreen" method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/WinScreen/MainMenuButton" to="CanvasLayer/WinScreen" method="_on_main_menu_button_pressed"]

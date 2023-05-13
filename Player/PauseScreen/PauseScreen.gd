@@ -1,7 +1,7 @@
 extends Control
 
 func _ready():
-	visible = false
+	hide()
 
 func _input(_event):
 	if Input.is_action_just_pressed("esc"):
@@ -11,11 +11,11 @@ func _input(_event):
 			pause_game()
 
 func pause_game():
-	visible = true
+	show()
 	get_tree().paused = true
 
 func resume_game():
-	visible = false
+	hide()
 	get_tree().paused = false
 
 func _on_main_menu_button_pressed():

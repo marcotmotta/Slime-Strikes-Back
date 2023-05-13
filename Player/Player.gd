@@ -91,6 +91,8 @@ func _ready():
 	generate_health_hearts()
 	update_abilities_hud()
 
+	Globals.on_win_the_game.connect(Callable(self, "_on_win_the_game_signal_was_emited"))
+
 func _process(_delta):
 	# look direction
 	var forward_direction = get_forward_direction()
@@ -401,3 +403,7 @@ func _on_death_tiemer_timeout():
 
 func _on_iframe_timer_timeout():
 	iframe = false
+
+func _on_win_the_game_signal_was_emited():
+	print("You win!")
+	$CanvasLayer/WinScreen.show()

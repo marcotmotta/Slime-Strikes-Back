@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://hyh4lygmdvwg"]
+[gd_scene load_steps=22 format=3 uid="uid://hyh4lygmdvwg"]
 
 [ext_resource type="Script" path="res://MainMenu/MainMenu.gd" id="1_bl778"]
 [ext_resource type="Texture2D" uid="uid://7pbyglg7xp38" path="res://MainMenu/background.png" id="2_ffb2k"]
@@ -6,15 +6,24 @@
 [ext_resource type="Texture2D" uid="uid://dvcnwc4b2wbl4" path="res://MainMenu/play_button_1.png" id="3_wtv1g"]
 [ext_resource type="Texture2D" uid="uid://dgow5tf8ahl23" path="res://MainMenu/play_button_2.png" id="4_4dmya"]
 [ext_resource type="Texture2D" uid="uid://hl2re4b4pdxi" path="res://MainMenu/credits_button_2.png" id="4_dwdiv"]
+[ext_resource type="Texture2D" uid="uid://o86vmtbgamxu" path="res://MainMenu/controls_button_1.png" id="5_0yxq3"]
+[ext_resource type="Texture2D" uid="uid://if1vonekd5mj" path="res://MainMenu/controls_button_2.png" id="6_7xmgn"]
 [ext_resource type="Texture2D" uid="uid://byb1jd1cobtks" path="res://MainMenu/quit_button_1.png" id="7_x5roo"]
 [ext_resource type="Texture2D" uid="uid://co2b6lvwxso50" path="res://MainMenu/quit_button_2.png" id="8_pm8dj"]
 [ext_resource type="Texture2D" uid="uid://d32gjuavb0vb3" path="res://MainMenu/credits_screeb.png" id="9_yniqd"]
+[ext_resource type="Texture2D" uid="uid://cxd7lksaee12i" path="res://MainMenu/controls_screen.png" id="10_6qnsv"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ehebm"]
 texture = ExtResource("3_wtv1g")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e5o2g"]
 texture = ExtResource("4_4dmya")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1jvrs"]
+texture = ExtResource("5_0yxq3")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tm8hn"]
+texture = ExtResource("6_7xmgn")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rwqdn"]
 texture = ExtResource("3_bgjef")
@@ -61,12 +70,27 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 80.0
-offset_top = -228.0
+offset_top = -248.0
 offset_right = 220.0
-offset_bottom = -168.0
+offset_bottom = -188.0
 grow_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxTexture_ehebm")
 theme_override_styles/hover = SubResource("StyleBoxTexture_e5o2g")
+action_mode = 0
+text = "
+"
+
+[node name="ControlsButton" type="Button" parent="UI/CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = -168.0
+offset_right = 190.0
+offset_bottom = -143.0
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_1jvrs")
+theme_override_styles/hover = SubResource("StyleBoxTexture_tm8hn")
 action_mode = 0
 text = "
 "
@@ -76,9 +100,9 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 80.0
-offset_top = -148.0
+offset_top = -128.0
 offset_right = 190.0
-offset_bottom = -123.0
+offset_bottom = -103.0
 grow_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxTexture_rwqdn")
 theme_override_styles/hover = SubResource("StyleBoxTexture_5enld")
@@ -91,15 +115,58 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 80.0
-offset_top = -108.0
+offset_top = -88.0
 offset_right = 145.0
-offset_bottom = -83.0
+offset_bottom = -63.0
 grow_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxTexture_uaq8c")
 theme_override_styles/hover = SubResource("StyleBoxTexture_u43yr")
 action_mode = 0
 text = "
 "
+
+[node name="ControlsScreen" type="Control" parent="UI/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="UI/CanvasLayer/ControlsScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="Panel" type="TextureRect" parent="UI/CanvasLayer/ControlsScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10_6qnsv")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="UI/CanvasLayer/ControlsScreen"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "PRESS 'ESC' TO GO BACK"
+horizontal_alignment = 1
 
 [node name="CreditsScreen" type="Control" parent="UI/CanvasLayer"]
 layout_mode = 3
@@ -142,11 +209,13 @@ offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "PRESS 'ESC' TO GO BACK"
+horizontal_alignment = 1
 
 [node name="Camera3D" type="Camera3D" parent="."]
 environment = SubResource("Environment_trip0")
 projection = 1
 
 [connection signal="pressed" from="UI/CanvasLayer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="UI/CanvasLayer/ControlsButton" to="." method="_on_controls_button_pressed"]
 [connection signal="pressed" from="UI/CanvasLayer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="UI/CanvasLayer/QuitButton" to="." method="_on_quit_button_pressed"]

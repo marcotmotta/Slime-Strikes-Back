@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2ctbcriy17y7"]
+[gd_scene load_steps=8 format=3 uid="uid://c2ctbcriy17y7"]
 
 [ext_resource type="Script" path="res://Enemies/Warrior/NavAgent/WarriorEnemyNA.gd" id="1_paqbk"]
 [ext_resource type="PackedScene" uid="uid://bldasysk8oujp" path="res://Enemies/Warrior/WarriorModel.tscn" id="2_n41hw"]
@@ -17,6 +17,32 @@ grow = true
 material = SubResource("StandardMaterial3D_pvikv")
 size = Vector3(1, 0.1, 0.1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fl3jl"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eq4rn"]
+bg_color = Color(0.780392, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
 [node name="WarriorEnemyNA" type="CharacterBody3D" groups=["enemy"]]
 script = ExtResource("1_paqbk")
 
@@ -27,7 +53,9 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1, 0)
 shape = SubResource("BoxShape3D_das4o")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 light_color = Color(0, 0.317647, 1, 1)
+omni_range = 10.0
 
 [node name="HealthBar" type="MeshInstance3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 5, 0)
@@ -36,3 +64,32 @@ skeleton = NodePath("../CollisionShape3D")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_max_distance = 1.01
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BossHealth" type="ProgressBar" parent="Control"]
+visible = false
+custom_minimum_size = Vector2(600, 10)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -350.0
+offset_top = -78.0
+offset_right = 350.0
+offset_bottom = -53.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(350, 0)
+theme_override_styles/background = SubResource("StyleBoxFlat_fl3jl")
+theme_override_styles/fill = SubResource("StyleBoxFlat_eq4rn")
+value = 50.0
+show_percentage = false

@@ -8,6 +8,7 @@ extends Node3D
 @onready var archer_enemy_na_scene = preload("res://Enemies/Archer/NavAgent/ArcherEnemyNA.tscn")
 
 var enemy_types
+var enemy_types_boss
 
 var spawn_options = ['1', '2', '3', '4', '5', '6']
 
@@ -21,6 +22,7 @@ func _ready():
 	randomize()
 	Globals.spawned_enemies = []
 	enemy_types = [warrior_enemy_na_scene, mage_enemy_na_scene, cleric_enemy_na_scene, archer_enemy_na_scene]
+	enemy_types_boss = [mage_enemy_na_scene, archer_enemy_na_scene]
 
 	# add map to room
 	if Globals.current_room.scene:
@@ -37,48 +39,34 @@ func _ready():
 	player_instance.position = $Map.position + Vector3(0, 5, 0)
 	add_child(player_instance)
 
-	if Globals.current_room.enemies > 0:
+	# combat
+	if  Globals.current_room.room_type == 'combat' and Globals.current_room.enemies > 0:
 		spawn_options.shuffle()
 
 		for enemy in range(Globals.current_room.enemies):
-			var enemy_instance = Globals.choose(enemy_types).instantiate()
-			#if Globals.current_room.last:
-			#	enemy_instance.is_boss = true
+			var enemy_instance
+			if Globals.current_room.last:
+				enemy_instance = Globals.choose(enemy_types_boss).instantiate()
+				enemy_instance.is_boss = true
+			else:
+				enemy_instance = Globals.choose(enemy_types).instantiate()
 			var pos = 'Marker3D' + spawn_options[enemy]
 			enemy_instance.target = player_instance
 			add_child(enemy_instance)
 			enemy_instance.global_position = $Map.get_node(pos).global_position
 			Globals.spawned_enemies.append(enemy_instance)
 
-	# spawn enemies here
-	var enemy_instance_1 = warrior_enemy_na_scene.instantiate()
-	enemy_instance_1.position = $Map.position + Vector3(-20, 5, -20)
-	enemy_instance_1.target = player_instance
-	#add_child(enemy_instance_1)
-	#Globals.spawned_enemies.append(enemy_instance_1)
-
-	var enemy_instance_2 = mage_enemy_na_scene.instantiate()
-	enemy_instance_2.position = $Map.position + Vector3( 20, 5, -20)
-	enemy_instance_2.target = player_instance
-	#add_child(enemy_instance_2)
-	#Globals.spawned_enemies.append(enemy_instance_2)
-
-	var enemy_instance_3 = cleric_enemy_na_scene.instantiate()
-	enemy_instance_3.position = $Map.position + Vector3( 15, 5, -20)
-	enemy_instance_3.target = player_instance
-	#add_child(enemy_instance_3)
-	#Globals.spawned_enemies.append(enemy_instance_3)
-
-	var enemy_instance_4 = archer_enemy_na_scene.instantiate()
-	enemy_instance_4.position = $Map.position + Vector3(-15, 5, -20)
-	enemy_instance_4.target = player_instance
-	#add_child(enemy_instance_4)
-	#Globals.spawned_enemies.append(enemy_instance_4)
+	# free room
+	if Globals.current_room.room_type == 'free':
+		# spawn power ups
+		end_map() # end map when player gets upgrade
+		pass
 
 func _process(delta):
 	if not map_ended:
-		if Globals.spawned_enemies.is_empty():
-			end_map()
+		if Globals.current_room.room_type == 'combat':
+			if Globals.spawned_enemies.is_empty():
+				end_map()
 
 func end_map():
 	map_ended = true

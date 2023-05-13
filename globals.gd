@@ -4,8 +4,8 @@ extends Node
 
 var BattleMusic = AudioStreamPlayer.new()
 
-const START_MAX_HEALTH = 5
-const START_SPEED = 8
+const START_MAX_HEALTH = 4
+const START_SPEED = 9
 const START_HEAL = 1
 
 const START_DAMAGE = 25
@@ -41,20 +41,13 @@ var current_ability = BUBBLE
 var max_charges = 1
 
 # world variables
-var total_levels = 15
-var current_level = 0
+var total_levels = 9 # 3 combat -> 1 free -> 3 combat -> 1 free -> 1 boss
+var current_level = 1
+var free_room_frequency = 4
 
 var maps = ['CombatMap1']
 
 var spawned_enemies: Array = []
-
-enum {
-	ATK,
-	HP,
-	SPD
-}
-
-var reward_types = [ATK, HP, SPD]
 
 var current_room = {}
 
@@ -78,7 +71,7 @@ func reset():
 	current_ability = BUBBLE
 	max_charges = 1
 
-	current_level = 0
+	current_level = 1
 
 	# music
 	BattleMusic = AudioStreamPlayer.new()
@@ -93,32 +86,42 @@ func generate_first_room():
 		'room_type': 'combat',
 		'scene': 'CombatMap1',
 		'enemies': 2,
-		'reward_type': ATK,
 		'last': false
 	}
 
 func generate_room():
-	var enemies = 3 # (randi() % 2) + 1 + difficulty # (1 a 2) + difficulty (max 3) = max 5
+	var difficulty
+	if current_level < 4:
+		difficulty = 1
+	else:
+		difficulty = 2
+
+	var enemies = (randi() % 2) + 2 + difficulty # (2 a 3) + difficulty (max 4) = max 5
 	var new_room
 
 	# last room
-	print(current_level)
-	#if current_level >= total_levels:
-	#	new_room = {
-	#		'room_type': 'combat',
-	#		'scene': 'CombatMap1',
-	#		'enemies': 1,
-	#		'reward_type': ATK,
-	#		'last': true
-	#	}
-	#else:
-	new_room = {
-		'room_type': 'combat',
-		'scene': choose(maps),
-		'enemies': enemies,
-		'reward_type': choose(reward_types),
-		'last': false
-	}
+	print(difficulty)
+	if ((current_level + 1) >= total_levels):
+		new_room = {
+			'room_type': 'combat',
+			'scene': 'CombatMap1',
+			'enemies': 1,
+			'last': true
+		}
+	else:
+		if ((current_level + 1) % free_room_frequency == 0):
+			new_room = {
+				'room_type': 'free',
+				'scene': choose(maps),
+				'last': false
+			}
+		else:
+			new_room = {
+				'room_type': 'combat',
+				'scene': choose(maps),
+				'enemies': enemies,
+				'last': false
+			}
 
 	current_room = new_room
 	print(current_room)

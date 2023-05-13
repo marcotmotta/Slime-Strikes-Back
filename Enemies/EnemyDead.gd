@@ -18,15 +18,18 @@ func _ready():
 	$Model/AnimationPlayer.play("Die")
 
 func select_action(body):
-	match self.name:
-		'MageDead':
-			body.get_ability(FIREBALL)
-		'WarriorDead':
-			body.get_ability(SPIN)
-		'ArcherDead':
-			body.get_ability(ARROW)
-		'ClericDead':
-			body.get_ability(HEAL)
+	if 'Mage' in self.name:
+		body.get_ability(FIREBALL)
+
+	elif 'Warrior' in self.name:
+		body.get_ability(SPIN)
+
+	elif 'Archer' in self.name:
+		body.get_ability(ARROW)
+
+	elif 'Cleric' in self.name:
+		body.get_ability(HEAL)
+
 	queue_free()
 
 func _on_body_entered(body):

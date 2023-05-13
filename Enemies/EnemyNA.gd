@@ -64,7 +64,7 @@ var remaining_idle_time = MAX_IDLE_TIME
 # health bar
 var max_health_bar_size = 1
 
-var is_boss = true
+var is_boss = false
 
 func _ready():
 	randomize()
@@ -72,6 +72,11 @@ func _ready():
 
 func _process(delta):
 	$HealthBar.mesh.size.x = (float(health) * float(max_health_bar_size)) / float(max_health)
+
+	if is_boss:
+		$Control/BossHealth.visible = true
+	$Control/BossHealth.max_value = max_health
+	$Control/BossHealth.value = health
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -203,15 +208,17 @@ func die():
 	var light = $OmniLight3D
 	var enemy_dead
 
-	match self.name:
-		'MageEnemyNA':
-			enemy_dead = mage_dead_scene.instantiate()
-		'WarriorEnemyNA':
-			enemy_dead = warrior_dead_scene.instantiate()
-		'ArcherEnemyNA':
-			enemy_dead = archer_dead_scene.instantiate()
-		'ClericEnemyNA':
-			enemy_dead = cleric_dead_scene.instantiate()
+	if 'Mage' in self.name:
+		enemy_dead = mage_dead_scene.instantiate()
+
+	elif 'Warrior' in self.name:
+		enemy_dead = warrior_dead_scene.instantiate()
+
+	elif 'Archer' in self.name:
+		enemy_dead = archer_dead_scene.instantiate()
+
+	elif 'Cleric' in self.name:
+		enemy_dead = cleric_dead_scene.instantiate()
 
 	enemy_dead.pos = global_position
 	enemy_dead.rot = global_rotation

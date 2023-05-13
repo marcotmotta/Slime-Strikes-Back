@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://t8avjuu4hh1r"]
+
+[ext_resource type="Script" path="res://World/Rooms/PowerUp.gd" id="1_a5ynp"]
+
+[sub_resource type="Curve" id="Curve_hjmb0"]
+_data = [Vector2(0, 0.536364), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0be7y"]
+curve = SubResource("Curve_hjmb0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3iiff"]
+emission_shape = 3
+emission_box_extents = Vector3(6, 0, 6)
+direction = Vector3(-1, 0, 0)
+spread = 180.0
+flatness = 1.0
+gravity = Vector3(0, 0, 0)
+tangential_accel_min = 5.0
+tangential_accel_max = 5.0
+scale_curve = SubResource("CurveTexture_0be7y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3v35b"]
+blend_mode = 1
+cull_mode = 2
+albedo_color = Color(0, 1, 0.392157, 1)
+emission_enabled = true
+emission = Color(0, 1, 0.392157, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_to83x"]
+material = SubResource("StandardMaterial3D_3v35b")
+radius = 1.0
+height = 2.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_c53hs"]
+points = PackedVector3Array(-2, -0.25, -2, -2, 0.25, -2, 2, -0.25, -2, -2, -0.25, 2, -2, 0.25, 2, 2, 0.25, -2, 2, -0.25, 2, 2, 0.25, 2)
+
+[node name="PowerUp" type="Area3D"]
+script = ExtResource("1_a5ynp")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+amount = 60
+lifetime = 2.0
+speed_scale = 2.0
+process_material = SubResource("ParticleProcessMaterial_3iiff")
+draw_pass_1 = SubResource("SphereMesh_to83x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_c53hs")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+light_energy = 15.0
+omni_range = 50.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

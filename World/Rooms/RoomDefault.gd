@@ -14,6 +14,8 @@ var spawn_options = ['1', '2', '3', '4', '5', '6']
 
 @onready var exit_scene = preload("res://World/Rooms/Exit.tscn")
 
+@onready var power_up_scene = preload("res://World/Rooms/PowerUp.tscn")
+
 var player_instance
 
 var map_ended = false
@@ -36,7 +38,7 @@ func _ready():
 
 	# spawn player here
 	player_instance = player_scene.instantiate()
-	player_instance.position = $Map.position + Vector3(0, 5, 0)
+	player_instance.position = $Map/PlayerPosition.position
 	add_child(player_instance)
 
 	# combat
@@ -57,10 +59,9 @@ func _ready():
 			Globals.spawned_enemies.append(enemy_instance)
 
 	# free room
-	if Globals.current_room.room_type == 'free':
-		# spawn power ups
-		end_map() # end map when player gets upgrade
-		pass
+	elif Globals.current_room.room_type == 'free':
+		var power_up_instance = power_up_scene.instantiate()
+		$Map.add_child(power_up_instance)
 
 func _process(delta):
 	if not map_ended:

@@ -55,6 +55,14 @@ var health_offset = 60
 
 @onready var health_full = preload("res://UI/hud_coracao-cheio.png")
 @onready var health_empty = preload("res://UI/hud_coracao-vazio.png")
+@onready var dash_available_icon = preload("res://UI/hud_dash_1.png")
+@onready var dash_unavailable_icon = preload("res://UI/hud_dash_2.png")
+@onready var bubble_available_icon = preload("res://UI/hud_bolha_1.png")
+@onready var bubble_unavailable_icon = preload("res://UI/hud_bolha_2.png")
+@onready var warrior_hat_icon = preload("res://UI/hud_hat_warrior.png")
+@onready var mage_hat_icon = preload("res://UI/hud_hat_mage.png")
+@onready var cleric_hat_icon = preload("res://UI/hud_hat_cleric.png")
+@onready var archer_hat_icon = preload("res://UI/hud_hat_archer.png")
 
 var empty_hearts = 0
 var full_hearts = 0
@@ -68,6 +76,7 @@ func _ready():
 
 	# ui
 	generate_health_hearts()
+	update_abilities_hud()
 
 func _process(delta):
 	# look direction
@@ -88,7 +97,6 @@ func _process(delta):
 	# health UI
 	if ((full_hearts != Globals.health or empty_hearts + full_hearts != Globals.max_health) and Globals.health >= 0):
 		generate_health_hearts()
-		
 
 	# print(Engine.get_frames_per_second())
 
@@ -126,6 +134,7 @@ func _physics_process(delta):
 func generate_health_hearts():
 	full_hearts = 0
 	empty_hearts = 0
+
 	for i in range(Globals.health):
 		var heart = Sprite2D.new()
 		heart.texture = health_full
@@ -141,6 +150,34 @@ func generate_health_hearts():
 		heart.scale = Vector2(0.3, 0.3)
 		$CanvasLayer/Control/HealthUI/Hearts.add_child(heart)
 		empty_hearts += 1
+
+func update_abilities_hud():
+	var ability_charges_test = $CanvasLayer/Control/AbilitiesUI/AbilityCharges
+	var main_ability_sprite = $CanvasLayer/Control/AbilitiesUI/Main
+	var dash_ability_sprite = $CanvasLayer/Control/AbilitiesUI/Dash
+	
+	if Globals.current_ability != BUBBLE:
+		ability_charges_test.visible = true
+		ability_charges_test.text = str(Globals.ability_charges)
+	else:
+		ability_charges_test.visible = false
+
+	match Globals.current_ability:
+		ARROW:
+			main_ability_sprite.texture = archer_hat_icon
+		FIREBALL:
+			main_ability_sprite.texture = mage_hat_icon
+		HEAL:
+			main_ability_sprite.texture = cleric_hat_icon
+		SPIN:
+			main_ability_sprite.texture = warrior_hat_icon
+		BUBBLE:
+			main_ability_sprite.texture = bubble_available_icon if can_bubble else bubble_unavailable_icon
+
+	if can_dash:
+		dash_ability_sprite.texture = dash_available_icon
+	else:
+		dash_ability_sprite.texture = dash_unavailable_icon
 
 func get_forward_direction():
 	var mouse_pos_2d = get_viewport().get_mouse_position()
@@ -159,10 +196,14 @@ func heal(amount):
 	add_child(heal_effect)
 
 func get_ability(new_ability):
+	var new_skill_sound_instance = attack_sound_scene.instantiate()
+
 	Globals.current_ability = new_ability
 	Globals.ability_charges = Globals.max_charges
+
 	remove_hat()
-	var new_skill_sound_instance = attack_sound_scene.instantiate()
+	update_abilities_hud()
+
 	match new_ability:
 		ARROW:
 			$Blopinho/HatPosition.add_child(archer_hat_scene.instantiate())
@@ -178,6 +219,7 @@ func get_ability(new_ability):
 		SPIN:
 			$Blopinho/HatPosition.add_child(warrior_hat_scene.instantiate())
 			new_skill_sound_instance.stream = new_skill_warrior_sound
+
 	$Blopinho/AnimationPlayer.play('Eat')
 
 	# new skill sound
@@ -245,6 +287,9 @@ func _input(event):
 	if Input.is_action_just_pressed("q"):
 		if select:
 			select_target.select_action(self)
+	
+	# update UI
+	update_abilities_hud()
 
 func trigger_shot():
 	if Globals.current_ability == BUBBLE and can_bubble:
@@ -267,6 +312,7 @@ func trigger_shot():
 					can_spin = false
 					is_spining = true
 					abilities.spin_sword(get_forward_direction(), 'player', Globals.spin_damage)
+
 		Globals.ability_charges -= 1
 		if Globals.ability_charges == 0:
 			Globals.current_ability = BUBBLE
@@ -299,9 +345,11 @@ func _on_dash_timer_timeout():
 
 func _on_dash_cd_timeout():
 	can_dash = true
+	update_abilities_hud()
 
 func _on_bubble_cd_timeout():
 	can_bubble = true
+	update_abilities_hud()
 
 func take_damage(amount):
 	Globals.health -= amount

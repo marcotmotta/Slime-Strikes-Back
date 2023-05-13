@@ -95,7 +95,7 @@ func _process(delta):
 	$MouseReference.global_position = forward_direction
 
 	# select UI
-	$CanvasLayer/Control/Select.visible = select
+	$CanvasLayer/Control/Select/Select.visible = select
 
 	# health UI
 	if ((full_hearts != Globals.health or empty_hearts + full_hearts != Globals.max_health) and Globals.health >= 0):

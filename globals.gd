@@ -8,11 +8,11 @@ const START_MAX_HEALTH = 4
 const START_SPEED = 8
 const START_HEAL = 1
 
-const START_DAMAGE = 20
-const START_BUBBLE_DAMAGE = 5
-const START_FIREBALL_DAMAGE = 35
-const START_SPIN_DAMAGE = 20
-const START_ARROW_DAMAGE = 5
+const START_DAMAGE = 25
+const START_BUBBLE_DAMAGE = 10
+const START_FIREBALL_DAMAGE = 40
+const START_SPIN_DAMAGE = 35
+const START_ARROW_DAMAGE = 15
 
 # player variables
 # (these will be reset after every run)

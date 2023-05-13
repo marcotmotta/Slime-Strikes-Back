@@ -4,7 +4,7 @@ var attack_sound_scene = preload("res://Abilities/AttackSound.tscn")
 var sound = preload("res://SFX/Skills/Skill archer/Skill-archer.wav")
 
 var direction = Vector3.FORWARD
-var speed = 45
+var speed = 30
 var damage = 5
 var ally
 var pos

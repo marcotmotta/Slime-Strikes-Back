@@ -1,16 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://ydogytdc1eaj"]
+[gd_scene load_steps=5 format=3 uid="uid://ydogytdc1eaj"]
 
 [ext_resource type="Script" path="res://Abilities/Arrow/Arrow.gd" id="1_ap0io"]
 [ext_resource type="PackedScene" uid="uid://b36k6f2huahr" path="res://Abilities/Arrow/ArrowModel.tscn" id="2_w38rg"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4f0en"]
-shading_mode = 0
-albedo_color = Color(0.372549, 1, 0.478431, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_ybosh"]
-material = SubResource("StandardMaterial3D_4f0en")
-radius = 0.375
-height = 0.75
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v46vr"]
 size = Vector3(1, 1, 2.5)
@@ -21,28 +12,24 @@ size = Vector3(1, 1, 2.5)
 script = ExtResource("1_ap0io")
 
 [node name="ArrowModel" parent="." instance=ExtResource("2_w38rg")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
-
-[node name="FakeModel" type="MeshInstance3D" parent="."]
-visible = false
-mesh = SubResource("SphereMesh_ybosh")
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 shape = SubResource("BoxShape3D_v46vr")
 
 [node name="Expiration" type="Timer" parent="."]
-wait_time = 0.4
+wait_time = 0.7
 one_shot = true
 autostart = true
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-visible = false
 process_material = SubResource("ParticleProcessMaterial_17qdl")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-light_color = Color(0.372549, 1, 0.478431, 1)
-omni_range = 2.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.822472, 0)
+light_color = Color(0.788235, 0.894118, 0.721569, 1)
+omni_range = 3.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Expiration" to="." method="_on_expiration_timeout"]

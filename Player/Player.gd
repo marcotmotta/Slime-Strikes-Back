@@ -311,7 +311,7 @@ func _input(_event):
 
 	# select
 	if Input.is_action_just_pressed("q"):
-		if select:
+		if select and not is_dashing and not is_punching:
 			select_target.select_action(self)
 
 	# update UI

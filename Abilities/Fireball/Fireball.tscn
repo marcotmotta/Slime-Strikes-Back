@@ -44,6 +44,7 @@ script = ExtResource("1_4cap8")
 mesh = SubResource("SphereMesh_u1o4c")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.433679, 0)
 shape = SubResource("SphereShape3D_x11vp")
 
 [node name="Expiration" type="Timer" parent="."]

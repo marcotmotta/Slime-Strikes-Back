@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://r5h5g0rjmyuo"]
+[gd_scene load_steps=5 format=3 uid="uid://r5h5g0rjmyuo"]
 
 [ext_resource type="Script" path="res://World/Rooms/RoomDefault.gd" id="1_7rw2b"]
-[ext_resource type="PackedScene" uid="uid://boscgn3oy5w4r" path="res://World/Rooms/Exit.tscn" id="6_cu2ef"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fi1km"]
 
@@ -21,8 +20,5 @@ environment = SubResource("Environment_vn1m6")
 
 [node name="ReloadScene" type="Timer" parent="."]
 one_shot = true
-
-[node name="Exit" parent="." instance=ExtResource("6_cu2ef")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 6)
 
 [connection signal="timeout" from="ReloadScene" to="." method="_on_reload_scene_timeout"]

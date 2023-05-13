@@ -41,7 +41,7 @@ var current_ability = BUBBLE
 var max_charges = 1
 
 # world variables
-var total_levels = 21
+var total_levels = 15
 var current_level = 0
 
 var maps = ['CombatMap1']
@@ -67,8 +67,16 @@ func reset():
 
 	max_health = START_MAX_HEALTH
 	health = max_health
-	damage = START_DAMAGE
 	speed = START_SPEED
+	heal = START_HEAL
+
+	bubble_damage = START_BUBBLE_DAMAGE
+	fireball_damage = START_FIREBALL_DAMAGE
+	spin_damage = START_SPIN_DAMAGE
+	arrow_damage = START_ARROW_DAMAGE
+
+	current_ability = BUBBLE
+	max_charges = 1
 
 	current_level = 0
 
@@ -90,8 +98,7 @@ func generate_first_room():
 	}
 
 func generate_room():
-	print('b')
-	var enemies = 2 # (randi() % 2) + 1 + difficulty # (1 a 2) + difficulty (max 3) = max 5
+	var enemies = 3 # (randi() % 2) + 1 + difficulty # (1 a 2) + difficulty (max 3) = max 5
 	var new_room
 
 	# last room

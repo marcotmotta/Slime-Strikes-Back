@@ -118,8 +118,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Select" type="Sprite2D" parent="CanvasLayer/Control/Select"]
-visible = false
-position = Vector2(20, 60)
+position = Vector2(20, 80)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("3_5heiv")
 

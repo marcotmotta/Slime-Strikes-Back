@@ -25,25 +25,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 shape = SubResource("ConcavePolygonShape3D_x5mhv")
 
 [node name="ExitPosition" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.9904, 0.35, -44.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.9904, 1.04381, -44.8)
 
 [node name="Marker3D1" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.5782, 1.4573, 12.0208)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.5782, 2.15111, 12.0208)
 
 [node name="Marker3D2" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.0416, 0.870995, -15.3497)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.0416, 1.56481, -15.3497)
 
 [node name="Marker3D3" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.86857, 0.76964, -16.7607)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.86857, 1.46345, -16.7607)
 
 [node name="Marker3D4" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.317, 0.753176, -31.3321)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.317, 1.44699, -31.3321)
 
 [node name="Marker3D5" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.6768, 2.13462, 22.3326)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.6768, 2.82843, 22.3326)
 
 [node name="Marker3D6" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.80855, 1.09391, 13.1676)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.80855, 1.78772, 13.1676)
 
 [node name="PlayerPosition" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.2132, 1, 41.0122)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.2132, 1.69381, 41.0122)

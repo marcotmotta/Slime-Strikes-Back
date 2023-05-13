@@ -10,9 +10,9 @@ const START_HEAL = 1
 
 const START_DAMAGE = 25
 const START_BUBBLE_DAMAGE = 10
-const START_FIREBALL_DAMAGE = 40
-const START_SPIN_DAMAGE = 35
-const START_ARROW_DAMAGE = 15
+const START_FIREBALL_DAMAGE = 50
+const START_SPIN_DAMAGE = 50
+const START_ARROW_DAMAGE = 20
 
 # player variables
 # (these will be reset after every run)

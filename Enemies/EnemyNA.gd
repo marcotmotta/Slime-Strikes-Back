@@ -70,7 +70,7 @@ func _ready():
 	randomize()
 	set_state(IDLE)
 
-func _process(delta):
+func _process(_delta):
 	$HealthBar.mesh.size.x = (float(health) * float(max_health_bar_size)) / float(max_health)
 
 	if is_boss:

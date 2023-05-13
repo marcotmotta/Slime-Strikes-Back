@@ -43,6 +43,5 @@ func _on_body_exited(body):
 			body.select = false
 			body.select_target = null
 
-func animation_finished(anim_name):
-	if anim_name == 'Die':
-		$CollisionShape3D.disabled = false
+func animation_finished(_anim_name):
+	pass

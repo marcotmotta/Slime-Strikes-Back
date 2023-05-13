@@ -23,28 +23,28 @@ navigation_mesh = SubResource("NavigationMesh_tsraf")
 shape = SubResource("ConcavePolygonShape3D_i8qsm")
 
 [node name="ExitPosition" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.0599, 0.35, 0.407141)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.0599, 0.844951, 0.407141)
 
 [node name="PlayerPosition" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.8025, 1, 0.401081)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.8025, 1.49495, 0.401081)
 
 [node name="PowerUpPosition" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49495, 0)
 
 [node name="Marker3D1" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9408, 1.4573, 27.0281)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9408, 1.95225, 27.0281)
 
 [node name="Marker3D2" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.196098, 0.870995, 27.6703)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.196098, 1.36595, 27.6703)
 
 [node name="Marker3D3" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.4383, 0.76964, -26.5997)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.4383, 1.26459, -26.5997)
 
 [node name="Marker3D4" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.13356, 0.753176, -27.5556)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.13356, 1.24813, -27.5556)
 
 [node name="Marker3D5" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.24778, 2.13462, 0.141267)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.24778, 2.62957, 0.141267)
 
 [node name="Marker3D6" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.3551, 1.09391, -0.92972)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.3551, 1.58886, -0.92972)

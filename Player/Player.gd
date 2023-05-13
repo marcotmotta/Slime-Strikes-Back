@@ -69,7 +69,11 @@ var health_offset = 60
 var empty_hearts = 0
 var full_hearts = 0
 
+var pos
+
 func _ready():
+	global_position = pos
+
 	$Blopinho/AnimationPlayer.play("Idle")
 
 	# instance abilities singleton
@@ -83,7 +87,7 @@ func _ready():
 	generate_health_hearts()
 	update_abilities_hud()
 
-func _process(delta):
+func _process(_delta):
 	# look direction
 	var forward_direction = get_forward_direction()
 
@@ -239,7 +243,7 @@ func update_hat():
 		SPIN:
 			$Blopinho/HatPosition.add_child(warrior_hat_scene.instantiate())
 
-func _input(event):
+func _input(_event):
 	# dash
 	if Input.is_action_just_pressed("space"):
 		if can_dash and not is_punching:

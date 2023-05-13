@@ -3,7 +3,7 @@ extends Area3D
 func _ready():
 	pass
 
-func select_action(body):
+func select_action(_body):
 	Globals.generate_room()
 	Globals.reload_map()
 

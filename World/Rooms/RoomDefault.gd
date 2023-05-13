@@ -38,7 +38,7 @@ func _ready():
 
 	# spawn player here
 	player_instance = player_scene.instantiate()
-	player_instance.position = $Map/PlayerPosition.position
+	player_instance.pos = $Map/PlayerPosition.global_position
 	add_child(player_instance)
 
 	# combat
@@ -49,6 +49,7 @@ func _ready():
 			var enemy_instance
 			var pos = 'Marker3D' + spawn_options[enemy]
 			if Globals.current_room.last:
+				pos = 'Marker3D1'
 				enemy_instance = Globals.choose(enemy_types_boss).instantiate()
 				enemy_instance.is_boss = true
 			else:
@@ -65,7 +66,7 @@ func _ready():
 		var power_up_instance = power_up_scene.instantiate()
 		$Map/PowerUpPosition.add_child(power_up_instance)
 
-func _process(delta):
+func _process(_delta):
 	if not map_ended:
 		if Globals.current_room.room_type == 'combat':
 			if Globals.spawned_enemies.is_empty():
@@ -78,7 +79,7 @@ func end_map():
 	$Map/ExitPosition.add_child(exit_instance)
 
 # Gambiarra a seguir (cuidado)!
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("f1"):
 		$ReloadScene.start(0.1)
 

@@ -13,7 +13,6 @@ script = ExtResource("1_631ca")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 shape = SubResource("CylinderShape3D_on6sn")
-disabled = true
 
 [node name="Model" parent="." instance=ExtResource("2_2n17o")]
 

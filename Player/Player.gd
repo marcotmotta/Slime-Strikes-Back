@@ -351,8 +351,6 @@ func animation_finished(anim_name):
 			$Blopinho/AnimationPlayer.play("Idle")
 			is_punching = false
 			can_punch = true
-		'Death':
-			$CanvasLayer/GameOverScreen.show()
 
 func spin_animation_finished():
 	can_spin = true
@@ -383,9 +381,14 @@ func take_damage(amount):
 	Globals.health -= amount
 
 	if Globals.health <= 0:
-		$Blopinho/AnimationPlayer.play("Death")
+		if not is_dead:
+			$Blopinho/AnimationPlayer.play("Death")
+			$DeathTimer.start()
 		is_dead = true
 
 func _on_punch_collision_area_body_entered(body):
 	if body.has_method('take_damage') and body.is_in_group('enemy'):
 		body.take_damage(Globals.damage)
+
+func _on_death_tiemer_timeout():
+	$CanvasLayer/GameOverScreen.show()

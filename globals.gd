@@ -45,7 +45,7 @@ var total_levels = 9 # 3 combat -> 1 free -> 3 combat -> 1 free -> 1 boss
 var current_level = 1
 var free_room_frequency = 4
 
-var maps = ['CombatMap1', 'CombatMap2', 'CombatMap3', 'CombatMap4', 'CombatMap5', 'CombatMap6', 'CombatMap7', 'CombatMap9']
+var maps = ['CombatMap1', 'CombatMap2', 'CombatMap3', 'CombatMap5', 'CombatMap6', 'CombatMap7', 'CombatMap9']
 
 var spawned_enemies: Array = []
 
@@ -100,7 +100,6 @@ func generate_room():
 	var new_room
 
 	# last room
-	print(difficulty)
 	if ((current_level + 1) > total_levels):
 		pass # Load credits screen.
 	elif ((current_level + 1) == total_levels):

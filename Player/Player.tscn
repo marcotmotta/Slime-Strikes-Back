@@ -78,6 +78,10 @@ one_shot = true
 [node name="BubbleCd" type="Timer" parent="."]
 one_shot = true
 
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [node name="PunchCollisionArea" type="Area3D" parent="."]
 monitoring = false
 
@@ -296,6 +300,7 @@ action_mode = 0
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="DashCd" to="." method="_on_dash_cd_timeout"]
 [connection signal="timeout" from="BubbleCd" to="." method="_on_bubble_cd_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_tiemer_timeout"]
 [connection signal="body_entered" from="PunchCollisionArea" to="." method="_on_punch_collision_area_body_entered"]
 [connection signal="pressed" from="CanvasLayer/PauseScreen/MainMenuButton" to="CanvasLayer/PauseScreen" method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseScreen/ExitButton" to="CanvasLayer/PauseScreen" method="_on_exit_button_pressed"]

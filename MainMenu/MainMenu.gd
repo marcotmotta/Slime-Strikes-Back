@@ -4,7 +4,9 @@ func _ready():
 	Globals.reset()
 	$UI/CanvasLayer/CreditsScreen.hide()
 
-func _input(event):
+	Globals.get_node("/root/Globals/BattleMusic").stop()
+
+func _input(_event):
 	if Input.is_action_just_pressed("esc"):
 		$UI/CanvasLayer/CreditsScreen.hide()
 

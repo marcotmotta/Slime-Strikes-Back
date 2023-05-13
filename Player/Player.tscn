@@ -113,17 +113,17 @@ grow_vertical = 0
 
 [node name="Base" type="Sprite2D" parent="CanvasLayer/Control/AbilitiesUI"]
 position = Vector2(-95, -140)
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_cmyu5")
 
 [node name="Main" type="Sprite2D" parent="CanvasLayer/Control/AbilitiesUI"]
-position = Vector2(-96, -90)
-scale = Vector2(0.3, 0.3)
+position = Vector2(-95, -75)
+scale = Vector2(0.35, 0.35)
 texture = ExtResource("4_d5kev")
 
 [node name="Dash" type="Sprite2D" parent="CanvasLayer/Control/AbilitiesUI"]
-position = Vector2(-78, -174)
-scale = Vector2(0.2, 0.2)
+position = Vector2(-72, -180)
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_ffxk2")
 
 [node name="AbilityCharges" type="Label" parent="CanvasLayer/Control/AbilitiesUI"]
@@ -133,10 +133,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -48.0
-offset_top = -48.0
-offset_right = -8.0
-offset_bottom = -18.0
+offset_left = -45.0
+offset_top = -40.0
+offset_right = -5.0
+offset_bottom = -10.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "0"

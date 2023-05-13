@@ -74,6 +74,9 @@ func _ready():
 	abilities = abilities_singleton.new()
 	add_child(abilities)
 
+	# update model
+	update_hat()
+
 	# ui
 	generate_health_hearts()
 	update_abilities_hud()
@@ -201,23 +204,19 @@ func get_ability(new_ability):
 	Globals.current_ability = new_ability
 	Globals.ability_charges = Globals.max_charges
 
-	remove_hat()
+	update_hat()
 	update_abilities_hud()
 
 	match new_ability:
 		ARROW:
-			$Blopinho/HatPosition.add_child(archer_hat_scene.instantiate())
 			new_skill_sound_instance.stream = new_skill_archer_sound
 			new_skill_sound_instance.volume_db = -5
 		FIREBALL:
-			$Blopinho/HatPosition.add_child(mage_hat_scene.instantiate())
 			new_skill_sound_instance.stream = new_skill_mage_sound
 		HEAL:
-			$Blopinho/HatPosition.add_child(cleric_hat_scene.instantiate())
 			new_skill_sound_instance.stream = new_skill_cleric_sound
 			new_skill_sound_instance.volume_db = -5
 		SPIN:
-			$Blopinho/HatPosition.add_child(warrior_hat_scene.instantiate())
 			new_skill_sound_instance.stream = new_skill_warrior_sound
 
 	$Blopinho/AnimationPlayer.play('Eat')
@@ -226,9 +225,19 @@ func get_ability(new_ability):
 	new_skill_sound_instance.pos = global_position
 	get_parent().add_child(new_skill_sound_instance)
 
-func remove_hat():
+func update_hat():
 	for hat in $Blopinho/HatPosition.get_children():
 		hat.queue_free()
+
+	match Globals.current_ability:
+		ARROW:
+			$Blopinho/HatPosition.add_child(archer_hat_scene.instantiate())
+		FIREBALL:
+			$Blopinho/HatPosition.add_child(mage_hat_scene.instantiate())
+		HEAL:
+			$Blopinho/HatPosition.add_child(cleric_hat_scene.instantiate())
+		SPIN:
+			$Blopinho/HatPosition.add_child(warrior_hat_scene.instantiate())
 
 func _input(event):
 	# dash
@@ -269,7 +278,7 @@ func _input(event):
 	# bubble
 	if Input.is_action_just_pressed("1"):
 		Globals.current_ability = BUBBLE
-		remove_hat()
+		update_hat()
 	# arrow
 	if Input.is_action_just_pressed("2"):
 		get_ability(ARROW)
@@ -316,7 +325,7 @@ func trigger_shot():
 		Globals.ability_charges -= 1
 		if Globals.ability_charges == 0:
 			Globals.current_ability = BUBBLE
-			remove_hat()
+			update_hat()
 
 func set_punch_area_monitoring_status(status):
 	$PunchCollisionArea.monitoring = status

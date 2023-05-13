@@ -79,11 +79,12 @@ func end_map():
 	$Map/ExitPosition.add_child(exit_instance)
 
 # Gambiarra a seguir (cuidado)!
-func _input(_event):
-	if Input.is_action_just_pressed("f1"):
-		$ReloadScene.start(0.1)
+#func _input(_event):
+#	if Input.is_action_just_pressed("f1"):
+#		$ReloadScene.start(0.1)
 
 func _on_reload_scene_timeout():
-	print('reloading')
-	Globals.generate_room()
-	Globals.reload_map()
+	pass
+#	print('reloading')
+#	Globals.generate_room()
+#	Globals.reload_map()

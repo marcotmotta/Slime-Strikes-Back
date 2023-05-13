@@ -97,7 +97,7 @@ func _process(_delta):
 	# look direction
 	var forward_direction = get_forward_direction()
 
-	if not is_punching and not is_spining and not is_dead:
+	if not is_punching and not is_spining and not is_dead and not Globals.is_over:
 		$Blopinho.look_at(forward_direction)
 		$CollisionShape3D.look_at(forward_direction)
 		$ShootPosition.position = (forward_direction - global_position).normalized() * 2
@@ -138,10 +138,10 @@ func _physics_process(delta):
 	if is_dashing:
 		velocity *= dash_power
 
-	if not is_punching and not is_dead:
+	if not is_punching and not is_dead and not Globals.is_over:
 		move_and_slide()
 
-	if not $Blopinho/AnimationPlayer.is_playing() and not is_dead:
+	if not $Blopinho/AnimationPlayer.is_playing() and not is_dead and not Globals.is_over:
 		$Blopinho/AnimationPlayer.play("Idle")
 
 func generate_health_hearts():
@@ -253,7 +253,7 @@ func update_hat():
 			$Blopinho/HatPosition.add_child(warrior_hat_scene.instantiate())
 
 func _input(_event):
-	if is_dead:
+	if is_dead and not Globals.is_over:
 		return
 
 	# dash
@@ -292,22 +292,22 @@ func _input(_event):
 			if Globals.current_ability != BUBBLE or can_bubble:
 				$Blopinho/AnimationPlayer.play("Shot")
 
-	# bubble
-	if Input.is_action_just_pressed("1"):
-		Globals.current_ability = BUBBLE
-		update_hat()
-	# arrow
-	if Input.is_action_just_pressed("2"):
-		get_ability(ARROW)
-	# fireball
-	if Input.is_action_just_pressed("3"):
-		get_ability(FIREBALL)
-	# heal
-	if Input.is_action_just_pressed("4"):
-		get_ability(HEAL)
-	# spin
-	if Input.is_action_just_pressed("5"):
-		get_ability(SPIN)
+#	# bubble
+#	if Input.is_action_just_pressed("1"):
+#		Globals.current_ability = BUBBLE
+#		update_hat()
+#	# arrow
+#	if Input.is_action_just_pressed("2"):
+#		get_ability(ARROW)
+#	# fireball
+#	if Input.is_action_just_pressed("3"):
+#		get_ability(FIREBALL)
+#	# heal
+#	if Input.is_action_just_pressed("4"):
+#		get_ability(HEAL)
+#	# spin
+#	if Input.is_action_just_pressed("5"):
+#		get_ability(SPIN)
 
 	# select
 	if Input.is_action_just_pressed("q"):
@@ -389,7 +389,7 @@ func take_damage(amount):
 		$IframeTimer.start()
 
 		if Globals.health <= 0:
-			if not is_dead:
+			if not is_dead and not Globals.is_over:
 				$Blopinho/AnimationPlayer.play("Death")
 				$DeathTimer.start()
 			is_dead = true
@@ -405,5 +405,4 @@ func _on_iframe_timer_timeout():
 	iframe = false
 
 func _on_win_the_game_signal_was_emited():
-	print("You win!")
 	$CanvasLayer/WinScreen.show()

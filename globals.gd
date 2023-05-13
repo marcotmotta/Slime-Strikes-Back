@@ -52,13 +52,15 @@ var maps = ['CombatMap1', 'CombatMap2', 'CombatMap3', 'CombatMap5', 'CombatMap6'
 var spawned_enemies: Array = []
 
 var current_room = {}
+var is_over = false
 
 func reset():
 	randomize()
 	current_room = {}
+	is_over = false
 
 	generate_first_room()
-	print(current_room)
+	#print(current_room)
 
 	max_health = START_MAX_HEALTH
 	health = max_health
@@ -103,7 +105,9 @@ func generate_room():
 
 	# last room
 	if ((current_level + 1) > total_levels):
+		is_over = true
 		on_win_the_game.emit()
+		return
 	elif ((current_level + 1) == total_levels):
 		new_room = {
 			'room_type': 'combat',
@@ -128,7 +132,7 @@ func generate_room():
 			}
 
 	current_room = new_room
-	print(current_room)
+	#print(current_room)
 
 func reload_map():
 	current_level += 1

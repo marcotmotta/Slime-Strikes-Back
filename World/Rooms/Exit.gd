@@ -5,7 +5,8 @@ func _ready():
 
 func select_action(_body):
 	Globals.generate_room()
-	Globals.reload_map()
+	if not Globals.is_over:
+		Globals.reload_map()
 
 func _on_body_entered(body):
 	if body.is_in_group('player'):

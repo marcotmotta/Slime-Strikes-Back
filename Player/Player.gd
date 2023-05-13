@@ -373,16 +373,13 @@ func _on_bubble_cd_timeout():
 	update_abilities_hud()
 
 func take_damage(amount):
-	if is_dead:
-		return
-
 	var blob_hit_instance = blob_hit_scene.instantiate()
 	get_parent().add_child(blob_hit_instance)
 	blob_hit_instance.global_position = global_position
 
 	Globals.health -= amount
 
-	if Globals.health <= 0:
+	if Globals.health <= 0 and not is_dead:
 		is_dead = true
 		$Blopinho/AnimationPlayer.play("Death")
 

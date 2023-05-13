@@ -47,12 +47,14 @@ func _ready():
 
 		for enemy in range(Globals.current_room.enemies):
 			var enemy_instance
+			var pos = 'Marker3D' + spawn_options[enemy]
 			if Globals.current_room.last:
 				enemy_instance = Globals.choose(enemy_types_boss).instantiate()
 				enemy_instance.is_boss = true
 			else:
 				enemy_instance = Globals.choose(enemy_types).instantiate()
-			var pos = 'Marker3D' + spawn_options[enemy]
+			# Duplicating the health bar mesh to prevent enemies from sharing the same.
+			enemy_instance.get_node("HealthBar").mesh = enemy_instance.get_node("HealthBar").mesh.duplicate()
 			enemy_instance.target = player_instance
 			add_child(enemy_instance)
 			enemy_instance.global_position = $Map.get_node(pos).global_position

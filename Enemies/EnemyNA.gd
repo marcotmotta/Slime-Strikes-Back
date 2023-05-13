@@ -105,7 +105,7 @@ func _physics_process(delta):
 					move_to_target(delta)
 
 		ATTACKING:
-			if self.name != 'ClericEnemyNA':
+			if 'Cleric' not in self.name:
 				look_at(target.position)
 
 		HURT:

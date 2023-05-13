@@ -25,6 +25,8 @@ func _on_body_entered(body):
 	if not body.is_in_group(ally):
 		if body.has_method('take_damage'):
 			body.take_damage(damage)
+			if body.has_method('set_stun'):
+				body.set_stun()
 		play_end_sound()
 		queue_free()
 

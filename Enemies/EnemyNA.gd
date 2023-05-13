@@ -40,7 +40,8 @@ const abilities_singleton = preload("res://Abilities/Abilities.gd")
 enum {
 	IDLE,
 	RUNNING,
-	ATTACKING
+	ATTACKING,
+	HURT
 }
 
 var MAX_IDLE_TIME = 1
@@ -100,6 +101,9 @@ func _physics_process(delta):
 			if self.name != 'ClericEnemyNA':
 				look_at(target.position)
 
+		HURT:
+			pass
+
 func set_state(new_state):
 	state = new_state
 
@@ -121,6 +125,12 @@ func set_state(new_state):
 			get_parent().add_child(random_sound_instance)
 
 			attack()
+
+		HURT:
+			$Model/AnimationPlayer.play('Damage')
+
+func set_stun():
+	set_state(HURT)
 
 func set_movement_target(movement_target):
 	navigation_agent.set_target_position(movement_target)

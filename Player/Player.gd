@@ -43,7 +43,7 @@ var spining_damage = 10
 var is_buffed = false
 var heal_buff_duration = 2
 var can_bubble = true
-var bubble_cd = 0.5 # in seconds
+var bubble_cd = 2 # in seconds
 
 # ui
 var select = false
@@ -273,7 +273,8 @@ func _input(event):
 	# special ability
 	if Input.is_action_just_pressed("action2"):
 		if not is_dashing and not is_punching:
-			$Blopinho/AnimationPlayer.play("Shot")
+			if Globals.current_ability != BUBBLE or can_bubble:
+				$Blopinho/AnimationPlayer.play("Shot")
 
 	# bubble
 	if Input.is_action_just_pressed("1"):

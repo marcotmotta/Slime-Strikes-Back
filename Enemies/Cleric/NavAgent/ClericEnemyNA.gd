@@ -35,3 +35,5 @@ func trigger_attack():
 func animation_finished(anim_name):
 	if anim_name == "Attack":
 		set_state(IDLE)
+	elif anim_name == "Damage":
+		set_state(IDLE)

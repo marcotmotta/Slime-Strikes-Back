@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bnwdql6jolgk1"]
+[gd_scene load_steps=15 format=3 uid="uid://bnwdql6jolgk1"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_wptc7"]
 [ext_resource type="Texture2D" uid="uid://cj64s87na5twk" path="res://UI/hud_tutoras.png" id="3_5heiv"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://daepnr3bn7a0g" path="res://UI/hud_bolha_1.png" id="4_d5kev"]
 [ext_resource type="Texture2D" uid="uid://b1i6xixdlcatv" path="res://UI/hud_dash_1.png" id="5_ffxk2"]
 [ext_resource type="Texture2D" uid="uid://dvfr4ahsnwbub" path="res://UI/hud_rosto_lifebar.png" id="6_hatpm"]
+[ext_resource type="Texture2D" uid="uid://bbcdp7rdh7a4x" path="res://UI/pause_screen.png" id="8_6rcsm"]
+[ext_resource type="Script" path="res://Player/PauseScreen.gd" id="8_hehb0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fwmut"]
 size = Vector3(2, 4, 2)
@@ -162,8 +164,62 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="PauseScreen" type="Control" parent="CanvasLayer"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_hehb0")
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/PauseScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_6rcsm")
+expand_mode = 2
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/PauseScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -2.0
+offset_right = 80.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+action_mode = 0
+flat = true
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/PauseScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = 52.0
+offset_right = 50.0
+offset_bottom = 89.0
+grow_horizontal = 2
+grow_vertical = 2
+action_mode = 0
+flat = true
+
 [connection signal="timeout" from="BuffTimer" to="." method="_on_buff_timer_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="DashCd" to="." method="_on_dash_cd_timeout"]
 [connection signal="timeout" from="BubbleCd" to="." method="_on_bubble_cd_timeout"]
 [connection signal="body_entered" from="PunchCollisionArea" to="." method="_on_punch_collision_area_body_entered"]
+[connection signal="pressed" from="CanvasLayer/PauseScreen/MainMenuButton" to="CanvasLayer/PauseScreen" method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseScreen/ExitButton" to="CanvasLayer/PauseScreen" method="_on_exit_button_pressed"]

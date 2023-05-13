@@ -4,11 +4,11 @@
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fi1km"]
 
-[sub_resource type="Sky" id="Sky_vgc3s"]
+[sub_resource type="Sky" id="Sky_wcuuf"]
 sky_material = SubResource("ProceduralSkyMaterial_fi1km")
 
 [sub_resource type="Environment" id="Environment_vn1m6"]
-sky = SubResource("Sky_vgc3s")
+sky = SubResource("Sky_wcuuf")
 ambient_light_source = 2
 ambient_light_color = Color(0.2, 0.2, 0.2, 1)
 

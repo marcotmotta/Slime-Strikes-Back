@@ -1,0 +1,70 @@
+[gd_scene load_steps=6 format=3 uid="uid://hyh4lygmdvwg"]
+
+[ext_resource type="Script" path="res://MainMenu/MainMenu.gd" id="1_bl778"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xd3dd"]
+font_size = 48
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8df08"]
+
+[sub_resource type="Sky" id="Sky_fphet"]
+sky_material = SubResource("ProceduralSkyMaterial_8df08")
+
+[sub_resource type="Environment" id="Environment_8ch0e"]
+background_mode = 2
+sky = SubResource("Sky_fphet")
+
+[node name="MainMenu" type="Node"]
+script = ExtResource("1_bl778")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CanvasLayer" type="CanvasLayer" parent="UI"]
+
+[node name="Title" type="Label" parent="UI/CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 70.0
+offset_right = 250.0
+offset_bottom = 140.0
+grow_horizontal = 2
+text = "Slime Strikes Back"
+label_settings = SubResource("LabelSettings_xd3dd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StartButton" type="Button" parent="UI/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = 162.0
+offset_right = 90.0
+offset_bottom = 212.0
+grow_horizontal = 2
+grow_vertical = 2
+action_mode = 0
+text = "START"
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.976296, 0.21644, 0, -0.21644, 0.976296, 0, 1, 2)
+environment = SubResource("Environment_8ch0e")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node3D"]
+transform = Transform3D(0.866025, 0.25, -0.433013, 0, 0.866025, 0.5, 0.5, -0.433013, 0.75, 0, 0, 0)
+
+[connection signal="pressed" from="UI/CanvasLayer/StartButton" to="." method="_on_start_button_pressed"]

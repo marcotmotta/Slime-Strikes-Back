@@ -1,5 +1,8 @@
 extends Control
 
+func _ready():
+	visible = false
+
 func _input(_event):
 	if Input.is_action_just_pressed("esc"):
 		if get_tree().is_paused():

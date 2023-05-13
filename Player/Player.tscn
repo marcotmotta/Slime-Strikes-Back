@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bnwdql6jolgk1"]
+[gd_scene load_steps=23 format=3 uid="uid://6jj6xy80hje3"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_wptc7"]
 [ext_resource type="Texture2D" uid="uid://cj64s87na5twk" path="res://UI/hud_tutoras.png" id="3_5heiv"]
@@ -7,8 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://daepnr3bn7a0g" path="res://UI/hud_bolha_1.png" id="4_d5kev"]
 [ext_resource type="Texture2D" uid="uid://b1i6xixdlcatv" path="res://UI/hud_dash_1.png" id="5_ffxk2"]
 [ext_resource type="Texture2D" uid="uid://dvfr4ahsnwbub" path="res://UI/hud_rosto_lifebar.png" id="6_hatpm"]
-[ext_resource type="Texture2D" uid="uid://bbcdp7rdh7a4x" path="res://UI/pause_screen.png" id="8_6rcsm"]
-[ext_resource type="Script" path="res://Player/PauseScreen.gd" id="8_hehb0"]
+[ext_resource type="Script" path="res://Player/PauseScreen/PauseScreen.gd" id="8_18vba"]
+[ext_resource type="Texture2D" uid="uid://dij3gjg0tb8o0" path="res://Player/PauseScreen/pause_screen.png" id="9_dst4g"]
+[ext_resource type="Texture2D" uid="uid://c404jh1e6ghqd" path="res://Player/PauseScreen/mainmenu_button_1.png" id="10_rinif"]
+[ext_resource type="Texture2D" uid="uid://ddyrti4jsme11" path="res://Player/PauseScreen/mainmenu_button_2.png" id="11_2ff6t"]
+[ext_resource type="Texture2D" uid="uid://hvgg0vb4t4fu" path="res://Player/PauseScreen/exit_button_1.png" id="12_ikhk5"]
+[ext_resource type="Texture2D" uid="uid://5tveplkag26v" path="res://Player/PauseScreen/exit_button_2.png" id="13_yua22"]
+[ext_resource type="Script" path="res://Player/GameOverScreen/GameOverScreen.gd" id="14_c707h"]
+[ext_resource type="Texture2D" uid="uid://bgpee78bfihie" path="res://Player/GameOverScreen/death_screen.png" id="14_hp32h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fwmut"]
 size = Vector3(2, 4, 2)
@@ -17,6 +23,18 @@ size = Vector3(2, 4, 2)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_60cls"]
 radius = 3.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ik8k1"]
+texture = ExtResource("10_rinif")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wtv7w"]
+texture = ExtResource("11_2ff6t")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ryf3d"]
+texture = ExtResource("12_ikhk5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5y43n"]
+texture = ExtResource("13_yua22")
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_wptc7")
@@ -157,24 +175,37 @@ offset_bottom = 40.0
 
 [node name="PauseScreen" type="Control" parent="CanvasLayer"]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("8_hehb0")
+script = ExtResource("8_18vba")
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/PauseScreen"]
+[node name="Background" type="ColorRect" parent="CanvasLayer/PauseScreen"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_6rcsm")
-expand_mode = 2
+color = Color(0.00392157, 0.00392157, 0.00392157, 0.501961)
+
+[node name="Panel" type="TextureRect" parent="CanvasLayer/PauseScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -252.0
+offset_bottom = 252.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_dst4g")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="MainMenuButton" type="Button" parent="CanvasLayer/PauseScreen"]
 layout_mode = 1
@@ -183,14 +214,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -80.0
-offset_top = -2.0
-offset_right = 80.0
-offset_bottom = 37.0
+offset_left = -81.0
+offset_top = 16.0
+offset_right = 79.0
+offset_bottom = 56.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_ik8k1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wtv7w")
 action_mode = 0
-flat = true
 
 [node name="ExitButton" type="Button" parent="CanvasLayer/PauseScreen"]
 layout_mode = 1
@@ -200,13 +232,65 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -50.0
-offset_top = 52.0
+offset_top = 96.0
 offset_right = 50.0
-offset_bottom = 89.0
+offset_bottom = 136.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_ryf3d")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5y43n")
 action_mode = 0
-flat = true
+
+[node name="GameOverScreen" type="Control" parent="CanvasLayer"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("14_c707h")
+
+[node name="Background" type="ColorRect" parent="CanvasLayer/GameOverScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.752941)
+
+[node name="Panel" type="TextureRect" parent="CanvasLayer/GameOverScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -252.0
+offset_bottom = 252.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("14_hp32h")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/GameOverScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -81.0
+offset_top = 176.0
+offset_right = 79.0
+offset_bottom = 216.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_ik8k1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wtv7w")
+action_mode = 0
 
 [connection signal="timeout" from="BuffTimer" to="." method="_on_buff_timer_timeout"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
@@ -215,3 +299,4 @@ flat = true
 [connection signal="body_entered" from="PunchCollisionArea" to="." method="_on_punch_collision_area_body_entered"]
 [connection signal="pressed" from="CanvasLayer/PauseScreen/MainMenuButton" to="CanvasLayer/PauseScreen" method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseScreen/ExitButton" to="CanvasLayer/PauseScreen" method="_on_exit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/GameOverScreen/MainMenuButton" to="CanvasLayer/GameOverScreen" method="_on_main_menu_button_pressed"]

@@ -101,7 +101,9 @@ func generate_room():
 
 	# last room
 	print(difficulty)
-	if ((current_level + 1) >= total_levels):
+	if ((current_level + 1) > total_levels):
+		pass # Load credits screen.
+	elif ((current_level + 1) == total_levels):
 		new_room = {
 			'room_type': 'combat',
 			'scene': 'CombatMap10',

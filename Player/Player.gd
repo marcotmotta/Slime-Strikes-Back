@@ -349,7 +349,7 @@ func animation_finished(anim_name):
 			is_punching = false
 			can_punch = true
 		'Death':
-			print('DEAD') # end
+			$CanvasLayer/GameOverScreen.show()
 
 func spin_animation_finished():
 	can_spin = true

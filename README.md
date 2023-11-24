@@ -1,6 +1,6 @@
 # Slime Strikes Back
 
-Um jogo 3D rogue-like onde você é um monstro de gelatina (famoso "slime") que irá enfrentar alguns aventureiros para escabar de um calabouço. Nessa jornada o personagem principal poderá usar suas habilidades de disparar bolhas e absorver os inimigos derrotados, copiando suas habilidades, para sobreviver.
+Um jogo 3D isométrico no estilo rogue-like onde você é um monstro de gelatina, o famoso Slime, que irá enfrentar aventureiros para escapar do calabouço. Nessa jornada o personagem principal poderá usar suas habilidades de disparar bolhas e absorver os inimigos derrotados, copiando suas habilidades para sobreviver.
 
 Esse projeto foi desenvolvido durante a CTRL ALT JAM #2, com base no tema "Bolhas e Gelatina".
 

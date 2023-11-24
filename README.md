@@ -4,6 +4,10 @@ Um jogo 3D isométrico no estilo rogue-like onde você é um monstro de gelatina
 
 Esse projeto foi desenvolvido durante a CTRL ALT JAM #2, com base no tema "Bolhas e Gelatina".
 
+## Play the game!
+
+[Slime Strikes Back on Itch.io](zille.itch.io/slime-strikes-back)
+
 ## Desenvolvedores:
 
 Gustavo Zille: Programmer

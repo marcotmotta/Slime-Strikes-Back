@@ -8,7 +8,7 @@ Esse projeto foi desenvolvido durante a CTRL ALT JAM #2, com base no tema "Bolha
 
 Gustavo Zille: Programmer
 
-Marco Túlio: Programmer
+Marco Túlio: Programmer/Visual Effects
 
 Ramon Miranda: Game Designer/Sound Designer
 
